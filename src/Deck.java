@@ -4,6 +4,9 @@ class Deck {
     private List<Card> cards;
     
     public Deck() {
+
+        // Initialize the deck with all the cards 
+        // Do not modify this code, most of the logic uses these specific strings
         String[] suits = {"c", "d", "h", "s"};
         String[] ranks = {"a", "2", "3", "4", "5", "6", "7", "8", "9",
                           "10", "j", "q", "k"};
@@ -17,7 +20,6 @@ class Deck {
         }
 
         shuffle();
-        
     }
 
     public void shuffle() {

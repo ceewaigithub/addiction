@@ -12,11 +12,14 @@ public class BlackJack {
     public BlackJack() {
         players = new ArrayList<>();
         deck = new Deck();
-        startGame();
     }
 
     public void addPlayer(Player player) {
         players.add(player);
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     public void startGame() {
@@ -28,24 +31,35 @@ public class BlackJack {
             player.addCard(deck.dealCard());
             player.addCard(deck.dealCard());
         }
+    }
 
-        // Play the game
+    public Player determineWinner() {
+        Player winner = null;
+        int maxHandSize = 0;
+        boolean allBusted = true;
+
         for (Player player : players) {
-            player.play(deck);
+            int handSize = player.getHandValue();
+            if (handSize <= 21) {
+                allBusted = false;
+                if (handSize > maxHandSize) {
+                    maxHandSize = handSize;
+                    winner = player;
+                }
+            }
         }
 
-        // Determine the winner
-        Player winner = determineWinner();
-        System.out.println("The winner is: " + winner.getName());
+        if (allBusted) {
+            return null;
+        }
+
+        return winner;
     }
 
-    private Player determineWinner() {
-        // Implement your logic to determine the winner
-        return null;
+    public void revealAllHands() {
+        for (Player player : players) {
+            player.printHand();
+        }
     }
 
-    public static void main(String[] args) {
-        BlackJack blackJack = new BlackJack();
-        blackJack.deck.printDeck();
-    }
 }

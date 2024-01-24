@@ -26,6 +26,20 @@ class Card {
         this.suit = suit;
     }
 
+    public int getValue() {
+        if (rank.equals("a")) {
+            return 11;
+        } else if (rank.equals("j") || rank.equals("q") || rank.equals("k")) {
+            return 10;
+        } else {
+            return Integer.parseInt(rank);
+        }
+    }
+
+    public boolean isAce() {
+        return rank.equals("a");
+    }
+
     @Override
     public String toString() {
         return rank + "" + suit;
