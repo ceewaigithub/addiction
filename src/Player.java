@@ -37,8 +37,21 @@ class Player {
 
     public int getHandValue() {
         int value = 0;
+        int aceCount = 0;
         for (Card card : hand) {
             value += card.getValue();
+            if (card.isAce()) {
+                aceCount++;
+            }
+        }
+        if (value > 21 && aceCount > 0) {
+            // If the player has aces and the hand value is greater than 21,
+            // then we can convert the value of the ace from 11 to 1
+            // until the hand value is less than 21 or there are no more aces
+            while (value > 21 && aceCount > 0) {
+                value -= 10;
+                aceCount--;
+            }
         }
         return value;
     }
@@ -59,4 +72,5 @@ class Player {
             return false;
         }
     }
+
 }

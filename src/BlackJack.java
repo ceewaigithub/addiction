@@ -56,6 +56,7 @@ public class BlackJack {
         for (Player player : players) {
             player.printHand();
         }
+        System.out.println("");
     }
 
 }
