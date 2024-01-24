@@ -4,20 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.random.*;
 import javax.swing.*;
-import java.util.Scanner;
 
 public class App {
-    public static int reducePlayerAce(Player player) {
-        int total = 0;
-        for (Card card : player.getHand()) {
-            if (card.isAce()) {
-                total += 1;
-            } else {
-                total += card.getValue();
-            }
-        }
-        return total;
-    }
+
 
     public static void main(String[] args) {
 
@@ -78,21 +67,15 @@ public class App {
                     }
 
                     if (!stayButton.isEnabled()) {
-                        int dealerSum = reducePlayerAce(dealer);
-                        int playerSum = reducePlayerAce(player);
+                        Player winner = blackJack.determineWinner();
                         String message = "";
 
-                        if (dealerSum > 21) {
-                            message = "Dealer busts! You win!";
-                        } else if (playerSum > 21) {
-                            message = "You bust! Dealer wins!";
-                        } else if (dealerSum > playerSum) {
-                            message = "Dealer wins!";
-                        } else if (playerSum > dealerSum) {
-                            message = "You win!";
+                        if (winner != null) {
+                            message = winner.getName() + " is the winner!";
                         } else {
-                            message = "It's a tie!";
+                            message = "Tie game!";
                         }
+                        
                         g.setFont(new Font("Arial", Font.BOLD, 30));
                         g.setColor(Color.white);
                         g.drawString(message, (getWidth() - g.getFontMetrics().stringWidth(message)) / 2, getHeight() / 2);
@@ -135,7 +118,7 @@ public class App {
                 gamePanel.repaint();
                 System.out.println("All hands:");
                 blackJack.revealAllHands();
-                if (reducePlayerAce(player) > 21) {
+                if (blackJack.reducePlayerAce(player) > 21) {
                     hitButton.setEnabled(false);
                 }
             }

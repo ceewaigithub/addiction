@@ -19,8 +19,11 @@ class Player {
 
     public void printHand() {
         System.out.print(name + "'s Hand: [");
-        for (Card card : hand) {
-            System.out.print(card + ", ");
+        for (int i = 0; i < hand.size(); i++) {
+            System.out.print(hand.get(i));
+            if (i < hand.size() - 1) {
+                System.out.print(", ");
+            }
         }
         System.out.println("] ");
 

@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Card {
     private String suit;
     private String rank;    

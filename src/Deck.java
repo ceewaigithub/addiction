@@ -38,8 +38,11 @@ class Deck {
 
     public void printDeck() {
         System.out.print("Deck: [");
-        for (Card card : cards) {
-            System.out.print(card + ", ");
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.print(cards.get(i));
+            if (i != cards.size() - 1) {
+                System.out.print(", ");
+            }
         }
         System.out.println("] ");
         System.out.println("(Cards Remaining): " + cards.size());

@@ -35,7 +35,7 @@ public class BlackJack {
         boolean allBusted = true;
 
         for (Player player : players) {
-            int handSize = player.getHandValue();
+            int handSize = reducePlayerAce(player);
             if (handSize <= 21) {
                 allBusted = false;
                 if (handSize > maxHandSize) {
@@ -50,6 +50,18 @@ public class BlackJack {
         }
 
         return winner;
+    }
+
+    public int reducePlayerAce(Player player) {
+        int total = 0;
+        for (Card card : player.getHand()) {
+            if (card.isAce()) {
+                total += 1;
+            } else {
+                total += card.getValue();
+            }
+        }
+        return total;
     }
 
     public void revealAllHands() {
