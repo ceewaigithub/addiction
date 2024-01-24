@@ -1,9 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.random.*;
-import javax.swing.*;
 
 public class BlackJack {
     private List<Player> players;

@@ -27,8 +27,12 @@ class Player {
         System.out.println(name + "'s Hand Value: " + getHandValue());
     }
 
-    public void handSize() {
+    public void printHandSize() {
         System.out.println(name + "'s Hand Size: " + hand.size());
+    }
+
+    public List<Card> getHand() {
+        return hand;
     }
 
     public int getHandValue() {

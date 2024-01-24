@@ -49,7 +49,7 @@ public class BlackJackCLITest {
 
             // Print the dealer's hand
             System.out.println("(You take a sly peek at the computer's hand): ");
-            dealer.handSize();
+            dealer.printHandSize();
             System.out.println("");
         }
 
@@ -76,7 +76,7 @@ public class BlackJackCLITest {
 
             // Print the dealer's hand
             System.out.println("(You take a sly peek at the computer's hand): ");
-            dealer.handSize();
+            dealer.printHandSize();
             System.out.println("");
         }
         

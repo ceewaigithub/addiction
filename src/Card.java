@@ -29,7 +29,7 @@ class Card {
     public int getValue() {
         if (rank.equals("a")) {
             return 11;
-        } else if (rank.equals("j") || rank.equals("q") || rank.equals("k")) {
+        } else if (rank.equals("j") || rank.equals("q") || rank.equals("k") || rank.equals("t")) {
             return 10;
         } else {
             return Integer.parseInt(rank);
@@ -38,6 +38,10 @@ class Card {
 
     public boolean isAce() {
         return rank.equals("a");
+    }
+
+    public String getImagePath() {
+        return "./cards/" + rank + suit + ".gif";
     }
 
     @Override
