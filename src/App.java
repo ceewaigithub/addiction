@@ -47,7 +47,7 @@ public class App {
                     int centerDealerX = (getWidth() - (dealer.getHand().size() * cardWidth)) / 2;
                     int spacing = 10; // Adjust the spacing value as per your preference
 
-                    // Draw dealer's hand
+                    // Draw dealer's hands
                     if (!stayButton.isEnabled()) {
                         for (int i = 0; i < dealer.getHand().size(); i++) {
                             Image cardImg = new ImageIcon(getClass().getResource(dealer.getHand().get(i).getImagePath())).getImage();
