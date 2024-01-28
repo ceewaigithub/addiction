@@ -1,6 +1,8 @@
-package blackjack;
+package main;
 
-class Card {
+import javax.imageio.ImageIO;
+
+public class Card {
     private String suit;
     private String rank;    
 
@@ -43,7 +45,6 @@ class Card {
     public String getImagePath() {
         return "./cards/" + rank + suit + ".gif";
     }
-
     @Override
     public String toString() {
         return rank + "" + suit;

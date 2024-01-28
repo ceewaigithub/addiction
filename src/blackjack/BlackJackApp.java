@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.random.*;
 import javax.swing.*;
+import main.Card;
+import main.Deck;
+import main.Player;
 
 public class BlackJackApp {
     public static void main(String[] args) {

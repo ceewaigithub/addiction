@@ -1,8 +1,8 @@
-package blackjack;
+package main;
 
 import java.util.*;
 
-class Deck {
+public class Deck {
     private List<Card> cards;
     
     public Deck() {

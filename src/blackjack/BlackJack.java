@@ -2,6 +2,9 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
+import main.Deck;
+import main.Player;
+import main.Card;
 
 public class BlackJack {
     private List<Player> players;

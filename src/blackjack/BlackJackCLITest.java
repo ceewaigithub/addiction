@@ -1,5 +1,7 @@
 package blackjack;
 
+import main.Card;
+import main.Player;
 import java.util.Scanner;
 
 public class BlackJackCLITest {

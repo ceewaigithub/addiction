@@ -1,8 +1,8 @@
-package blackjack;
+package main;
 
 import java.util.*;
 
-class Player {
+public class Player {
     private String name;
     private List<Card> hand;
 
