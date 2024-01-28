@@ -35,13 +35,22 @@ public class BlackJack {
         boolean allBusted = true;
 
         for (Player player : players) {
-            int handSize = reducePlayerAce(player);
-            if (handSize <= 21) {
-                allBusted = false;
-                if (handSize > maxHandSize) {
-                    maxHandSize = handSize;
-                    winner = player;
+            int handSizeWithAce = reducePlayerAce(player);
+            int handSizeWithoutAce = player.getHandValue();
+            if (handSizeWithAce > 21) {
+                if (handSizeWithoutAce > 21) {
+                    continue;
+                } else {
+                    handSizeWithAce = handSizeWithoutAce;
                 }
+            }
+            if (handSizeWithAce > maxHandSize) {
+                maxHandSize = handSizeWithAce;
+                winner = player;
+                allBusted = false;
+            }
+            if (handSizeWithoutAce <= 21) {
+                allBusted = false;
             }
         }
 

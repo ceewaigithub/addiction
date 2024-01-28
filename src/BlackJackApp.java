@@ -5,9 +5,7 @@ import java.awt.event.*;
 import java.util.random.*;
 import javax.swing.*;
 
-public class App {
-
-
+public class BlackJackApp {
     public static void main(String[] args) {
 
         BlackJack blackJack = new BlackJack();
@@ -34,6 +32,7 @@ public class App {
         JPanel buttonPanel = new JPanel();
         JButton hitButton = new JButton("Hit");
         JButton stayButton = new JButton("Stay");
+        JButton exitButton = new JButton("Exit");
 
         JFrame frame = new JFrame("BlackJack");
         JPanel gamePanel = new JPanel() {
@@ -79,6 +78,12 @@ public class App {
                         g.setFont(new Font("Arial", Font.BOLD, 30));
                         g.setColor(Color.white);
                         g.drawString(message, (getWidth() - g.getFontMetrics().stringWidth(message)) / 2, getHeight() / 2);
+                        
+                        // Update the button panel
+                        buttonPanel.removeAll();
+                        buttonPanel.add(exitButton);
+                        frame.revalidate();
+                        frame.repaint();
                     }
 
                 } catch (Exception e) {
@@ -147,6 +152,14 @@ public class App {
                 System.out.println("All hands:");
                 blackJack.revealAllHands();
                 gamePanel.repaint();
+            }
+        });
+
+        // exitbutton action listener
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 
