@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
+        // window Frame
         JFrame window = new JFrame();
         window.setTitle("Crippling Addiction");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
