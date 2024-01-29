@@ -28,7 +28,7 @@ public class BlackJackApp {
 
         // Set up GUI
         int boardWidth = 800;
-        int boardHeight = boardWidth;
+        int boardHeight = 540;
         
         // card width and height based off of images provided
         int cardWidth = 73;
