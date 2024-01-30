@@ -2,6 +2,8 @@ package blackjack;
 
 import main.Card;
 import main.Player;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BlackJackCLITest {
@@ -85,7 +87,7 @@ public class BlackJackCLITest {
         }
         
         // Determine the winner
-        Player winner = blackJack.determineWinner();
+        ArrayList<Player> winner = blackJack.determineWinners();
 
         // reveal everyone's hand
         blackJack.revealAllHands();
@@ -99,7 +101,7 @@ public class BlackJackCLITest {
         }
 
         // Print the winner
-        System.out.println("The winner is: " + winner.getName());
+        System.out.println("The winner is: " + winner.get(0).getName());
         System.out.println("");
         System.out.println("Thanks for playing!");
         

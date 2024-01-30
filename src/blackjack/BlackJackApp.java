@@ -71,13 +71,24 @@ public class BlackJackApp {
                     }
 
                     if (!stayButton.isEnabled()) {
-                        Player winner = blackJack.determineWinner();
+                        while (dealer.getHandValue() < 17) {
+                            Card drawn_card = blackJack.getDeck().dealCard();
+                            dealer.addCard(drawn_card);
+                            frame.repaint();
+                            System.out.println("All hands:");
+                            blackJack.revealAllHands();
+                        }
+
+                        ArrayList<Player> winners = blackJack.determineWinners();
+
                         String message = "";
 
-                        if (winner != null) {
-                            message = winner.getName() + " is the winner!";
-                        } else {
-                            message = "Tie game!";
+                        if (winners == null) {
+                            message = "All players busted!";
+                        } else if (winners.size() == 1) {
+                            message = winners.get(0).getName() + " is the winner!";
+                        } else if (winners.size() > 1) {
+                            message = "It's a tie!";
                         }
                         
                         g.setFont(new Font("Arial", Font.BOLD, 30));
@@ -90,7 +101,6 @@ public class BlackJackApp {
                         frame.revalidate();
                         frame.repaint();
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -143,13 +153,6 @@ public class BlackJackApp {
                 hitButton.setEnabled(false);
                 stayButton.setEnabled(false);
 
-                while (dealer.getHandValue() < 17) {
-                    Card drawn_card = blackJack.getDeck().dealCard();
-                    dealer.addCard(drawn_card);
-                    gamePanel.repaint();
-                    System.out.println("All hands:");
-                    blackJack.revealAllHands();
-                }
                 if (dealer.getHandValue() > 21) {
                     stayButton.setEnabled(false);
                 }

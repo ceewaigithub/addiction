@@ -47,7 +47,6 @@ public class User extends Entity{
     }
 
     public void update() {
-
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";

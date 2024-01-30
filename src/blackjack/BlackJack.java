@@ -34,26 +34,38 @@ public class BlackJack {
         }
     }
 
-    public Player determineWinner() {
-        Player winner = null;
+    public ArrayList<Player> determineWinners() {
+        ArrayList<Player> winners = new ArrayList<Player>();
         int maxHandSize = 0;
         boolean allBusted = true;
 
         for (Player player : players) {
-            int handSizeWithAce = reducePlayerAce(player);
+
             int handSizeWithoutAce = player.getHandValue();
-            if (handSizeWithAce > 21) {
-                if (handSizeWithoutAce > 21) {
+            int handSizeWithAce = reducePlayerAce(player);
+
+            if (handSizeWithoutAce > 21) {
+                if (handSizeWithAce > 21) {
                     continue;
                 } else {
-                    handSizeWithAce = handSizeWithoutAce;
+                    handSizeWithoutAce = handSizeWithAce;
                 }
             }
+
+            // TODO - Check if any player has 7/7/7 or 5 Cards
+
             if (handSizeWithAce > maxHandSize) {
                 maxHandSize = handSizeWithAce;
-                winner = player;
+                winners.clear();
+                winners.add(player);
                 allBusted = false;
+            } else if (handSizeWithAce == maxHandSize) {
+                winners.add(player);
+                allBusted = false;
+            } else {
+                continue;
             }
+
             if (handSizeWithoutAce <= 21) {
                 allBusted = false;
             }
@@ -63,7 +75,7 @@ public class BlackJack {
             return null;
         }
 
-        return winner;
+        return winners;
     }
 
     public int reducePlayerAce(Player player) {
