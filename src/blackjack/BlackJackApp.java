@@ -12,14 +12,12 @@ import main.Player;
 
 public class BlackJackApp {
     public static void main(String[] args) {
-
         BlackJack blackJack = new BlackJack();
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
 
         blackJack.addPlayer(player);
         blackJack.addPlayer(dealer);
-
         blackJack.startGame();
 
         // print all hands
@@ -80,7 +78,6 @@ public class BlackJackApp {
                         }
 
                         ArrayList<Player> winners = blackJack.determineWinners();
-
                         String message = "";
 
                         if (winners == null) {
@@ -90,16 +87,17 @@ public class BlackJackApp {
                         } else if (winners.size() > 1) {
                             message = "It's a tie!";
                         }
-                        
+
                         g.setFont(new Font("Arial", Font.BOLD, 30));
                         g.setColor(Color.white);
                         g.drawString(message, (getWidth() - g.getFontMetrics().stringWidth(message)) / 2, getHeight() / 2);
-                        
+
                         // Update the button panel
                         buttonPanel.removeAll();
                         buttonPanel.add(exitButton);
                         frame.revalidate();
                         frame.repaint();
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
