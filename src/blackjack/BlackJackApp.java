@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.random.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import main.Card;
 import main.Deck;
 import main.Player;
+import tile.Tile;
 
 public class BlackJackApp {
     public static void main(String[] args) {
@@ -48,23 +52,28 @@ public class BlackJackApp {
                     int centerPlayerX = (getWidth() - (player.getHand().size() * cardWidth)) / 2;
                     int centerDealerX = (getWidth() - (dealer.getHand().size() * cardWidth)) / 2;
                     int spacing = 10; // Adjust the spacing value as per your preference
+                    String currentDirectory = new File("").getAbsolutePath();
 
                     // Draw dealer's hands
                     if (!stayButton.isEnabled()) {
                         for (int i = 0; i < dealer.getHand().size(); i++) {
-                            Image cardImg = new ImageIcon(getClass().getResource(dealer.getHand().get(i).getImagePath())).getImage();
+                            String imagePath = currentDirectory + "/res/" + dealer.getHand().get(i).getImagePath();
+                            Image cardImg = new ImageIcon(imagePath).getImage();
                             g.drawImage(cardImg, centerDealerX + (i * (cardWidth + spacing)), 20, cardWidth, cardHeight, null);
                         }
                     } else {
                         for (int i = 0; i < dealer.getHand().size(); i++) {
-                            Image hiddenCardImg = new ImageIcon(getClass().getResource("./cards/b.gif")).getImage();
+                            String imagePath = currentDirectory + "/res/cards/b.gif";
+                            System.out.println("Image path for back of card = " + imagePath);
+                            Image hiddenCardImg = new ImageIcon(imagePath).getImage();
                             g.drawImage(hiddenCardImg, centerDealerX + (i * (cardWidth + spacing)), 20, cardWidth, cardHeight, null);
                         }
                     }
 
                     // Draw player's hand
                     for (int i = 0; i < player.getHand().size(); i++) {
-                        Image cardImg = new ImageIcon(getClass().getResource(player.getHand().get(i).getImagePath())).getImage();
+                        String imagePath = currentDirectory + "/res/" + player.getHand().get(i).getImagePath();
+                        Image cardImg = new ImageIcon(imagePath).getImage();
                         g.drawImage(cardImg, centerPlayerX + (i * (cardWidth + spacing)), getHeight() - cardHeight - 20, cardWidth, cardHeight, null);
                     }
 

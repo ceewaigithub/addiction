@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import world.GamePanel;
+import java.io.File;
+import java.io.FileReader;
 
 public class TileManager {
     GamePanel gp;
@@ -24,24 +26,25 @@ public class TileManager {
 
     public void getTileImage() {
         try {
+            String currentDirectory = new File("").getAbsolutePath();
             // test tile
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResource("./tiles/brick_1.png"));
+            tile[0].image = ImageIO.read(new File(currentDirectory + "/res/tiles/brick_1.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResource("./tiles/wall_1.png"));
+            tile[1].image = ImageIO.read(new File(currentDirectory + "/res/tiles/wall_1.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResource("./tiles/carpet_1.png"));
+            tile[2].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_1.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResource("./tiles/carpet_2.png"));
+            tile[3].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_2.png"));
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResource("./tiles/machine_1.png"));
+            tile[4].image = ImageIO.read(new File(currentDirectory + "/res/tiles/machine_1.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResource("./tiles/carpet_3.png"));
+            tile[5].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_3.png"));
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -49,8 +52,9 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream in = getClass().getResourceAsStream("./maps/map01.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            String currentDirectory = new File("").getAbsolutePath();
+            File mapFile = new File(currentDirectory + "/res/maps/map01.txt");
+            BufferedReader br = new BufferedReader(new FileReader(mapFile));
 
             int col = 0;
             int row = 0;
@@ -69,7 +73,7 @@ public class TileManager {
             br.close();
 
         } catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error getting map: " + e);
         }
     }
 
