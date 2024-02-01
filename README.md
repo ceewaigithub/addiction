@@ -10,4 +10,4 @@ a.	The rank of the cards are, in descending order: Ace (A), King (K), Queen (Q),
 b.	The suits of the cards are clubs(♣), diamonds(♦), spades(♠) and hearts(♥).
 
 - How to run:
-- - compile and run App.java, GUI should appear.
+- - compile and run compile_run.sh
