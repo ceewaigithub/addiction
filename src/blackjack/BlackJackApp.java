@@ -47,6 +47,7 @@ public class BlackJackApp {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
+                // TODO Create seperate functions and modularise the code
                 try {
                     // Calculate the x-coordinate to center the cards horizontally
                     int centerPlayerX = (getWidth() - (player.getHand().size() * cardWidth)) / 2;
