@@ -1,4 +1,4 @@
-# blackjack
+# Cripppling Addiction
 
 CS102 Project (card game):
 - Project Requirements
