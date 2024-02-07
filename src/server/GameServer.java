@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/*
+ * 
+ * The GameServer class is responsible for creating a server socket and listening for incoming client connections.
+ * When a client connects, the server creates a new ClientHandler object to handle the client's requests.
+ * 
+*/
+
 public class GameServer {
     private ServerSocket serverSocket;
     private static final int PORT = 8080; // port number where we are hosting the server
@@ -31,6 +38,13 @@ public class GameServer {
         }
     }
 
+    /*
+        When a client connects, the server creates a new ClientHandler object to handle the client's requests.
+        The ClientHandler object is added to the list of clients and is executed in a separate thread.
+        The server listens for incoming client connections in an infinite loop.
+
+        *In the case of our game, the server will listen for incoming connections from the game clients.*
+    */
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(PORT);
         while (true) {

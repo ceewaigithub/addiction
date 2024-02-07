@@ -2,6 +2,13 @@ package server;
 import java.net.Socket;
 import java.io.*;
 
+/*
+ * The ClientHandler class is responsible for handling the communication with a single client.
+ * It creates a client socket and sends and receives messages from the client.
+ * The sendMessage method is used to send messages to the client, and the receiveMessage method is used to receive messages from the client.
+ * The run method is used to handle the communication with the client in a separate thread.
+*/
+
 public class ClientHandler implements Runnable {
     private Socket clientSocket;
     private BufferedReader in;
