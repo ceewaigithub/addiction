@@ -29,6 +29,7 @@ public class BlackJackApp {
         blackJack.revealAllHands();
 
         // Set up GUI
+        // TODO Make this dynamic or make it into a popup from the 2d game panels
         int boardWidth = 800;
         int boardHeight = 540;
         
