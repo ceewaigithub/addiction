@@ -29,22 +29,47 @@ public class TileManager {
             String currentDirectory = new File("").getAbsolutePath();
             // test tile
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File(currentDirectory + "/res/tiles/brick_1.png"));
+            tile[0].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File(currentDirectory + "/res/tiles/wall_1.png"));
+            tile[1].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_top_left.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_1.png"));
+            tile[2].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_top_middle.png"));
 
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_2.png"));
+            tile[3].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_top_right.png"));
+
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(new File(currentDirectory + "/res/tiles/machine_1.png"));
+            tile[4].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_buttom_right.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(new File(currentDirectory + "/res/tiles/carpet_3.png"));
+            tile[5].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_buttom_left.png"));
+
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_middle_left.png"));
+
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(new File(currentDirectory + "/res/tiles/dirt.png"));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_top_right.png"));
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_top_left.png"));
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_bottom_left.png"));
+
+            tile[14] = new Tile();
+            tile[14].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_bottom_middle.png"));
+
+            tile[15] = new Tile();
+            tile[15].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_bottom_right.png"));
+
+            tile[16] = new Tile();
+            tile[16].image = ImageIO.read(new File(currentDirectory + "/res/tiles/chest.png"));
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
@@ -61,7 +86,7 @@ public class TileManager {
 
             while (row < gp.maxWorldRow) {
                 String line = br.readLine();
-                String[] tokens = line.split(" ");
+                String[] tokens = line.split("[ \t]");
 
                 while (col < gp.maxWorldCol) {
                     mapTileNum[row][col] = Integer.parseInt(tokens[col]);
