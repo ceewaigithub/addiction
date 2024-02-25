@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
+import entity.CollisionChecker;
 import entity.User;
 import tile.TileManager;
 
@@ -12,34 +14,35 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements Runnable{
     
     // Screen Settings
-    final int originalTileFontSize = 16; // 16x16 tile size
+    public final int originalTileSize = 16; // 16x16 tile size
     final int scale = 3;
 
-    public final int tileSize = originalTileFontSize * scale; // 48x48 tile size
+    public final int tileSize = originalTileSize * scale; // 48x48 tile size
     public final int maxScreenCol  = 16;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
 
     // World Settings
-    public final int maxWorldCol = 32;
-    public final int maxWorldRow = 32;
+    public final int maxWorldCol = 52;
+    public final int maxWorldRow = 52;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
     // Game Settings
     int fps = 60;
 
-    TileManager tm = new TileManager(this);
+    public TileManager tm = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
+    public CollisionChecker cc = new CollisionChecker(this);
     public User user = new User(this, keyH);
 
 
     // Set player's default postiion
     int playerX = worldWidth / 2 - tileSize / 2;
     int playerY = worldHeight / 2 - tileSize / 2;
-    int playerSpeed = 7;
+    int playerSpeed = 4;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -82,7 +85,8 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
             if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
+                // If you want to see the FPS uncomment this line
+                //System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }

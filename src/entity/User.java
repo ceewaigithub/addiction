@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -22,13 +23,14 @@ public class User extends Entity{
         this.keyH = keyH;
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        solidArea = new Rectangle(8, 16, 32, 32);
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        worldX = gp.worldWidth / 2 - gp.tileSize / 2;
+        worldY = gp.worldHeight / 2 - gp.tileSize / 2;
         speed = 4;
         direction = "down";
     }
@@ -59,20 +61,39 @@ public class User extends Entity{
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
                 direction = "up";
-                worldY -= speed;
             }
             if (keyH.downPressed) {
                 direction = "down";
-                worldY += speed;
             }
             if (keyH.leftPressed) {
                 direction = "left";
-                worldX -= speed;
             }
             if (keyH.rightPressed) {
                 direction = "right";
-                worldX += speed;
             }
+
+            // Check for collision
+            collisionOn = false;
+            gp.cc.checkTile(this);
+
+            // if collision is false, player can move
+            if (collisionOn == false) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
+
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
@@ -83,6 +104,7 @@ public class User extends Entity{
                 spriteCounter = 0;
             }
         }
+        
 
     }
 
