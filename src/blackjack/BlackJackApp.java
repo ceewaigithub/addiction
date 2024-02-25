@@ -24,7 +24,7 @@ public class BlackJackApp {
         blackJack.addPlayer(dealer);
         blackJack.startGame();
 
-        // print all hands
+        // Print all hands
         System.out.println("All hands:");
         blackJack.revealAllHands();
 
@@ -33,7 +33,7 @@ public class BlackJackApp {
         int boardWidth = 800;
         int boardHeight = 540;
         
-        // card width and height based off of images provided
+        // Card width and height based off of images provided
         int cardWidth = 73;
         int cardHeight = 97;
 
