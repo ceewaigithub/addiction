@@ -14,7 +14,7 @@ import main.Deck;
 import main.Player;
 import tile.Tile;
 
-public class BlackJackApp {
+public class BlackJackApp1 {
     public static void main(String[] args) {
 
         // Initialisation
