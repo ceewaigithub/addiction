@@ -16,6 +16,8 @@ import tile.Tile;
 
 public class BlackJackApp {
     public static void main(String[] args) {
+
+        // Initialisation
         BlackJack blackJack = new BlackJack();
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
@@ -28,15 +30,13 @@ public class BlackJackApp {
         System.out.println("All hands:");
         blackJack.revealAllHands();
 
-        // Set up GUI
+        // GUI Initialisation
         // TODO Make this dynamic or make it into a popup from the 2d game panels
         int boardWidth = 800;
         int boardHeight = 540;
-        
-        // Card width and height based off of images provided
         int cardWidth = 73;
         int cardHeight = 97;
-
+        
         JPanel buttonPanel = new JPanel();
         JButton hitButton = new JButton("Hit");
         JButton stayButton = new JButton("Stay");
@@ -48,7 +48,7 @@ public class BlackJackApp {
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                // TODO Create seperate functions and modularise the code
+                // TODO Create separate functions and modularise the code
                 try {
                     // Calculate the x-coordinate to center the cards horizontally
                     int centerPlayerX = (getWidth() - (player.getHand().size() * cardWidth)) / 2;
@@ -122,7 +122,7 @@ public class BlackJackApp {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Set up game panel
+        // Game panel painting
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(255, 90, 01));
         frame.add(gamePanel);
@@ -131,7 +131,7 @@ public class BlackJackApp {
         gamePanel.revalidate();
         gamePanel.repaint();
 
-        // Set up button panel
+        // Button panel set up
         hitButton.setFocusable(false);
         buttonPanel.add(hitButton);
         stayButton.setFocusable(false);
