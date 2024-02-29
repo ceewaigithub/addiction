@@ -8,7 +8,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-import blackjack.BlackJackApp1;
+import blackjack.BlackJackApp;
 import world.GamePanel;
 import world.KeyHandler;
 
@@ -18,6 +18,7 @@ public class User extends Entity{
 
     public final int screenX;
     public final int screenY;
+    public int money = 0;
 
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -122,10 +123,19 @@ public class User extends Entity{
             if (objectName.equals("Chest")) {
                 if (keyH.spacePressed) {
                     System.out.println("Chest opened and in that chest you have to play 1v1 blackjack");
-                    BlackJackApp1 bj = new BlackJackApp1();
+                    BlackJackApp bj = new BlackJackApp(this);
+                    clearKeyPresses();
                 }
             }
         }
+    }
+
+    public void clearKeyPresses() {
+        keyH.spacePressed = false;
+        keyH.upPressed = false;
+        keyH.downPressed = false;
+        keyH.leftPressed = false;
+        keyH.rightPressed = false;
     }
 
     public void draw(Graphics2D g2) {
