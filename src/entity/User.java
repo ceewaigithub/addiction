@@ -123,7 +123,6 @@ public class User extends Entity{
             String objectName = gp.obj[idx].name;
             if (objectName.equals("Chest")) {
                 if (keyH.spacePressed) {
-                    System.out.println("Chest opened and in that chest you have to play 1v1 blackjack");
                     gp.frame.setVisible(false);
                     BlackJackApp bj = new BlackJackApp(this, gp.frame);
                     clearKeyPresses();
