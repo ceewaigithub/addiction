@@ -8,6 +8,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import blackjack.BlackJackApp1;
 import world.GamePanel;
 import world.KeyHandler;
 
@@ -80,6 +81,7 @@ public class User extends Entity{
 
             // check for object collision
             int objIndex = gp.cc.checkObject(this, true);
+            interactWithObject(objIndex);
             if (objIndex != 999) {
                 collisionOn = true;
             }
@@ -112,8 +114,18 @@ public class User extends Entity{
                 spriteCounter = 0;
             }
         }
-        
+    }
 
+    public void interactWithObject(int idx) {
+        if (idx != 999) {
+            String objectName = gp.obj[idx].name;
+            if (objectName.equals("Chest")) {
+                if (keyH.spacePressed) {
+                    System.out.println("Chest opened and in that chest you have to play 1v1 blackjack");
+                    BlackJackApp1 bj = new BlackJackApp1();
+                }
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {

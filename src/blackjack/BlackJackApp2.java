@@ -39,7 +39,7 @@ public class BlackJackApp2 {
             } else {
                 drawCardImage(g, dealer, cardWidth, cardHeight, spacing, currentDirectory, centerDealerX, 20, true);
             }
-            drawCardImage(g, player, cardWidth, cardHeight, spacing, currentDirectory, centerPlayerX, boardHeight - cardHeight - 20, false);
+            drawCardImage(g, player, cardWidth, cardHeight, spacing, currentDirectory, centerPlayerX, boardHeight - cardHeight - 80, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
