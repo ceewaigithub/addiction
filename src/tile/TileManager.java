@@ -41,10 +41,10 @@ public class TileManager {
             tile[3].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_top_right.png"));
 
             tile[4] = new Tile();
-            tile[4].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_buttom_right.png"));
+            tile[4].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_bottom_right.png"));
 
             tile[5] = new Tile();
-            tile[5].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_buttom_left.png"));
+            tile[5].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_edge_bottom_left.png"));
 
             tile[7] = new Tile();
             tile[7].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_middle_left.png"));
@@ -67,9 +67,9 @@ public class TileManager {
             tile[15] = new Tile();
             tile[15].image = ImageIO.read(new File(currentDirectory + "/res/tiles/grass_bottom_right.png"));
 
-            tile[16] = new Tile();
-            tile[16].image = ImageIO.read(new File(currentDirectory + "/res/tiles/chest.png"));
-            tile[16].collision = true;
+            // tile[16] = new Tile();
+            // tile[16].image = ImageIO.read(new File(currentDirectory + "/res/tiles/chest.png"));
+            // tile[16].collision = true;
 
             tile[255] = new Tile();
             tile[255].image = ImageIO.read(new File(currentDirectory + "/res/tiles/water.png"));

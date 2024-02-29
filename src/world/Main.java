@@ -20,8 +20,8 @@ public class Main {
         GamePanel gamePanel = new GamePanel();
         mainPanel.add(gamePanel);
 
-        BlackJackPanel bjPanel = new BlackJackPanel();
-        mainPanel.add(bjPanel);
+        // BlackJackPanel bjPanel = new BlackJackPanel();
+        // mainPanel.add(bjPanel);
 
         window.add(mainPanel);
         window.pack();
@@ -29,6 +29,7 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        gamePanel.startGame();
         gamePanel.startGameThread();
 
     }

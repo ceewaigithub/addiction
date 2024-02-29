@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 
 import entity.CollisionChecker;
 import entity.User;
+import main.AssetSetter;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -36,7 +38,9 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     public CollisionChecker cc = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public User user = new User(this, keyH);
+    public SuperObject obj[] = new SuperObject[10];
 
 
     // Set player's default postiion
@@ -50,6 +54,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void startGame() {
+        aSetter.setObject();
     }
 
     public void startGameThread() {
@@ -101,6 +109,11 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tm.draw(g2);
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null) {
+                obj[i].draw(g2, this);
+            }
+        }
         user.draw(g2);
         g2.dispose();
     }

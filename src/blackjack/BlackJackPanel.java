@@ -34,12 +34,12 @@ public class BlackJackPanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
-    // Draw hand
-    public void drawHand() {
-        String imagePath = currentDirectory + "/res/" + dealer.getHand().get(i).getImagePath();
-        Image cardImg = new ImageIcon(imagePath).getImage();
-        g.drawImage(cardImg, centerDealerX + (i * (cardWidth + spacing)), 20, cardWidth, cardHeight, null);
-    }
+    // // Draw hand
+    // public void drawHand() {
+    //     String imagePath = currentDirectory + "/res/" + dealer.getHand().get(i).getImagePath();
+    //     Image cardImg = new ImageIcon(imagePath).getImage();
+    //     g.drawImage(cardImg, centerDealerX + (i * (cardWidth + spacing)), 20, cardWidth, cardHeight, null);
+    // }
 
     @Override
     public void run() {
