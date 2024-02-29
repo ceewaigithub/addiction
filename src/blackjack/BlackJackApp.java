@@ -16,7 +16,7 @@ import main.Deck;
 import main.Player;
 import tile.Tile;
 
-public class BlackJackApp {
+public class BlackJackApp extends JFrame{
 
     // GUI Initialisation
     int boardWidth = 800;
@@ -24,8 +24,9 @@ public class BlackJackApp {
     int cardWidth = 73;
     int cardHeight = 97;
     static boolean win = false;
+    private static JFrame previousFrame;
 
-    public BlackJackApp(User user) {
+    public BlackJackApp(User user, JFrame previousFrame) {
         // Initialisation
         // # TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
         BlackJack blackJack = new BlackJack();
@@ -39,6 +40,7 @@ public class BlackJackApp {
         // Print all hands
         System.out.println("All hands:");
         blackJack.revealAllHands();
+        this.previousFrame = previousFrame;
         runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, user);
     }
 
@@ -191,11 +193,17 @@ public class BlackJackApp {
                 } else {
                     user.money -= 10;
                 }
-                frame.dispose(); // Close the current window
+                endGame(frame);
             }
         });
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    // When the game is over, call this method
+    public static void endGame(JFrame frame) {
+        frame.setVisible(false); // Hide the Blackjack frame
+        previousFrame.setVisible(true); // Show the previous frame
     }
 
     public static void main(String[] args) {

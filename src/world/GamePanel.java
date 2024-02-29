@@ -11,6 +11,7 @@ import main.AssetSetter;
 import object.SuperObject;
 import tile.TileManager;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -31,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
+    public JFrame frame;
+
     // Game Settings
     int fps = 60;
 
@@ -48,12 +51,13 @@ public class GamePanel extends JPanel implements Runnable{
     int playerY = worldHeight / 2 - tileSize / 2;
     int playerSpeed = 4;
 
-    public GamePanel() {
+    public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.frame = frame;
     }
 
     public void startGame() {

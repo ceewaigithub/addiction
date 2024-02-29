@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 import blackjack.BlackJackApp;
 import world.GamePanel;
@@ -123,7 +124,8 @@ public class User extends Entity{
             if (objectName.equals("Chest")) {
                 if (keyH.spacePressed) {
                     System.out.println("Chest opened and in that chest you have to play 1v1 blackjack");
-                    BlackJackApp bj = new BlackJackApp(this);
+                    gp.frame.setVisible(false);
+                    BlackJackApp bj = new BlackJackApp(this, gp.frame);
                     clearKeyPresses();
                 }
             }
