@@ -125,7 +125,7 @@ public class User extends Entity{
                 if (keyH.spacePressed) {
                     gp.frame.setVisible(false);
                     BlackJackApp bj = new BlackJackApp(this, gp.frame);
-                    clearKeyPresses();
+                    clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                 }
             }
         }
@@ -178,6 +178,7 @@ public class User extends Entity{
                 }
                 break;
         }
+        System.out.println(money);
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
