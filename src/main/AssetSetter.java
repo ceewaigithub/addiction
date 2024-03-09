@@ -14,7 +14,7 @@ public class AssetSetter {
         gp.obj[0].y = 27 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Chest();
-        gp.obj[1].x = 33 * gp.tileSize;
-        gp.obj[1].y = 23 * gp.tileSize;
+        gp.obj[1].x = 17 * gp.tileSize;
+        gp.obj[1].y = 26 * gp.tileSize;
     }
 }
