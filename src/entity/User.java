@@ -178,7 +178,6 @@ public class User extends Entity{
                 }
                 break;
         }
-        System.out.println(money);
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
