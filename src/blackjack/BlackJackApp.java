@@ -226,6 +226,8 @@ public class BlackJackApp extends JFrame{
         frame.setVisible(false); // Hide the Blackjack frame
         if (previousFrame != null) {
             previousFrame.setVisible(true); // Show the previous frame
+        } else {
+            System.exit(0); // Close the program
         }
     }
 
