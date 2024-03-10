@@ -122,6 +122,7 @@ public class User extends Entity{
         if (idx != 999) {
             String objectName = gp.obj[idx].name;
             if (objectName.equals("Chest")) {
+                System.out.println("Collision with chest");
                 if (keyH.spacePressed) {
                     gp.frame.setVisible(false);
                     BlackJackApp bj = new BlackJackApp(this, gp.frame);
