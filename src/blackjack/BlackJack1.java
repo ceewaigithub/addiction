@@ -32,8 +32,8 @@ public class BlackJack1 {
 
     // CHANGE: Returns list of players
     // This seems pretty redundant though...
-    public List<player> getPlayers() {
-
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public Deck getDeck() {
