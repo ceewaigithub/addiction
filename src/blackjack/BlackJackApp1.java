@@ -26,7 +26,7 @@ public class BlackJackApp1 extends JFrame{
     static boolean win = false;
     private static JFrame previousFrame;
 
-    public BlackJackApp1(User user, JFrame previousFrame) {
+    public BlackJackApp1() {
         // Initialisation
         // TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
         BlackJack1 blackJack = new BlackJack1();
@@ -46,7 +46,7 @@ public class BlackJackApp1 extends JFrame{
         System.out.println("All hands:");
         blackJack.revealAllHands();
         this.previousFrame = previousFrame;
-        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, user);
+        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, null);
     }
 
     public static void drawCardImage(Graphics g, Player player, int cardWidth, int cardHeight, int spacing, String currentDirectory, int x, int y, boolean back) {
@@ -193,12 +193,14 @@ public class BlackJackApp1 extends JFrame{
         // exitbutton action listener
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (win) {
-                    user.money += 10;
-                } else {
-                    user.money -= 10;
+                if (user != null) {
+                    if (win) {
+                        user.money += 10;
+                    } else {
+                        user.money -= 10;
+                    }
+                    endGame(frame);
                 }
-                endGame(frame);
             }
         });
 
@@ -212,6 +214,6 @@ public class BlackJackApp1 extends JFrame{
     }
 
     public static void main(String[] args) {
-        // BlackJackApp bj = new BlackJackApp();
+        BlackJackApp1 bj = new BlackJackApp1();
     }
 }
