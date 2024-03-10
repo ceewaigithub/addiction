@@ -26,6 +26,23 @@ public class BlackJackApp extends JFrame{
     static boolean win = false;
     private static JFrame previousFrame;
 
+    public BlackJackApp() {
+        // Initialisation
+        // # TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
+        BlackJack blackJack = new BlackJack();
+        Player player = new Player("Player");
+        Player dealer = new Player("Dealer");
+        blackJack.addPlayer(player);
+        blackJack.addPlayer(dealer);
+        blackJack.startGame();
+        win = false;
+
+        // Print all hands
+        System.out.println("All hands:");
+        blackJack.revealAllHands();
+        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, null);
+    }
+
     public BlackJackApp(User user, JFrame previousFrame) {
         // Initialisation
         // # TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
@@ -188,12 +205,14 @@ public class BlackJackApp extends JFrame{
         // exitbutton action listener
         exitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (win) {
-                    user.money += 10;
-                } else {
-                    user.money -= 10;
+                if (user != null) {
+                    if (win) {
+                        user.money += 10;
+                    } else {
+                        user.money -= 10;
+                    }
+                    endGame(frame);
                 }
-                endGame(frame);
             }
         });
 
@@ -207,6 +226,6 @@ public class BlackJackApp extends JFrame{
     }
 
     public static void main(String[] args) {
-        // BlackJackApp bj = new BlackJackApp();
+        BlackJackApp bj = new BlackJackApp();
     }
 }
