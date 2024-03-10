@@ -5,7 +5,9 @@ mkdir class
 
 REM Compile the Java files
 echo Compiling Java files...
-javac -d class src\**\*.java
+for /r src %%f in (*.java) do (
+    javac -d class %%f
+)
 
 REM Run the Main class
 echo Running project...
