@@ -212,6 +212,8 @@ public class BlackJackApp extends JFrame{
                         user.money -= 10;
                     }
                     endGame(frame);
+                } else {
+                    endGame(frame);
                 }
             }
         });
@@ -222,7 +224,9 @@ public class BlackJackApp extends JFrame{
     // When the game is over, call this method
     public static void endGame(JFrame frame) {
         frame.setVisible(false); // Hide the Blackjack frame
-        previousFrame.setVisible(true); // Show the previous frame
+        if (previousFrame != null) {
+            previousFrame.setVisible(true); // Show the previous frame
+        }
     }
 
     public static void main(String[] args) {
