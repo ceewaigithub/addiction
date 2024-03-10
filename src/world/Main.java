@@ -20,9 +20,6 @@ public class Main {
         GamePanel gamePanel = new GamePanel(window);
         mainPanel.add(gamePanel);
 
-        // BlackJackPanel bjPanel = new BlackJackPanel();
-        // mainPanel.add(bjPanel);
-
         window.add(mainPanel);
         window.pack();
 
