@@ -35,8 +35,6 @@ public class BlackJackApp1 extends JFrame{
         // I think we should differentiate between players including dealer and excluding
         blackJack.addPlayers(1);
         List<Player> players = blackJack.getPlayers(); // Note: Iterate from 1 for players excluding dealer
-        // Test to see if code runs
-        Player player = players.get(1);
         Player dealer = players.get(0);
 
         blackJack.startGame();
@@ -46,7 +44,7 @@ public class BlackJackApp1 extends JFrame{
         System.out.println("All hands:");
         blackJack.revealAllHands();
         this.previousFrame = previousFrame;
-        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, null);
+        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, players, dealer, null);
     }
 
     public static void drawCardImage(Graphics g, Player player, int cardWidth, int cardHeight, int spacing, String currentDirectory, int x, int y, boolean back) {
@@ -58,10 +56,9 @@ public class BlackJackApp1 extends JFrame{
         }
     }
 
-    public static void drawHands(Graphics g, BlackJack1 blackJack, Player player, Player dealer, int cardWidth, int cardHeight, JButton stayButton, int boardWidth, int boardHeight) {
+    public static void drawHands(Graphics g, BlackJack1 blackJack, ArrayList<Player> players, Player dealer, int cardWidth, int cardHeight, JButton stayButton, int boardWidth, int boardHeight) {
         try {
             // Calculate the x-coordinate to center the cards horizontally
-            int centerPlayerX = (boardWidth - (player.getHand().size() * cardWidth)) / 2;
             int centerDealerX = (boardWidth - (dealer.getHand().size() * cardWidth)) / 2;
             int spacing = 10; // Adjust the spacing value as per your preference
             String currentDirectory = new File("").getAbsolutePath();
@@ -72,7 +69,12 @@ public class BlackJackApp1 extends JFrame{
             } else {
                 drawCardImage(g, dealer, cardWidth, cardHeight, spacing, currentDirectory, centerDealerX, 20, true);
             }
-            drawCardImage(g, player, cardWidth, cardHeight, spacing, currentDirectory, centerPlayerX, boardHeight - cardHeight - 80, false);
+
+            for (int i = 1; i < players.size(); i++) {
+                Player currentPlayer = players.get(i)
+                int centerPlayerX = (boardWidth - (currentPlayer.getHand().size() * cardWidth)) / 2;
+                drawCardImage(g, currentPlayer, cardWidth, cardHeight, spacing, currentDirectory, centerPlayerX, boardHeight - cardHeight - 80, false);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,7 +118,7 @@ public class BlackJackApp1 extends JFrame{
         }
     }
 
-    public static void runGame(BlackJack1 blackjack, int boardWidth, int boardHeight, int cardWidth, int cardHeight, Player player, Player dealer, User user) {
+    public static void runGame(BlackJack1 blackjack, int boardWidth, int boardHeight, int cardWidth, int cardHeight, ArrayList<Player> players, Player dealer, User user) {
 
         JPanel buttonPanel = new JPanel();
         JButton hitButton = new JButton("Hit");
@@ -128,7 +130,7 @@ public class BlackJackApp1 extends JFrame{
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                drawHands(g, blackjack, player, dealer, cardWidth, cardHeight, stayButton, boardWidth, boardHeight);
+                drawHands(g, blackjack, players, dealer, cardWidth, cardHeight, stayButton, boardWidth, boardHeight);
                 updateButtons(g, blackjack, dealer, stayButton, exitButton, buttonPanel, boardWidth, boardHeight, user);
                 frame.revalidate();
                 frame.repaint();
@@ -157,17 +159,27 @@ public class BlackJackApp1 extends JFrame{
         buttonPanel.add(stayButton);
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
+        int[] currentPlayerIndex = {1}; // Start with the first player (excluding the dealer)
+
         // hitbutton action listener
         hitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Card drawn_card = blackjack.getDeck().dealCard();
-                player.addCard(drawn_card);
-                gamePanel.repaint();
-                System.out.println("All hands:");
-                blackjack.revealAllHands();
-                if (blackjack.reducePlayerAce(player) > 21) {
-                    hitButton.setEnabled(false);
+
+                while (currentPlayerIndex[0] < players.size()) {
+                    
+                    Player currentPlayer = players.get(currentPlayerIndex[0]);
+                    Card drawn_card = blackjack.getDeck().dealCard();
+                    currentPlayer.addCard(drawn_card);
+                    gamePanel.repaint();
+                    System.out.println("All hands:");
+                    blackjack.revealAllHands();
+
+                    currentPlayerIndex[0]++;
+                    Player nextPlayer = players.get(currentPlayerIndex[0]);
+                    if (blackjack.reducePlayerAce(nextPlayer) > 21) {
+                        hitButton.setEnabled(false);
+                    }
                 }
             }
         });
