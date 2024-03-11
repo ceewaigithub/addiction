@@ -16,7 +16,7 @@ import main.Deck;
 import main.Player;
 import tile.Tile;
 
-public class BlackJackApp extends JFrame{
+public class BlackJackApp2 extends JFrame{
 
     // GUI Initialisation
     int boardWidth = 800;
@@ -26,10 +26,10 @@ public class BlackJackApp extends JFrame{
     static boolean win = false;
     private static JFrame previousFrame;
 
-    public BlackJackApp() {
+    public BlackJackApp2() {
         // Initialisation
         // # TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
-        BlackJack blackJack = new BlackJack();
+        BlackJack2 blackJack = new BlackJack2();
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
         blackJack.addPlayer(player);
@@ -43,10 +43,10 @@ public class BlackJackApp extends JFrame{
         runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, player, dealer, null);
     }
 
-    public BlackJackApp(User user, JFrame previousFrame) {
+    public BlackJackApp2(User user, JFrame previousFrame) {
         // Initialisation
         // # TODO -- make the players into an arrayList so that we can iterate through it instead of just having two players
-        BlackJack blackJack = new BlackJack();
+        BlackJack2 blackJack = new BlackJack2();
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
         blackJack.addPlayer(player);
@@ -70,7 +70,7 @@ public class BlackJackApp extends JFrame{
         }
     }
 
-    public static void drawHands(Graphics g, BlackJack blackJack, Player player, Player dealer, int cardWidth, int cardHeight, JButton stayButton, int boardWidth, int boardHeight) {
+    public static void drawHands(Graphics g, BlackJack2 blackJack, Player player, Player dealer, int cardWidth, int cardHeight, JButton stayButton, int boardWidth, int boardHeight) {
         try {
             // Calculate the x-coordinate to center the cards horizontally
             int centerPlayerX = (boardWidth - (player.getHand().size() * cardWidth)) / 2;
@@ -91,7 +91,7 @@ public class BlackJackApp extends JFrame{
     
     }
 
-    public static void updateButtons(Graphics g, BlackJack blackJack, Player dealer, JButton stayButton, JButton exitButton, JPanel buttonPanel, int boardWidth, int boardHeight, User user) {
+    public static void updateButtons(Graphics g, BlackJack2 blackJack, Player dealer, JButton stayButton, JButton exitButton, JPanel buttonPanel, int boardWidth, int boardHeight, User user) {
         if (!stayButton.isEnabled()) {
             if (!stayButton.isEnabled()) {
                 while (dealer.getHandValue() < 17) {
@@ -101,7 +101,7 @@ public class BlackJackApp extends JFrame{
                     blackJack.revealAllHands();
                 }
             }
-            
+
             ArrayList<Player> winners = blackJack.determineWinners();
             String message = "";
 
@@ -130,7 +130,7 @@ public class BlackJackApp extends JFrame{
         }
     }
 
-    public static void runGame(BlackJack blackjack, int boardWidth, int boardHeight, int cardWidth, int cardHeight, Player player, Player dealer, User user) {
+    public static void runGame(BlackJack2 blackjack, int boardWidth, int boardHeight, int cardWidth, int cardHeight, Player player, Player dealer, User user) {
 
         JPanel buttonPanel = new JPanel();
         JButton hitButton = new JButton("Hit");
