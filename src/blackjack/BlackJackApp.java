@@ -101,7 +101,7 @@ public class BlackJackApp extends JFrame{
                     blackJack.revealAllHands();
                 }
             }
-            
+
             ArrayList<Player> winners = blackJack.determineWinners();
             String message = "";
 
