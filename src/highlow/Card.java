@@ -128,6 +128,6 @@ public class Card {
         
         String suit = getSuitAsString().substring(0,1).toLowerCase();
         // System.out.println("" + value + suit);
-        return "cards/" + value + suit + ".gif";
+        return "res/cards/" + value + suit + ".gif";
     }
 }
