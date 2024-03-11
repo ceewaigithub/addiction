@@ -71,7 +71,7 @@ public class BlackJackApp1 extends JFrame{
             }
 
             for (int i = 1; i < players.size(); i++) {
-                Player currentPlayer = players.get(i)
+                Player currentPlayer = players.get(i);
                 int centerPlayerX = (boardWidth - (currentPlayer.getHand().size() * cardWidth)) / 2;
                 drawCardImage(g, currentPlayer, cardWidth, cardHeight, spacing, currentDirectory, centerPlayerX, boardHeight - cardHeight - 80, false);
             }
