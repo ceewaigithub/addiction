@@ -57,7 +57,7 @@ public class Card {
     }
     public Image getImage() {
         try {
-            String imagePath = "res/cards/src" + rank + suit + ".gif";
+            String imagePath = "res/cards/" + rank + suit + ".gif";
             System.out.println(imagePath);
             return new ImageIcon(imagePath).getImage();
         } catch (Exception e) {
