@@ -9,6 +9,7 @@ import entity.CollisionChecker;
 import entity.User;
 import main.AssetSetter;
 import main.Sound;
+import main.UI;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -41,13 +42,18 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tm = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
 
-    Sound sound = new Sound();
-    Thread gameThread;
+    Sound music = new Sound();
+    Sound se = new Sound();
+
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    Thread gameThread;
+
     public User user = new User(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
+    
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -117,31 +123,32 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         user.draw(g2);
+        ui.draw(g2);
         g2.dispose();
     }
 
     public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
 
     public void setBackgroundMusic() {
-        sound.setFile(0);
-        sound.play();
-        sound.loop();
-        sound.setVolume(0.25f);
+        music.setFile(0);
+        music.play();
+        music.loop();
+        music.setVolume(0.25f);
     }
 
     public void stopMusic() {
-        sound.stop();
+        music.stop();
     }
 
     public void playSE(int i) {
-        sound.setFile(i);
+        se.setFile(i);
         //sound.fadeBackgroundMusic();
-        sound.setVolume(1.5f);
-        sound.play();
+        se.setVolume(1.5f);
+        se.play();
 
     }
 
