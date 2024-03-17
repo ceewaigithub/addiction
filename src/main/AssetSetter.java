@@ -1,6 +1,6 @@
 package main;
 
-import object.OBJ_Chest;
+import object.*;
 import world.GamePanel;
 
 public class AssetSetter {

@@ -10,7 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import blackjack.BlackJackApp;
-import blackjack.BlackJackApp1;
+import highlow.*;
+import Baccarat.*;
 import world.GamePanel;
 import world.KeyHandler;
 
