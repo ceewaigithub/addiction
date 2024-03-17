@@ -3,8 +3,6 @@ package world;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import blackjack.BlackJackPanel;
-
 import javax.swing.BoxLayout;
 
 public class Main {

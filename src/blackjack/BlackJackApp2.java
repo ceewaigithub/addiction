@@ -43,6 +43,7 @@ public class BlackJackApp2 {
     }
 
     public static void main(String[] args) {
-        BlackJackApp bj = new BlackJackApp();
+        
+        BlackJackApp2 bj = new BlackJackApp2(null, new JFrame());
     }
 }

@@ -23,7 +23,6 @@ public class BlackJackPanel extends JPanel {
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
 
-
     // Constructor
     public BlackJackPanel(BlackJack2 blackjack) {
 
@@ -42,12 +41,24 @@ public class BlackJackPanel extends JPanel {
         frame.add(gamePanel);
 
         // Set up buttonPanel + add buttonPanel
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel() {
+            public void paintComponent(Graphics g) {
+                // Paint standard features
+                super.paintComponent(g);
+                // Paint hands
+                bJackAssetSetter.drawHands(g);
+                // If game ends, endGame paints the results
+                if (!blackjack.getGameStatus()) {
+                    endGame(g, blackjack.determineWinners());
+                }
+            }
+        };
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Set up hitButton + purpose hitButton + add hitButton
-        JButton hitButton = new JButton("Hit");
+        hitButton = new JButton("Hit");
         buttonPanel.add(hitButton);
+        hitButton.setFocusable(false);
         hitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,8 +70,9 @@ public class BlackJackPanel extends JPanel {
         });
 
         // Set up stayButton + purpose stayButton + add stayButton
-        JButton stayButton = new JButton("Stay");
+        stayButton = new JButton("Stay");
         buttonPanel.add(stayButton);
+        stayButton.setFocusable(false);
         stayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,7 +84,7 @@ public class BlackJackPanel extends JPanel {
         });
 
         // Set up exitButton + purpose exitButton
-        JButton exitButton = new JButton("Exit");
+        exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,18 +98,6 @@ public class BlackJackPanel extends JPanel {
 
         // After setting up GUI, start game
         blackjack.startGame();
-    }
-
-    // Everytime repaint is called...
-    public void paintComponent(Graphics g) {
-        // Paint standard features
-        super.paintComponent(g);
-        // Paint hands
-        bJackAssetSetter.drawHands(g);
-        // If game ends, endGame paints the results
-        if (!blackjack.getGameStatus()) {
-            endGame(g, blackjack.determineWinners());
-        }
     }
 
     public void endGame(Graphics g, String message) {
