@@ -44,7 +44,7 @@ public class BlackJackApp1 extends JFrame{
         System.out.println("All hands:");
         blackJack.revealAllHands();
         this.previousFrame = previousFrame;
-        runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, players, dealer, null);
+        //runGame(blackJack, boardWidth, boardHeight, cardWidth, cardHeight, players, dealer, null);
     }
 
     public static void drawCardImage(Graphics g, Player player, int cardWidth, int cardHeight, int spacing, String currentDirectory, int x, int y, boolean back) {

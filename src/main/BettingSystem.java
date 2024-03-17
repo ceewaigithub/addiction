@@ -1,3 +1,5 @@
+package main;
+
 public class BettingSystem {
     private int playerBalance;
     private int currentBet;
