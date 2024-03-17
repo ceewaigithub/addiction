@@ -123,6 +123,7 @@ public class User extends Entity{
         if (idx != 999) {
             String objectName = gp.obj[idx].name;
             if (objectName.equals("Chest")) {
+                gp.ui.showMessage("BlackJack");
                 if (keyH.spacePressed) {
                     gp.playSE(1);
                     gp.frame.setVisible(false);
