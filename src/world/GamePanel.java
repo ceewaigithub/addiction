@@ -8,20 +8,21 @@ import java.awt.Graphics2D;
 import entity.CollisionChecker;
 import entity.User;
 import main.AssetSetter;
+import main.Sound;
 import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel implements Runnable{
-    
+public class GamePanel extends JPanel implements Runnable {
+
     // Screen Settings
     public final int originalTileSize = 16; // 16x16 tile size
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48 tile size
-    public final int maxScreenCol  = 16;
+    public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol; // 768
     public final int screenHeight = tileSize * maxScreenRow; // 576
@@ -39,17 +40,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public TileManager tm = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
+
+    Sound sound = new Sound();
     Thread gameThread;
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public User user = new User(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
-
-
-    // Set player's default postiion
-    int playerX = worldWidth / 2 - tileSize / 2;
-    int playerY = worldHeight / 2 - tileSize / 2;
-    int playerSpeed = 4;
 
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -62,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void startGame() {
         aSetter.setObject();
+        setBackgroundMusic();
     }
 
     public void startGameThread() {
@@ -98,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if (timer >= 1000000000) {
                 // If you want to see the FPS uncomment this line
-                //System.out.println("FPS: " + drawCount);
+                // System.out.println("FPS: " + drawCount);
                 drawCount = 0;
                 timer = 0;
             }
@@ -120,6 +118,31 @@ public class GamePanel extends JPanel implements Runnable{
         }
         user.draw(g2);
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void setBackgroundMusic() {
+        sound.setFile(0);
+        sound.play();
+        sound.loop();
+        sound.setVolume(0.25f);
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSE(int i) {
+        sound.setFile(i);
+        //sound.fadeBackgroundMusic();
+        sound.setVolume(1.5f);
+        sound.play();
+
     }
 
 }

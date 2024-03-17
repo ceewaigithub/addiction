@@ -11,6 +11,9 @@ javac -d class src/**/*.java
 # echo "Contents of the class directory:"
 # ls -R class
 
+echo "Current directory: $(pwd)"
+
 # Run the Main class
 echo "Running project..."
 java -cp class world.Main
+
