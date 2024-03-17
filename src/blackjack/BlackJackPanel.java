@@ -3,214 +3,112 @@ package blackjack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
+import entity.User;
 import main.Card;
 import main.Player;
 
 public class BlackJackPanel extends JPanel {
 
-    private JFrame previousFrame;
-
-    private final int screenWidth = 768;
-    private final int screenHeight = 576;
-
-    private final int cardWidth = 73;
-    private final int cardHeight = 97;
-    private final int spacing = 10;
-
+    // Variables
     private BlackJack2 blackjack;
-    private Player player;
-    private Player dealer;
+    private JFrame frame;
+    private JPanel gamePanel, buttonPanel; 
+    private JButton hitButton, stayButton, exitButton;
+    private int boardWidth = 800;
+    private int boardHeight = 540;
+    private BlackJackAssetSetter bJackAssetSetter;
 
-    private JButton hitButton;
-    private JButton stayButton;
-    private JButton exitButton;
 
-    private boolean win;
+    // Constructor
+    public BlackJackPanel(BlackJack2 blackjack) {
 
-    public BlackJackPanel(JFrame previousFrame, BlackJack2 blackjack, Player player, Player dealer) {
-        this.previousFrame = previousFrame;
-        this.blackjack = blackjack;
-        this.player = player;
-        this.dealer = dealer;
-        this.win = false;
+        // Set up frame
+        frame = new JFrame("BlackJack");
+        frame.setSize(boardWidth, boardHeight);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        initGame();
+        // Set up gamePanel + add gamePanel
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.setBackground(new Color(255, 90, 01));
+        frame.add(gamePanel);
 
+        // Set up buttonPanel + add buttonPanel
+        JPanel buttonPanel = new JPanel();
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Set up hitButton + purpose hitButton + add hitButton
+        JButton hitButton = new JButton("Hit");
+        buttonPanel.add(hitButton);
         hitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Card drawnCard = blackjack.getDeck().dealCard();
-                player.addCard(drawnCard);
+                // Hit in game
+                blackjack.hit();
+                // Repaint panel
                 repaint();
-                System.out.println("All hands:");
-                blackjack.revealAllHands();
-                if (blackjack.reducePlayerAce(player) > 21) {
-                    hitButton.setEnabled(false);
-                }
             }
         });
 
+        // Set up stayButton + purpose stayButton + add stayButton
+        JButton stayButton = new JButton("Stay");
+        buttonPanel.add(stayButton);
         stayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hitButton.setEnabled(false);
-                stayButton.setEnabled(false);
-
-                while (dealer.getHandValue() < 17) {
-                    Card drawnCard = blackjack.getDeck().dealCard();
-                    dealer.addCard(drawnCard);
-                    System.out.println("All hands:");
-                    blackjack.revealAllHands();
-                }
-
-                displayEndGameMessage(blackjack.determineWinners());
+                // Stay in game
+                blackjack.stay();
+                // Repaint panel
+                repaint();
             }
         });
 
+        // Set up exitButton + purpose exitButton
+        JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                endGame();
+                // Close frame
+                frame.setVisible(false);
             }
         });
 
-        setLayout(new BorderLayout());
-        add(hitButton, BorderLayout.WEST);
-        add(stayButton, BorderLayout.CENTER);
-        add(exitButton, BorderLayout.EAST);
+        // Set up Asset Setter
+        bJackAssetSetter = new BlackJackAssetSetter(blackjack, boardWidth, boardHeight);
+
+        // After setting up GUI, start game
+        blackjack.startGame();
     }
 
-    private void initGame() {
-        hitButton = new JButton("Hit");
-        stayButton = new JButton("Stay");
-        exitButton = new JButton("Exit");
-
-        hitButton.setFocusable(false);
-        stayButton.setFocusable(false);
-        exitButton.setFocusable(false);
-
-        hitButton.setPreferredSize(new Dimension(100, 40));  // Adjust the dimensions as needed
-        stayButton.setPreferredSize(new Dimension(100, 40));
-        exitButton.setPreferredSize(new Dimension(100, 40));
-    }
-
-    public BlackJack2 getBlackjack() {
-        return blackjack;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Player getDealer() {
-        return dealer;
-    }
-
-    public void drawHands(Graphics g) {
-        int centerPlayerX = (screenWidth - (player.getHand().size() * cardWidth)) / 2;
-        int centerDealerX = (screenWidth - (dealer.getHand().size() * cardWidth)) / 2;
-
-        // Draw dealer's hands
-        drawCardImage(g, dealer, cardWidth, cardHeight, spacing, centerDealerX, 20, !stayButton.isEnabled());
-
-        // Draw player's hands
-        drawCardImage(g, player, cardWidth, cardHeight, spacing, centerPlayerX, screenHeight - cardHeight - 80, false);
-    }
-
-    public void drawCardImage(Graphics g, Player player, int cardWidth, int cardHeight, int spacing, int x, int y, boolean back) {
-        for (int i = 0; i < player.getHand().size(); i++) {
-            String imagePath = "res/" + player.getHand().get(i).getImagePath(); // Assuming the images are in the "res" folder
-            if (back) {
-                imagePath = "res/cards/b.gif";
-            }
-            Image cardImg = new ImageIcon(imagePath).getImage();
-            g.drawImage(cardImg, x + (i * (cardWidth + spacing)), y, cardWidth, cardHeight, null);
+    // Everytime repaint is called...
+    public void paintComponent(Graphics g) {
+        // Paint standard features
+        super.paintComponent(g);
+        // Paint hands
+        bJackAssetSetter.drawHands(g);
+        // If game ends, endGame paints the results
+        if (!blackjack.getGameStatus()) {
+            endGame(g, blackjack.determineWinners());
         }
     }
 
-    public void updateButtons(Graphics g) {
-        if (!stayButton.isEnabled()) {
-            while (dealer.getHandValue() < 17) {
-                Card drawnCard = blackjack.getDeck().dealCard();
-                dealer.addCard(drawnCard);
-                System.out.println("All hands:");
-                blackjack.revealAllHands();
-            }
+    public void endGame(Graphics g, String message) {
 
-            ArrayList<Player> winners = blackjack.determineWinners();
-            String message = determineWinMessage(winners);
-
-            g.setFont(new Font("Arial", Font.BOLD, 30));
-            g.setColor(Color.white);
-            g.drawString(message, (screenWidth - g.getFontMetrics().stringWidth(message)) / 2, screenHeight / 2);
-
-            // Update the button panel
-            removeAll();
-            add(exitButton);
-            repaint();
-        }
-    }
-
-    public void displayEndGameMessage(ArrayList<Player> winners) {
-        String message = determineWinMessage(winners);
-        Graphics g = getGraphics();
+        // Display results
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.setColor(Color.white);
-        g.drawString(message, (screenWidth - g.getFontMetrics().stringWidth(message)) / 2, screenHeight / 2);
-    }
+        g.drawString(message, (boardWidth - g.getFontMetrics().stringWidth(message)) / 2, boardHeight / 2);
 
-    public void endGame() {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.setVisible(false); // Hide the Blackjack frame
-        if (previousFrame != null) {
-            previousFrame.setVisible(true); // Show the previous frame
-        } else {
-            System.exit(0); // Close the program
-        }
-    }
-
-    public JButton getHitButton() {
-        return hitButton;
-    }
-
-    public JButton getStayButton() {
-        return stayButton;
-    }
-
-    public JButton getExitButton() {
-        return exitButton;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
-    private String determineWinMessage(ArrayList<Player> winners) {
-        String message = "";
-
-        if (winners == null) {
-            message = "All players busted!";
-            win = false;
-        } else if (winners.size() == 1) {
-            message = winners.get(0).getName() + " is the winner!";
-            if (winners.get(0).getName().equals("Player")) {
-                win = true;
-            }
-        } else if (winners.size() > 1) {
-            message = "It's a tie!";
-            if (winners.get(0).getName().equals("Player")) {
-                win = true;
-            }
-        }
-
-        return message;
+        // Remove all buttons + add exit button
+        buttonPanel.removeAll();
+        buttonPanel.add(exitButton);
     }
 }

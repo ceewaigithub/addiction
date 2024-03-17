@@ -16,116 +16,33 @@ import main.Deck;
 import main.Player;
 import tile.Tile;
 
-public class BlackJackApp2 extends JFrame{
+public class BlackJackApp2 {
 
-    // GUI Initialisation
-    static boolean win = false;
-    private static JFrame previousFrame;
+    // Variable
+    User user;
+    JFrame mapFrame;
 
-    public BlackJackApp2() {
-        // Initialisation
-        BlackJack2 blackJack = new BlackJack2();
-        Player player = new Player("Player");
-        Player dealer = new Player("Dealer");
-        blackJack.addPlayer(player);
-        blackJack.addPlayer(dealer);
-        blackJack.startGame();
-        win = false;
+    // Constructor
+    public BlackJackApp2(User user, JFrame mapFrame) {
 
-        // Print all hands
-        System.out.println("All hands:");
-        blackJack.revealAllHands();
+        // Send in user & mapFrame
+        this.user = user;
+        this.mapFrame = mapFrame;
 
-        BlackJackPanel blackjackPanel = new BlackJackPanel(this, blackJack, player, dealer);
-        setupButtons(blackjackPanel, blackJack, player, dealer);
+        // Create blackJack game
+        BlackJack2 blackjack = new BlackJack2(user);
 
-        JFrame frame = new JFrame("BlackJack");
-        frame.setSize(blackjackPanel.getScreenWidth(), blackjackPanel.getScreenHeight());
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(blackjackPanel);
+        // Starting BlackJackApp runs BlackJackGUI
+        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack);     
         
-        runGame(blackjackPanel);
-    }
+        // After setting up GUI, start game
+        blackjack.startGame();
 
-    // public BlackJackApp2(User user, JFrame previousFrame) {
-    //     // Initialization
-    //     BlackJack2 blackJack = new BlackJack2();
-    //     Player player = new Player("Player");
-    //     Player dealer = new Player("Dealer");
-    //     blackJack.addPlayer(player);
-    //     blackJack.addPlayer(dealer);
-    //     blackJack.startGame();
-    //     win = false;
-
-    //     // Print all hands
-    //     System.out.println("All hands:");
-    //     blackJack.revealAllHands();
-    //     this.previousFrame = previousFrame;
-
-    //     BlackJackPanel blackjackPanel = new BlackJackPanel(this, blackJack, player, dealer);
-    //     setupButtons(blackjackPanel, blackJack, player, dealer);
-
-    //     JFrame frame = new JFrame("BlackJack");
-    //     frame.setSize(blackjackPanel.getScreenWidth(), blackjackPanel.getScreenHeight());
-    //     frame.setVisible(true);
-    //     frame.setLocationRelativeTo(null);
-    //     frame.setResizable(false);
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frame.add(blackjackPanel);
-
-    //     runGame(blackjackPanel, user);
-    // }
-
-    private static void runGame(BlackJackPanel blackjackPanel) {
-        blackjackPanel.getHitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Card drawnCard = blackjackPanel.getBlackjack().getDeck().dealCard();
-                blackjackPanel.getPlayer().addCard(drawnCard);
-                blackjackPanel.repaint();
-                System.out.println("All hands:");
-                blackjackPanel.getBlackjack().revealAllHands();
-                if (blackjackPanel.getBlackjack().reducePlayerAce(blackjackPanel.getPlayer()) > 21) {
-                    blackjackPanel.getHitButton().setEnabled(false);
-                }
-            }
-        });
-
-        blackjackPanel.getStayButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                blackjackPanel.getHitButton().setEnabled(false);
-                blackjackPanel.getStayButton().setEnabled(false);
-
-                while (blackjackPanel.getDealer().getHandValue() < 17) {
-                    Card drawnCard = blackjackPanel.getBlackjack().getDeck().dealCard();
-                    blackjackPanel.getDealer().addCard(drawnCard);
-                    System.out.println("All hands:");
-                    blackjackPanel.getBlackjack().revealAllHands();
-                }
-
-                blackjackPanel.displayEndGameMessage(blackjackPanel.getBlackjack().determineWinners());
-            }
-        });
-
-        blackjackPanel.getExitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                blackjackPanel.endGame();
-            }
-        });
-    }
-
-    private static void setupButtons(BlackJackPanel blackjackPanel, BlackJack2 blackjack, Player player, Player dealer) {
-        blackjackPanel.getHitButton().setFocusable(false);
-        blackjackPanel.getStayButton().setFocusable(false);
-        blackjackPanel.getExitButton().setFocusable(false);
+        // Once game ends, show previous frame
+        mapFrame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        BlackJackApp2 bj = new BlackJackApp2();
+        BlackJackApp bj = new BlackJackApp();
     }
 }

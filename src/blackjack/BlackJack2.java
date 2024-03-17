@@ -2,99 +2,159 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import entity.User;
 import main.Deck;
 import main.Player;
 import main.Card;
 
 public class BlackJack2 {
-    private List<Player> players;
+
+    // Variables
+    private User user;
     private Deck deck;
+    private Player dealer;
+    private Player player;
+    private boolean gameStatus = true;
 
-    public BlackJack2() {
-        players = new ArrayList<>();
+    // Constructor
+    public BlackJack2(User user) {
+
+        // Pass in user
+        this.user = user;
+
+        // Create deck
         deck = new Deck();
+
+        // Create dealer & player
+        dealer = new Player("dealer");
+        player = new Player("player");
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-
+    // Basic getters
     public Deck getDeck() {
         return deck;
     }
 
+    public Player getDealer() {
+        return dealer;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public boolean getGameStatus() {
+        return gameStatus;
+    }
+
+    // Start game
     public void startGame() {
         // Shuffle the deck
         deck.shuffle();
 
         // Deal initial cards to players
-        for (Player player : players) {
-            player.addCard(deck.dealCard());
-            player.addCard(deck.dealCard());
+        dealer.addCard(deck.dealCard());
+        player.addCard(deck.dealCard());
+
+        // Now, user will either hit or stay
+    }
+
+    // User hits
+    public void hit() {
+        // Deal card to player
+        Card drawn_card = deck.dealCard();
+        player.addCard(drawn_card);
+        
+        // Dealer's turn
+        dealerTurn(false);
+    }
+
+    // User stays
+    public void stay() {
+        // No change to player
+
+        // Dealer's turn
+        dealerTurn(true);
+    }
+
+    public void dealerTurn(boolean playerStays) {
+
+        if (dealer.getHandValue() < 17) {
+            // Dealer hits
+            Card drawn_card = getDeck().dealCard();
+            dealer.addCard(drawn_card);
+
+            // Player's turn next
+        } else {
+            // Dealer stays
+
+            // Either end game
+            if (playerStays) {
+                // If both dealer and player stays, game ends 
+                gameStatus = false;
+                // Winners are determined
+                determineWinners();
+                // Update panel with results & exit button
+            }
+
+            // Or player's turn next
         }
     }
 
-    public ArrayList<Player> determineWinners() {
+    public String determineWinners() {
+
+        // Add winners into list
         ArrayList<Player> winners = new ArrayList<Player>();
-        int maxHandSize = 0;
-        boolean allBusted = true;
+        boolean playerWin = false;
 
-        for (Player player : players) {
-
-            int handSizeWithoutAce = player.getHandValue();
-            int handSizeWithAce = reducePlayerAce(player);
-
-            if (handSizeWithoutAce > 21) {
-                if (handSizeWithAce > 21) {
-                    continue;
-                } else {
-                    handSizeWithoutAce = handSizeWithAce;
-                }
-            }
-
-            // TODO - Check if any player has 7/7/7 or 5 Cards
-
-            if (handSizeWithAce > maxHandSize) {
-                maxHandSize = handSizeWithAce;
-                winners.clear();
+        if (dealer.getHandValue() > 21 && player.getHandValue() > 21) {
+            winners = null;
+        } else if (dealer.getHandValue() > 21 && player.getHandValue() <= 21) {
+            winners.add(player);
+            playerWin = true;
+        } else if (dealer.getHandValue() <= 21 && player.getHandValue() > 21) {
+            winners.add(dealer);
+        } else {
+            if (dealer.getHandValue() > player.getHandValue()) {
+                winners.add(dealer);
+            } else if (dealer.getHandValue() < player.getHandValue()) {
                 winners.add(player);
-                allBusted = false;
-            } else if (handSizeWithAce == maxHandSize) {
-                winners.add(player);
-                allBusted = false;
+                playerWin = true;
             } else {
-                continue;
-            }
-
-            if (handSizeWithoutAce <= 21) {
-                allBusted = false;
+                winners.add(dealer);
+                winners.add(player);
+                playerWin = true;
             }
         }
 
-        if (allBusted) {
-            return null;
+        // Update user bank
+        updateUserBank(playerWin);
+
+        // Based on winners, return respective message
+        String message = "";
+
+        if (winners == null) {
+            message = "All players busted!";
+        } else if (winners.size() == 1) {
+            message = winners.get(0).getName() + " is the winner!";
+        } else if (winners.size() > 1) {
+            message = "It's a tie!";
         }
 
-        return winners;
+        return message;
     }
 
-    public int reducePlayerAce(Player player) {
-        int total = 0;
-        for (Card card : player.getHand()) {
-            if (card.isAce()) {
-                total += 1;
-            } else {
-                total += card.getValue();
-            }
+    public void updateUserBank(boolean playerWin) {
+        // Update user bank based on game result
+        if (playerWin) {
+            user.money += 10;
+        } else {
+            user.money -= 10;
         }
-        return total;
-    }
-
-    public void revealAllHands() {
-        for (Player player : players) {
-            player.printHand();
-        }
-        System.out.println("");
     }
 
 }
