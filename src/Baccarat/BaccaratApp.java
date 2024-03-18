@@ -8,12 +8,11 @@ public class BaccaratApp {
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
         BettingSystem bettingSystem = new BettingSystem(player);
-        BettingGUI bettingGUI = new BettingGUI(bettingSystem);
         BaccaratGame baccaratGame = new BaccaratGame(bettingSystem);
         baccaratGame.addPlayer(player);
         baccaratGame.addPlayer(dealer);
 
-        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingGUI);
+        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingSystem);
         baccaratGUI.start();
     }
 }

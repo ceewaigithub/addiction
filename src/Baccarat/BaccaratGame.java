@@ -46,6 +46,7 @@ public class BaccaratGame {
     }
 
     public String compareScore(boolean natural){
+        System.out.println("comparing score");
         Player player = players.get(0);
         Player dealer = players.get(1);
         int playerScore = player.getHandValue()%10;
@@ -67,7 +68,7 @@ public class BaccaratGame {
             return "";
         } else {
             if(playerScore > dealerScore){
-                bettingSystem.winBet(1);
+                bettingSystem.winBet(2);
                 return "Player";
             }else if (playerScore < dealerScore){
                 bettingSystem.loseBet();

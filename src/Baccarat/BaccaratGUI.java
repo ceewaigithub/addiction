@@ -12,15 +12,15 @@ public class BaccaratGUI {
     private JFrame frame;
     private BaccaratGame BaccaratGame;
 
-    private BettingGUI BettingGUI;
+    private BettingSystem bettingSystem;
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel;
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, standButton, exitButton, nextGameButton;
     private List<Player> players;
-    public BaccaratGUI(BaccaratGame baccaratGame, BettingGUI bettingGUI) {
+    public BaccaratGUI(BaccaratGame baccaratGame, BettingSystem bettingSystem) {
 
-        BettingGUI = bettingGUI;
-        bettingPanel = BettingGUI.getBettingPanel();
+        this.bettingSystem = bettingSystem;
+        bettingPanel = bettingSystem.getBettingPanel();
         BaccaratGame = baccaratGame;
         frame = new JFrame("Baccarat");
         int boardWidth = 800;
@@ -141,7 +141,7 @@ public class BaccaratGUI {
             gamePanel.repaint();
         });
 
-        bettingGUI.getPlaceBetButton().addActionListener(e->{
+        bettingSystem.getPlaceBetButton().addActionListener(e->{
             startRound();
         });
 
@@ -184,7 +184,7 @@ public class BaccaratGUI {
     }
 
     public void showBettingControl(){
-        BettingGUI.updateBettingPanel();
+        bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
         buttonPanel.setVisible(false);
     }
