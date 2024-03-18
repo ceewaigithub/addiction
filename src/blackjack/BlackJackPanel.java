@@ -55,6 +55,9 @@ public class BlackJackPanel extends JPanel {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(255, 90, 01));
         frame.add(gamePanel);
+        // Update frame color immediately
+        gamePanel.revalidate();
+        gamePanel.repaint();
 
         // Set up buttonPanel + add buttonPanel
         buttonPanel = new JPanel();
