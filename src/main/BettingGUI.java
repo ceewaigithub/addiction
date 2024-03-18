@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BettingGUI {
-    private Player player;
+//    private Player player;
     private final String[] chipPaths = { "1", "2", "5", "10", "50" };
     private JPanel bettingPanel;
     private JPanel textPanel;
@@ -24,12 +24,14 @@ public class BettingGUI {
     private int width = 64;
     private int height = 64;
 
-    public BettingGUI(Player player) {
-        this.player = player;
+    public BettingGUI(BettingSystem bettingSystem) {
+//        this.player = player;
 //        pass in betting system, player
 //        or initialize betting system upon creation player
-        bettingSystem = new BettingSystem(player); // Set initial balance for betting system
-
+//        bettingSystem = new BettingSystem(player); // Set initial balance for betting system
+        this.bettingSystem = bettingSystem;
+    }
+    {
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120,20));
 //        clearBetButton.setUI(new BasicButtonUI());
@@ -69,7 +71,7 @@ public class BettingGUI {
             chipButtons[i].setPreferredSize(new Dimension(width + 10, height + 10));
             chipButtons[i].setOpaque(false);
             chipButtons[i].setBorder(null);
-//            chipButtons[i].setContentAreaFilled(false);
+            chipButtons[i].setContentAreaFilled(false);
             chipButtons[i].setUI(new BasicButtonUI());
             chipButtons[i].setBorderPainted(false);
             int finalI = i;
@@ -95,6 +97,7 @@ public class BettingGUI {
         nestedPanel.add(bettingPanel);
         nestedPanel.add(textPanel);
     }
+
 
     public JPanel getBettingPanel() {
         return nestedPanel;
