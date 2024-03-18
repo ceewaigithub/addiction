@@ -15,6 +15,7 @@ public class BaccaratGame {
 
     private BettingSystem bettingSystem;
 
+    private boolean activeRound = false;
     private int playerTurn;
     public BaccaratGame(BettingSystem bettingSystem) {
         this.bettingSystem = bettingSystem;
@@ -29,13 +30,9 @@ public class BaccaratGame {
     public void startGame() {
         // Make new deck every game
         deck = new Deck();
+
         // Start the game
-        if(playerTurn != 0){
-            for (Player player : players) {
-                player.discardHand();
-            }
-            playerTurn = 0;
-        }
+        activeRound = true;
 
         for (Player player : players) {
             for(int i = 0; i < 2; i++){
@@ -45,6 +42,7 @@ public class BaccaratGame {
             }
         }
         deck.printDeck();
+
     }
 
     public String compareScore(boolean natural){
@@ -56,20 +54,26 @@ public class BaccaratGame {
             if(playerScore >= 8 || dealerScore >= 8){
                 playerTurn = -1;
                 if(playerScore > dealerScore){
+                    bettingSystem.winBet(2);
                     return "Player";
                 }else if (playerScore < dealerScore){
+                    bettingSystem.loseBet();
                     return "Dealer";
                 }else{
+                    bettingSystem.pushBet();
                     return "Push";
                 }
             }
             return "";
         } else {
             if(playerScore > dealerScore){
+                bettingSystem.winBet(1);
                 return "Player";
             }else if (playerScore < dealerScore){
+                bettingSystem.loseBet();
                 return "Dealer";
             }else{
+                bettingSystem.pushBet();
                 return "Push";
             }
         }
@@ -101,12 +105,23 @@ public class BaccaratGame {
         }
     }
 
+    public boolean isActiveRound(){
+        return activeRound;
+    }
     public Deck getDeck() {
         return deck;
     }
 
     public List<Player> getPlayers(){
         return players;
+    }
+
+    public void endRound(){
+        activeRound = false;
+        for (Player player : players) {
+            player.discardHand();
+        }
+        playerTurn = 0;
     }
 
 //    public int getMultiplier(){

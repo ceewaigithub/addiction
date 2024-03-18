@@ -13,16 +13,25 @@ public class BaccaratGUI {
     private BaccaratGame BaccaratGame;
 
     private BettingGUI BettingGUI;
-    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel;
+    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel;
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, standButton, exitButton, nextGameButton;
     private List<Player> players;
     public BaccaratGUI(BaccaratGame baccaratGame, BettingGUI bettingGUI) {
-        BettingGUI = bettingGUI;
-        BaccaratGame = baccaratGame;
-        BaccaratGame.startGame();
 
+        BettingGUI = bettingGUI;
+        bettingPanel = BettingGUI.getBettingPanel();
+        BaccaratGame = baccaratGame;
         frame = new JFrame("Baccarat");
+        int boardWidth = 800;
+        int boardHeight = 540;
+
+        frame.setSize(boardWidth, boardHeight);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Set up gamePanel
         gamePanel = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -54,20 +63,6 @@ public class BaccaratGUI {
                 }
             }
         };
-        buttonPanel = new JPanel();
-
-    }
-
-    public void start() {
-        int boardWidth = 800;
-        int boardHeight = 540;
-
-        frame.setSize(boardWidth, boardHeight);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Set up gamePanel
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(0, 116, 3));
 
@@ -110,6 +105,7 @@ public class BaccaratGUI {
         exitButton.setFocusable(false);
 
         // Add buttons to the buttonPanel
+        buttonPanel = new JPanel();
         buttonPanel.add(hitButton);
         buttonPanel.add(standButton);
         buttonPanel.add(nextGameButton);
@@ -118,7 +114,7 @@ public class BaccaratGUI {
         // Add buttonPanel to the frame's SOUTH position
         controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel,BoxLayout.Y_AXIS));
-        controlPanel.add(BettingGUI.getBettingPanel());
+        controlPanel.add(bettingPanel);
         controlPanel.add(buttonPanel);
 
 
@@ -145,11 +141,30 @@ public class BaccaratGUI {
             gamePanel.repaint();
         });
 
+        bettingGUI.getPlaceBetButton().addActionListener(e->{
+            startRound();
+        });
+
         exitButton.addActionListener(e -> System.exit(0));
 
+
+
+
         frame.setVisible(true);
+    }
+
+    public void start() {
+        showBettingControl();
+        messageLabel.setText("Place your bet");
+    }
+
+    public void startRound(){
+        hideBettingControl();
+        messageLabel.setText("");
+        BaccaratGame.startGame();
         checkWinner(true);
     }
+
 
     public void dealerTurn(){
         disableButtons();
@@ -163,17 +178,27 @@ public class BaccaratGUI {
         nextGameButton.setVisible(true);
     }
 
+    public void hideBettingControl(){
+        bettingPanel.setVisible(false);
+        buttonPanel.setVisible(true);
+    }
+
+    public void showBettingControl(){
+        BettingGUI.updateBettingPanel();
+        bettingPanel.setVisible(true);
+        buttonPanel.setVisible(false);
+    }
+
     public void restartGame(){
         messageLabel.setText("");
         hitButton.setVisible(true);
         standButton.setVisible(true);
-        BaccaratGame.startGame();
         nextGameButton.setVisible(false);
-        checkWinner(true);
+        BaccaratGame.endRound();
+        start();
     }
 
     public void checkWinner(boolean natural){
-
         if(!BaccaratGame.compareScore(natural).isEmpty()){
             announceWinner(BaccaratGame.compareScore(natural));
             disableButtons();

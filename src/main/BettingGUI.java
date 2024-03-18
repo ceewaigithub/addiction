@@ -32,17 +32,14 @@ public class BettingGUI {
 //        or initialize betting system upon creation player
 //        bettingSystem = new BettingSystem(player); // Set initial balance for betting system
         bettingSystem = betSystem;
-//    }
-//
-//    {
+
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120,20));
 //        clearBetButton.setUI(new BasicButtonUI());
 //        clearBetButton.setBorderPainted(false);
         clearBetButton.addActionListener(e->{
             bettingSystem.resetBet();
-            balanceLabel.setText("Balance: " + bettingSystem.getPlayerBalance());
-            betLabel.setText("Bet: " + bettingSystem.getPlayerBet());
+            updateBettingPanel();
         });
 
         placeBetButton = new JButton("Place bet");//button to confirm bet
@@ -50,6 +47,7 @@ public class BettingGUI {
         placeBetButton.addActionListener(e->{
             //
         });
+
 
         bettingPanel = new JPanel(); //panel for chips
         bettingPanel.setBackground(new Color(0, 116, 3));
@@ -80,8 +78,7 @@ public class BettingGUI {
             int finalI = i;
             chipButtons[i].addActionListener(e -> {
                 bettingSystem.placeBet(Integer.parseInt(chipPaths[finalI]));
-                balanceLabel.setText("Balance: " + bettingSystem.getPlayerBalance());
-                betLabel.setText("Bet: " + bettingSystem.getPlayerBet());
+                updateBettingPanel();
             });
             bettingPanel.add(chipButtons[i]);
         }
@@ -105,7 +102,11 @@ public class BettingGUI {
     public JPanel getBettingPanel() {
         return nestedPanel;
     }
-
+    public void updateBettingPanel(){
+        betLabel.setText("Bet: " + bettingSystem.getPlayerBet());
+        balanceLabel.setText("Balance: " + bettingSystem.getPlayerBalance());
+    }
+    public JButton getPlaceBetButton(){ return placeBetButton;}
 //    public static void main(String[] args) {
 //        SwingUtilities.invokeLater(new Runnable() {
 //            @Override
