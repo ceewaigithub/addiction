@@ -5,7 +5,6 @@ public class BettingSystem {
 
     public BettingSystem(Player player) {
         this.player = player;
-//        this.playerBalance = player.getBalance();
         this.currentBet = 0;
     }
 
