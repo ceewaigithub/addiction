@@ -33,13 +33,11 @@ public class BlackJackApp2 {
         BlackJack2 blackjack = new BlackJack2(user);
 
         // Starting BlackJackApp runs BlackJackGUI
-        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack);     
+        JFrame bJframe = new JFrame("BlackJack");
+        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame);     
         
         // After setting up GUI, start game
         blackjack.startGame();
-
-        // Once game ends, show previous frame
-        mapFrame.setVisible(true);
     }
 
     public static void main(String[] args) {

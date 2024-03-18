@@ -8,15 +8,12 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import entity.User;
-import main.Card;
-import main.Player;
-
 public class BlackJackPanel extends JPanel {
 
     // Variables
     private BlackJack2 blackjack;
     private JFrame frame;
+    private JFrame mapFrame;
     private JPanel gamePanel, buttonPanel; 
     private JButton hitButton, stayButton, exitButton;
     private int boardWidth = 800;
@@ -24,10 +21,18 @@ public class BlackJackPanel extends JPanel {
     private BlackJackAssetSetter bJackAssetSetter;
 
     // Constructor
-    public BlackJackPanel(BlackJack2 blackjack) {
+    public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame) {
+
+        // Pass in blackjack game
+        this.blackjack = blackjack;
+
+        // Pass in current frame
+        this.frame = frame;
+
+        // Pass in previous frame
+        this.mapFrame = mapFrame;
 
         // Set up frame
-        frame = new JFrame("BlackJack");
         frame.setSize(boardWidth, boardHeight);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -35,13 +40,7 @@ public class BlackJackPanel extends JPanel {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Set up gamePanel + add gamePanel
-        gamePanel = new JPanel();
-        gamePanel.setLayout(new BorderLayout());
-        gamePanel.setBackground(new Color(255, 90, 01));
-        frame.add(gamePanel);
-
-        // Set up buttonPanel + add buttonPanel
-        buttonPanel = new JPanel() {
+        gamePanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 // Paint standard features
                 super.paintComponent(g);
@@ -53,6 +52,12 @@ public class BlackJackPanel extends JPanel {
                 }
             }
         };
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.setBackground(new Color(255, 90, 01));
+        frame.add(gamePanel);
+
+        // Set up buttonPanel + add buttonPanel
+        buttonPanel = new JPanel();
         frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Set up hitButton + purpose hitButton + add hitButton
@@ -90,6 +95,7 @@ public class BlackJackPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Close frame
                 frame.setVisible(false);
+                mapFrame.setVisible(true);
             }
         });
 
