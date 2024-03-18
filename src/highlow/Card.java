@@ -1,133 +1,100 @@
 package highlow;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Card {
+    private String suit;
+    private String rank;
 
-    // Code for the 4 suits
-    public final static int SPADES = 0;
-    public final static int HEARTS = 1;
-    public final static int DIAMONDS = 2;
-    public final static int CLUBS = 3;
-    public final static int JOKER = 4; // plus joker
+    static final int cardWidth = 73;
+    static final int cardHeight = 97;
 
-    // Codes for the non-numeric cards
-    public final static int ACE = 1;
-    public final static int JACK = 11;
-    public final static int QUEEN = 12;
-    public final static int KING = 13;
-
-    private final int suit;
-    private final int value;
-    // private final String imagePath; // Path to GIF image
-
-    public Card() {
-        suit = JOKER;
-        value = 1;
-        // imagePath = "cards/j.gif";
+    public Card(String suit, String rank) {
+        this.suit = suit;
+        this.rank = rank;
     }
 
-    public Card(int theValue, int theSuit){
-        if (theSuit != SPADES && theSuit != HEARTS && theSuit != DIAMONDS && theSuit != CLUBS && theSuit != JOKER){
-            throw new IllegalArgumentException("Illegal playing card suit");
-        }
-
-        if (theSuit != JOKER && (theValue < 1 || theValue > 13)){
-            throw new IllegalArgumentException("Illegal playing card value");
-        }
-
-        value = theValue;
-        suit = theSuit;
-        // this.imagePath
+    public Card(String suit) {
+        this.suit = suit;
+        this.rank = "";
     }
 
-    // returns suit of card
-    public int getSuit() {
+    // Getters and setters
+    public String getRank() {
+        return rank;
+    }
+
+    public String getSuit() {
         return suit;
     }
 
-    // returns value of card
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public void setSuit(String suit) {
+        this.suit = suit;
+    }
+
+    // Baccarat
     public int getValue() {
-        return value;
-    }
-
-    // returns suit as String
-    public String getSuitAsString() {
-        switch (suit) {
-            case SPADES:
-                return "Spades";
-            case HEARTS:
-                return "Hearts";
-            case DIAMONDS:
-                return "Diamonds";
-            case CLUBS:
-                return "Clubs";
-            default:
-                return "Joker";
-        }
-    }
-
-    // returns value as String
-    public String getValueAsString() {
-        if (suit == JOKER) {
-            return "" + value;
+        if (rank.equals("a")) {
+            return 11;
+        } else if (rank.equals("j") || rank.equals("q") || rank.equals("k") || rank.equals("t")) {
+            return 10;
         } else {
-            switch (value) {
-                case 1:
-                    return "Ace";
-                case 2:
-                    return "2";
-                case 3:
-                    return "3";
-                case 4:
-                    return "4";
-                case 5:
-                    return "5";
-                case 6:
-                    return "6";
-                case 7:
-                    return "7";
-                case 8:
-                    return "8";
-                case 9:
-                    return "9";
-                case 10:
-                    return "10";
-                case 11:
-                    return "Jack";
-                case 12:
-                    return "Queen";
-                default:
-                    return "King";
-            }
+            return Integer.parseInt(rank);
         }
     }
 
-    // returns card object as String
+    // HighLow
+    public int getHighLowValue() {
+        if (rank.equals("a")) {
+            return 1;
+        } else if (rank.equals("t")){
+            return 10;
+        } else if (rank.equals("j")){
+            return 11;
+        } else if (rank.equals("q")){
+            return 12;
+        } else if (rank.equals("k")){
+            return 13;
+        } else {
+            return Integer.parseInt(rank);
+        }
+    }
+
+
+
+//    public String getImagePath() {
+//        return "cards/" + rank + suit + ".gif";
+//    }
+    @Override
     public String toString() {
-        if (suit == JOKER){
-            if (value == 1) {
-                return "Joker";
-            } else {
-                return "Joker #" + value;
-            }
-        } else {
-            return getValueAsString() + " of " + getSuitAsString();
+        return rank + "" + suit;
+    }
+    public Image getImage() {
+        try {
+            String imagePath = "res/cards/" + rank + suit + ".gif";
+            System.out.println(imagePath);
+            return new ImageIcon(imagePath).getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
-
-    // returns image path of the card
-    public String getImagePath() {
-        String value;
-
-        // if 10, value = "t";
-        if (getValue() == 10) {
-            value = "t";
-        } else {
-            value = getValueAsString().substring(0,1).toLowerCase();
-        }
-        
-        String suit = getSuitAsString().substring(0,1).toLowerCase();
-        // System.out.println("" + value + suit);
-        return "res/cards/" + value + suit + ".gif";
+    public void printCard(Graphics g, int x, int y){
+        g.drawImage(this.getImage(), x, y, cardWidth, cardHeight, null);
     }
+
+    public static int getCardWidth(){
+        return cardWidth;
+    }
+
+    public static int getCardHeight(){
+        return cardHeight;
+    }
+
 }

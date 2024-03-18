@@ -1,73 +1,55 @@
 package highlow;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Deck {
-    private Card[] deck;
-    private int cardUsed;
+    private List<Card> cards;
 
     public Deck() {
-        this(false);
-    }
 
-    public Deck(boolean includeJokers) {
+        // Initialize the deck with all the cards
+        // Do not modify this code, most of the logic uses these specific strings
+        String[] suits = {"c", "d", "h", "s"};
+        String[] ranks = {"a", "2", "3", "4", "5", "6", "7", "8", "9",
+                "t", "j", "q", "k"};
+        cards = new ArrayList<>();
 
-        // If includeJokers is true, make deck with 52 + 2 jokers = 54
-        if (includeJokers) {
-            deck = new Card[54];
-        } else {
-            deck = new Card[52];
-        }
-
-        int cardCount = 0;
-
-        // Creating the deck
-        for (int suit = 0; suit <= 3; suit++) {
-            for (int value = 1; value <= 13; value++) {
-                deck[cardCount++] = new Card(value, suit);
-                // System.out.println(deck[cardCount]);
+        // Initialize the deck with all the cards
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                cards.add(new Card(suit, rank));
             }
         }
 
-        // Adding jokers if needed
-        if (includeJokers) {
-            deck[52] = new Card(1, Card.JOKER);
-            deck[53] = new Card(2, Card.JOKER);
-        }
-
-        cardUsed = 0;
-
+        shuffle();
     }
 
-    // shuffle deck of cards
     public void shuffle() {
-        for (int i = deck.length - 1; i > 0; i--) {
-            int rand = (int) (Math.random() * (i + 1));
-            // System.out.println(deck[i]);
-            Card temp = deck[i];
-            deck[i] = deck[rand];
-            deck[rand] = temp;
-        }
-
-        // reset cards used
-        cardUsed = 0;
+        Collections.shuffle(cards);
     }
 
-    // how many cards are left
-    public int cardsLeft() {
-        return deck.length - cardUsed;
-    }
-
-    // remove next card from deck and return it
     public Card dealCard() {
-        if (cardsLeft() == 0) {
-            System.out.println("Dealcard Error");
-            throw new IllegalStateException("No cards are left in the deck.");
+        if (cards.isEmpty()) {
+            // Handle case when there are no more cards in the deck
+            return null;
         }
 
-        return deck[cardUsed++];
+        // KANBAN: Maybe we should use a queue instead of a list?
+        return cards.remove(0);
     }
 
-    // does this deck have jokers?
-    public boolean hasJokers() {
-        return (deck.length == 54);
+
+    public void printDeck() {
+        System.out.print("Deck: [");
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.print(cards.get(i));
+            if (i != cards.size() - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("] ");
+        System.out.println("(Cards Remaining): " + cards.size());
     }
 }

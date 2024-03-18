@@ -30,7 +30,7 @@ public class HighLowGUI {
         // Top Panel
         topPanel = new JPanel();
         topPanel.setBackground(gamePanel.getBackground());
-        topLabel = new JLabel("Will the next card be higher or lower?");
+        topLabel = new JLabel("HIGHER OR LOWER?");
         topLabel.setForeground(Color.WHITE);
         topLabel.setFont(new Font("Arial", Font.BOLD, 15));
         topPanel.add(topLabel);
@@ -75,6 +75,18 @@ public class HighLowGUI {
 
         // Make frame visible
         frame.setVisible(true);
+    }
+
+    // To display card in GUI
+    public void displayCard(Card card, JPanel panel) {
+        // ImageIcon icon = new ImageIcon(card.getImagePath());
+        // JLabel label = new JLabel(icon);
+        Image image = card.getImage();
+        JLabel label = new JLabel(new ImageIcon(image));
+        panel.removeAll();
+        panel.add(label);
+        panel.revalidate();
+        panel.repaint();
     }
 
     public JFrame getFrame() {
