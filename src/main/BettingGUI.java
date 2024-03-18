@@ -1,5 +1,3 @@
-package main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BettingGUI {
+    private Player player;
     private final String[] chipPaths = { "1", "2", "5", "10", "50" };
     private JPanel bettingPanel;
     private JPanel textPanel;
@@ -25,13 +24,16 @@ public class BettingGUI {
     private int width = 64;
     private int height = 64;
 
-    public BettingGUI() {
+    public BettingGUI(Player player) {
+        this.player = player;
 //        pass in betting system, player
 //        or initialize betting system upon creation player
-        bettingSystem = new BettingSystem(1000); // Set initial balance for betting system
+        bettingSystem = new BettingSystem(player); // Set initial balance for betting system
 
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120,20));
+//        clearBetButton.setUI(new BasicButtonUI());
+//        clearBetButton.setBorderPainted(false);
         clearBetButton.addActionListener(e->{
             bettingSystem.resetBet();
             balanceLabel.setText("Balance: " + bettingSystem.getPlayerBalance());
@@ -67,7 +69,7 @@ public class BettingGUI {
             chipButtons[i].setPreferredSize(new Dimension(width + 10, height + 10));
             chipButtons[i].setOpaque(false);
             chipButtons[i].setBorder(null);
-            chipButtons[i].setContentAreaFilled(false);
+//            chipButtons[i].setContentAreaFilled(false);
             chipButtons[i].setUI(new BasicButtonUI());
             chipButtons[i].setBorderPainted(false);
             int finalI = i;
@@ -98,12 +100,12 @@ public class BettingGUI {
         return nestedPanel;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new BettingGUI();
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                new BettingGUI();
+//            }
+//        });
+//    }
 }
