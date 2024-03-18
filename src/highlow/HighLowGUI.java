@@ -1,16 +1,20 @@
 package highlow;
 
 import java.awt.*;
-// import java.util.Scanner;
+import java.util.List;
+
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
 
 public class HighLowGUI {
     private JFrame frame;
-    private JPanel gamePanel, buttonPanel, topPanel, bottomPanel;
+    private JPanel gamePanel, buttonPanel, topPanel, bottomPanel, centerPanel, row1, row2, row3;
     private JLabel topLabel, bottomLabel, messageLabel;
-    private JButton higherButton, lowerButton, exitButton;
+    private JButton higherButton, lowerButton, exitButton, nextGameButton;
+    private List<Player> players;
 
     public HighLowGUI() {
+    
         frame = new JFrame("High Low");
         gamePanel = new JPanel();
         buttonPanel = new JPanel();
@@ -30,9 +34,11 @@ public class HighLowGUI {
         // Top Panel
         topPanel = new JPanel();
         topPanel.setBackground(gamePanel.getBackground());
+        // topPanel.setBackground(Color.GREEN);
         topLabel = new JLabel("HIGHER OR LOWER?");
         topLabel.setForeground(Color.WHITE);
-        topLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        topLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        topLabel.setHorizontalAlignment(JLabel.CENTER);
         topPanel.add(topLabel);
 
         // Bottom Panel
@@ -43,7 +49,27 @@ public class HighLowGUI {
         bottomLabel.setFont(new Font("Arial", Font.BOLD, 15));
         bottomPanel.add(bottomLabel);
 
-        // Add Top and Bottom panels to the gamePanel
+        // Center Panel
+        centerPanel = new JPanel(new GridLayout(3,1));
+        centerPanel.setBackground(gamePanel.getBackground());
+        // centerPanel.setBackground(Color.BLUE);
+
+        // Center Panel row 1
+        row1 = new JPanel(new BorderLayout());
+        row2 = new JPanel();
+        row3 = new JPanel();
+        row1.setBackground(gamePanel.getBackground());
+        row2.setBackground(gamePanel.getBackground());
+        row3.setBackground(gamePanel.getBackground());
+
+        row1.add(topLabel, BorderLayout.CENTER);
+        // row1.setBackground(Color.BLACK);
+        // row2.setBackground(Color.BLUE);
+        // row3.setBackground(Color.RED);
+        // row1.setLayout(new BorderLayout());
+        
+
+        // Add Top, Bottom and Center panels to the gamePanel
         gamePanel.add(topPanel, BorderLayout.NORTH);
         gamePanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -52,7 +78,13 @@ public class HighLowGUI {
         messageLabel.setForeground(Color.WHITE);
         messageLabel.setFont(new Font("Arial", Font.BOLD, 24));
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gamePanel.add(messageLabel, BorderLayout.CENTER);
+        row3.add(messageLabel);
+
+        centerPanel.add(row1);
+        centerPanel.add(row2);
+        centerPanel.add(row3);
+
+        gamePanel.add(centerPanel, BorderLayout.CENTER);
 
         // Set up buttons and add to the buttonPanel
         higherButton = new JButton("Higher");
@@ -61,11 +93,15 @@ public class HighLowGUI {
         lowerButton.setFocusable(false);
         exitButton = new JButton("Exit");
         exitButton.setFocusable(false);
+        // nextGameButton = new JButton("Next Game");
+        // nextGameButton.setFocusable(false);
+        // nextGameButton.setVisible(false);
 
         // Add buttons to the buttonPanel
         buttonPanel.add(higherButton);
         buttonPanel.add(lowerButton);
         buttonPanel.add(exitButton);
+        // buttonPanel.add(nextGameButton);
 
         // Add buttonPanel to the frame's SOUTH position
         frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -79,11 +115,9 @@ public class HighLowGUI {
 
     // To display card in GUI
     public void displayCard(Card card, JPanel panel) {
-        // ImageIcon icon = new ImageIcon(card.getImagePath());
-        // JLabel label = new JLabel(icon);
         Image image = card.getImage();
         JLabel label = new JLabel(new ImageIcon(image));
-        panel.removeAll();
+        label.setLayout(new BorderLayout());
         panel.add(label);
         panel.revalidate();
         panel.repaint();
@@ -109,8 +143,20 @@ public class HighLowGUI {
         return lowerButton;
     }
 
+    // public JButton getNextGameButton() {
+    //     return nextGameButton;
+    // }
+
     public JButton getExitButton() {
         return exitButton;
+    }
+
+    public JPanel getCenterPanel(){
+        return centerPanel;
+    }
+
+    public JPanel getRow2(){
+        return row2;
     }
 
     public JPanel getBottomPanel() {

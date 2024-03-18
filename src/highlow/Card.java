@@ -3,7 +3,7 @@ package highlow;
 import javax.swing.*;
 import java.awt.*;
 
-public class Card {
+public class Card implements Comparable<Card>{
     private String suit;
     private String rank;
 
@@ -48,8 +48,7 @@ public class Card {
         }
     }
 
-    // HighLow
-    public int getHighLowValue() {
+    public int getRankIndex() {
         if (rank.equals("a")) {
             return 1;
         } else if (rank.equals("t")){
@@ -65,7 +64,9 @@ public class Card {
         }
     }
 
-
+    public int compareTo(Card anotherCard) {
+        return getRankIndex() - anotherCard.getRankIndex();
+    }
 
 //    public String getImagePath() {
 //        return "cards/" + rank + suit + ".gif";
