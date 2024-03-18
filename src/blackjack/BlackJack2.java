@@ -69,17 +69,11 @@ public class BlackJack2 {
         // Deal card to player
         Card drawn_card = deck.dealCard();
         player.addCard(drawn_card);
-        
-        // Dealer's turn
-        dealerTurn(false);
     }
 
     // User stays
     public void stay() {
         // No change to player
-
-        // Dealer's turn
-        dealerTurn(true);
     }
 
     public void dealerTurn(boolean playerStays) {
@@ -99,7 +93,6 @@ public class BlackJack2 {
                 gameStatus = false;
                 // Winners are determined
                 determineWinners();
-                // Update panel with results & exit button
             }
 
             // Or player's turn next

@@ -70,7 +70,13 @@ public class BlackJackPanel extends JPanel {
                 // Hit in game
                 blackjack.hit();
                 // Repaint panel
-                repaint();
+                frame.revalidate();
+                frame.repaint();
+                // Dealer turn
+                blackjack.dealerTurn(false);
+                // Repaint panel
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
@@ -84,7 +90,13 @@ public class BlackJackPanel extends JPanel {
                 // Stay in game
                 blackjack.stay();
                 // Repaint panel
-                repaint();
+                frame.revalidate();
+                frame.repaint();
+                // Dealer turn
+                blackjack.dealerTurn(true);
+                // Repaint panel
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
@@ -107,6 +119,10 @@ public class BlackJackPanel extends JPanel {
     }
 
     public void endGame(Graphics g, String message) {
+
+        // Repaint panel
+        frame.revalidate();
+        frame.repaint();
 
         // Display results
         g.setFont(new Font("Arial", Font.BOLD, 30));
