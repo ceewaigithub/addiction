@@ -1,15 +1,23 @@
 package Baccarat;
 
+import main.BettingSystem;
+import main.Player;
+import main.Card;
+import main.Deck;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class BaccaratGame {
+
+public class BaccaratGame {
     private Deck deck;
     private List<Player> players;
 
+    private BettingSystem bettingSystem;
+
     private int playerTurn;
-    public BaccaratGame() {
+    public BaccaratGame(BettingSystem bettingSystem) {
+        this.bettingSystem = bettingSystem;
         players = new ArrayList<>();
         playerTurn = 0;
     }

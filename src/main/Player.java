@@ -1,22 +1,57 @@
 package main;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String name;
     private List<Card> hand;
 
+    private int money = 1000;
+
+
     public Player(String name) {
         this.name = name;
-        hand = new ArrayList<>();
+        this.hand = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
+    public List<Card> getHand() {
+        return hand;
+    }
+
     public void addCard(Card card) {
         hand.add(card);
+    }
+
+    public int getHandValue() {
+        int value = 0;
+        for (Card card : hand) {
+            value += card.getValue();
+        }
+        return value;
+    }
+
+    public void discardHand() {
+        hand.clear();
+    }
+
+    public boolean isDealer(){
+        if(name == "Dealer"){
+            return true;
+        }
+        return false;
+    }
+
+    public int getBalance(){
+        return money;
+    }
+
+    public void setBalance(int toSet){
+        money = toSet;
     }
 
     public void printHand() {
@@ -36,30 +71,6 @@ public class Player {
         System.out.println(name + "'s Hand Size: " + hand.size());
     }
 
-    public List<Card> getHand() {
-        return hand;
-    }
-
-    public int getHandValue() {
-        int value = 0;
-        int aceCount = 0;
-        for (Card card : hand) {
-            value += card.getValue();
-            if (card.isAce()) {
-                aceCount++;
-            }
-        }
-        if (value > 21 && aceCount > 0) {
-            // If the player has aces and the hand value is greater than 21,
-            // then we can convert the value of the ace from 11 to 1
-            // until the hand value is less than 21 or there are no more aces
-            while (value > 21 && aceCount > 0) {
-                value -= 10;
-                aceCount--;
-            }
-        }
-        return value;
-    }
 
     public boolean hasBlackJack() {
         return getHandValue() == 21;

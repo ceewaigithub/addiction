@@ -1,9 +1,10 @@
 package Baccarat;
 
+import main.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-class Player {
+public class Player {
     private String name;
     private List<Card> hand;
 

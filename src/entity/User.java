@@ -136,6 +136,10 @@ public class User extends Entity{
         }
     }
 
+    public int getBalance(){
+        return money;
+    }
+
     public void clearKeyPresses() {
         keyH.spacePressed = false;
         keyH.upPressed = false;

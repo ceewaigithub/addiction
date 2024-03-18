@@ -1,3 +1,5 @@
+package main;
+
 public class BettingSystem {
 //    private int playerBalance;
     private int currentBet;
@@ -5,7 +7,7 @@ public class BettingSystem {
 
     public BettingSystem(Player player) {
         this.player = player;
-        this.currentBet = 0;
+        currentBet = 0;
     }
 
     public int getPlayerBalance() {

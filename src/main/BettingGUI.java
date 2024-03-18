@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -24,14 +26,15 @@ public class BettingGUI {
     private int width = 64;
     private int height = 64;
 
-    public BettingGUI(BettingSystem bettingSystem) {
+    public BettingGUI(BettingSystem betSystem) {
 //        this.player = player;
 //        pass in betting system, player
 //        or initialize betting system upon creation player
 //        bettingSystem = new BettingSystem(player); // Set initial balance for betting system
-        this.bettingSystem = bettingSystem;
-    }
-    {
+        bettingSystem = betSystem;
+//    }
+//
+//    {
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120,20));
 //        clearBetButton.setUI(new BasicButtonUI());
@@ -63,7 +66,7 @@ public class BettingGUI {
 //        Border emptyborder = BorderFactory.createEmptyBorder();
 
         for (int i = 0; i < chipPaths.length; i++) { //adding image and actionlistener to button and to panel
-            String imagePath = "chips/" + chipPaths[i] + ".png";
+            String imagePath = "res/chips/" + chipPaths[i] + ".png";
             System.out.println(imagePath);
             Image icon = new ImageIcon(imagePath).getImage();
             Image scaledImage = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);

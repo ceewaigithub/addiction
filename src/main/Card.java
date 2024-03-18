@@ -1,19 +1,25 @@
 package main;
 
-import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class Card {
     private String suit;
-    private String rank;    
+    private String rank;
 
-    // Insert cardWidth and height
+    static final int cardWidth = 73;
+    static final int cardHeight = 97;
 
     public Card(String suit, String rank) {
         this.suit = suit;
         this.rank = rank;
     }
 
-    // Insert constructor 2
+    public Card(String suit) {
+        this.suit = suit;
+        this.rank = "";
+    }
 
     // Getters and setters
     public String getRank() {
@@ -42,19 +48,44 @@ public class Card {
         }
     }
 
-    // Add into Adrian's
-    public boolean isAce() {
-        return rank.equals("a");
-    }
-    
-    // Replace with getImage
-    public String getImagePath() {
-        return "./cards/" + rank + suit + ".gif";
-    }
-
-    // Add Print card, Get card width, Get card height
+    //    public String getImagePath() {
+//        return "cards/" + rank + suit + ".gif";
+//    }
     @Override
     public String toString() {
         return rank + "" + suit;
     }
+    public Image getImage() {
+        try {
+            String imagePath = "res/cards/" + rank + suit + ".gif";
+            System.out.println(imagePath);
+            return new ImageIcon(imagePath).getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void printCard(Graphics g, int x, int y){
+        g.drawImage(this.getImage(), x, y, cardWidth, cardHeight, null);
+    }
+
+    public static int getCardWidth(){
+        return cardWidth;
+    }
+
+    public static int getCardHeight(){
+        return cardHeight;
+    }
+
+    public boolean isAce() {
+        return rank.equals("a");
+    }
+
+
+    // Sara to remove:
+    public String getImagePath() {
+        return "./cards/" + rank + suit + ".gif";
+    }
+
 }

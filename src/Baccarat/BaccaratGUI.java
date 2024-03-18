@@ -1,5 +1,9 @@
 package Baccarat;
 
+import main.BettingGUI;
+import main.BettingSystem;
+import main.Player;
+import main.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -7,16 +11,15 @@ import java.util.List;
 public class BaccaratGUI {
     private JFrame frame;
     private BaccaratGame BaccaratGame;
-    private JPanel gamePanel, buttonPanel, topPanel, bottomPanel;
+
+    private BettingGUI BettingGUI;
+    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel;
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, standButton, exitButton, nextGameButton;
     private List<Player> players;
-    public BaccaratGUI() {
-        BaccaratGame = new BaccaratGame();
-        Player player = new Player("Player");
-        Player dealer = new Player("Dealer");
-        BaccaratGame.addPlayer(player);
-        BaccaratGame.addPlayer(dealer);
+    public BaccaratGUI(BaccaratGame baccaratGame, BettingGUI bettingGUI) {
+        BettingGUI = bettingGUI;
+        BaccaratGame = baccaratGame;
         BaccaratGame.startGame();
 
         frame = new JFrame("Baccarat");
@@ -27,8 +30,8 @@ public class BaccaratGUI {
 
                 // Paint game panel
                 players = BaccaratGame.getPlayers();
-                int centerPlayerX = (getWidth() - (player.getHand().size() * Card.getCardWidth())) / 2;
-                int centerDealerX = (getWidth() - (dealer.getHand().size() * Card.getCardWidth())) / 2;
+                int centerPlayerX = (getWidth() - (players.getFirst().getHand().size() * Card.getCardWidth())) / 2;
+                int centerDealerX = (getWidth() - (players.getLast().getHand().size() * Card.getCardWidth())) / 2;
                 int spacing = 10;
 
                 Card hiddenCard = new Card("b");
@@ -113,7 +116,13 @@ public class BaccaratGUI {
         buttonPanel.add(exitButton);
 
         // Add buttonPanel to the frame's SOUTH position
-        frame.add(buttonPanel, BorderLayout.SOUTH);
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new BoxLayout(controlPanel,BoxLayout.Y_AXIS));
+        controlPanel.add(BettingGUI.getBettingPanel());
+        controlPanel.add(buttonPanel);
+
+
+        frame.add(controlPanel, BorderLayout.SOUTH);
 
         // Add gamePanel to the frame
         frame.add(gamePanel);
