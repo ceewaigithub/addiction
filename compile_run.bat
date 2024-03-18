@@ -3,9 +3,12 @@
 REM Create the class directory if it doesn't exist
 mkdir class
 
-REM Compile the Java files
+REM Compile all Java files in the res folder
 echo Compiling Java files...
-javac -d class -cp res *.java
+REM Compile all Java files in the src folder and its subdirectories
+for /r src %%G in (*.java) do (
+    javac -d class -sourcepath src "%%G"
+)
 
 REM Run the Main class
 echo Running project...

@@ -19,7 +19,6 @@ public class BlackJackPanel extends JPanel {
     private int boardWidth = 800;
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
-
     // Constructor
     public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame) {
 
@@ -38,6 +37,9 @@ public class BlackJackPanel extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Set up blackJackAssetSetter
+        bJackAssetSetter = new BlackJackAssetSetter(blackjack, boardWidth, boardHeight);
 
         // Set up gamePanel + add gamePanel
         gamePanel = new JPanel() {
@@ -113,9 +115,6 @@ public class BlackJackPanel extends JPanel {
                 mapFrame.setVisible(true);
             }
         });
-
-        // Set up Asset Setter
-        bJackAssetSetter = new BlackJackAssetSetter(blackjack, boardWidth, boardHeight);
 
         // After setting up GUI, start game
         blackjack.startGame();

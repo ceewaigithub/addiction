@@ -1,12 +1,2 @@
-@echo off
-
-REM Create the class directory if it doesn't exist
-mkdir class
-
-REM Compile the Java files
-echo Compiling Java files...
-javac -d class -cp res *.java
-
-REM Run the Main class
-echo Running project...
-java -cp class world.Main
+REM Compile all Java files in the src folder and its subdirectories
+for /r src %%G in (*.java) do (
