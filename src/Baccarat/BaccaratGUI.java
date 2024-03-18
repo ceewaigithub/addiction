@@ -142,7 +142,11 @@ public class BaccaratGUI {
         });
 
         bettingSystem.getPlaceBetButton().addActionListener(e->{
-            startRound();
+            if(bettingSystem.getPlayerBet() > 0) {
+                startRound();
+            }else{
+                messageLabel.setText("Place bet to start game");
+            }
         });
 
         exitButton.addActionListener(e -> System.exit(0));
