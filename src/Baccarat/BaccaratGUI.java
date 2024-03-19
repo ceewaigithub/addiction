@@ -142,29 +142,22 @@ public class BaccaratGUI {
         });
 
         bettingSystem.getPlaceBetButton().addActionListener(e->{
-            if(bettingSystem.getPlayerBet() > 0) {
-                startRound();
-            }else{
-                messageLabel.setText("Place bet to start game");
-            }
+            placeBet();
         });
 
         exitButton.addActionListener(e -> System.exit(0));
-
-
-
 
         frame.setVisible(true);
     }
 
     public void start() {
         showBettingControl();
-        messageLabel.setText("Place your bet");
+        setMessage("Place your bet");
     }
 
     public void startRound(){
         hideBettingControl();
-        messageLabel.setText("");
+        setMessage("");
         BaccaratGame.startGame();
         checkWinner(true);
     }
@@ -194,7 +187,7 @@ public class BaccaratGUI {
     }
 
     public void restartGame(){
-        messageLabel.setText("");
+        setMessage("");
         hitButton.setVisible(true);
         standButton.setVisible(true);
         nextGameButton.setVisible(false);
@@ -213,8 +206,15 @@ public class BaccaratGUI {
         messageLabel.setText(message);
     }
 
+    public void placeBet(){
+        if(bettingSystem.getPlayerBet() > 0) {
+            startRound();
+        }else{
+            setMessage("Place bet to start game");
+        }
+    }
     public void announceWinner(String win){
-        if(win != "Push"){
+        if(!win.equals("Push")){
             setMessage(win + " Won!");
         } else {
             setMessage("It's a Push!");

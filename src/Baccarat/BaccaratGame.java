@@ -5,7 +5,6 @@ import main.Player;
 import main.Card;
 import main.Deck;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -83,10 +82,6 @@ public class BaccaratGame {
     public int getPlayerTurn(){
         return playerTurn;
     }
-    public List<Player> determineWinners() {
-        // Determine winners of the game
-        return null;
-    }
 
     public void hit(){
         players.get(playerTurn).addCard(deck.dealCard());
@@ -125,47 +120,4 @@ public class BaccaratGame {
         playerTurn = 0;
     }
 
-//    public int getMultiplier(){
-//
-//    }
-
-//    public void checkWin(){
-//
-//        List<Card> playerHand = players.get(playerTurn).getHand();
-//        System.out.println("Three of a kind: "+checkThreeOfAKind(playerHand));
-//        System.out.println("Same suit: "+checkSameSuit(playerHand));
-//        System.out.println("Straights: "+checkStraight(playerHand));
-//    }
-    public static boolean checkThreeOfAKind(List<Card> hand) {
-        if (hand.size() != 3) {
-            throw new IllegalArgumentException("Exactly 3 cards are required.");
-        }
-
-        int[] numbers = {hand.get(0).getValue(), hand.get(1).getValue(), hand.get(2).getValue()};
-        Arrays.sort(numbers);
-
-        return numbers[0] == numbers[2];
-    }
-
-    // Function to check if the 3 cards have the same suit
-    public static boolean checkSameSuit(List<Card> hand) {
-        if (hand.size() != 3) {
-            throw new IllegalArgumentException("Exactly 3 cards are required.");
-        }
-
-        return hand.get(0).getSuit().equals(hand.get(1).getSuit()) && hand.get(1).getSuit().equals(hand.get(2).getSuit());
-    }
-
-    // Function to check if the 3 cards form a straight
-    public static boolean checkStraight(List<Card> hand) {
-        if (hand.size() != 3) {
-            throw new IllegalArgumentException("Exactly 3 cards are required.");
-        }
-
-        int[] numbers = {hand.get(0).getValue(), hand.get(1).getValue(), hand.get(2).getValue()};
-        Arrays.sort(numbers);
-
-        return (numbers[0] + 1 == numbers[1] && numbers[1] + 1 == numbers[2]) ||
-                (numbers[0] == 1 && numbers[1] == 10 && numbers[2] == 13);
-    }
 }
