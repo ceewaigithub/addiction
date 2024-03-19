@@ -225,4 +225,8 @@ public class User extends Entity{
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
+    public void addMoney(int amount){
+        money += amount;
+    }
+
 }
