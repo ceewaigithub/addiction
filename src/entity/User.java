@@ -144,7 +144,7 @@ public class User extends Entity{
             //     }
             // }
             switch (objectName) {
-                case "Chest":
+                case "BlackJack":
                     gp.ui.showMessage("BlackJack");
                     if (keyH.spacePressed) {
                         gp.playSE(1);
@@ -164,6 +164,24 @@ public class User extends Entity{
                             gp.playSE(3);
                             gp.ui.showMessage("You don't have enough money");
                         }
+                    }
+                    break;
+                case "Bacarrat":
+                    gp.ui.showMessage("Bacarrat");
+                    if (keyH.spacePressed) {
+                        gp.playSE(1);
+                        gp.frame.setVisible(false);
+                        BaccaratApp b = new BaccaratApp();
+                        clearKeyPresses(); // clear key presses so that the player doesn't move while playing
+                    }
+                    break;
+                case "HighLow":
+                    gp.ui.showMessage("HighLow");
+                    if (keyH.spacePressed) {
+                        gp.playSE(1);
+                        gp.frame.setVisible(false);
+                        HighLowApp hl = new HighLowApp();
+                        clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
             }

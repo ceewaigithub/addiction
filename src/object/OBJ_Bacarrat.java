@@ -4,9 +4,9 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public class OBJ_Chest extends SuperObject {
-    public OBJ_Chest() {
-        name = "Chest";
+public class OBJ_Bacarrat extends SuperObject {
+    public OBJ_Bacarrat() {
+        name = "Bacarrat";
         collision = true;
         String currentDirectory = new File("").getAbsolutePath();
         try {
