@@ -149,7 +149,6 @@ public class GamePanel extends JPanel implements Runnable {
         //sound.fadeBackgroundMusic();
         se.setVolume(1.5f);
         se.play();
-
     }
 
 }

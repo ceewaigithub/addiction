@@ -142,12 +142,12 @@ public class BlackJack2 {
         return message;
     }
 
-    public void updateUserBank(boolean playerWin) {
+    public synchronized void updateUserBank(boolean playerWin) {
         // Update user bank based on game result
         if (playerWin) {
-            user.money += 10;
+            user.addMoney(10);
         } else {
-            user.money -= 10;
+            user.subtractMoney(10);
         }
     }
 

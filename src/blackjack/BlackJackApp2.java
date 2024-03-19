@@ -34,7 +34,7 @@ public class BlackJackApp2 {
 
         // Starting BlackJackApp runs BlackJackGUI
         JFrame bJframe = new JFrame("BlackJack");
-        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame);     
+        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame);
         
         // After setting up GUI, start game
         blackjack.startGame();

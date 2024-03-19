@@ -24,6 +24,7 @@ public class User extends Entity{
     public final int screenY;
     public int money = 0;
     public String sprite;
+    private final Object moneyLock = new Object();
 
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -126,25 +127,6 @@ public class User extends Entity{
     public void interactWithObject(int idx) {
         if (idx != 999) {
             String objectName = gp.obj[idx].name;
-            // if (objectName.equals("Chest")) {
-            //     gp.ui.showMessage("BlackJack");
-            //     if (keyH.spacePressed) {
-            //         gp.playSE(1);
-            //         gp.frame.setVisible(false);
-            //         BlackJackApp2 bj = new BlackJackApp2(this, gp.frame);
-            //         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
-            //     }
-            // } else if (objectName.equals("Door")) {
-            //     gp.ui.showMessage("Pay 50 to enter");
-            //     if (keyH.spacePressed) {
-            //         if (money >= 50) {
-            //             gp.playSE(1);
-            //             money -= 50;
-            //         } else {
-            //             gp.ui.showMessage("You don't have enough money");
-            //         }
-            //     }
-            // }
             switch (objectName) {
                 case "BlackJack":
                     gp.ui.showMessage("BlackJack");
@@ -245,8 +227,16 @@ public class User extends Entity{
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
-    public void addMoney(int amount){
-        money += amount;
+    public void addMoney(int amount) {
+        synchronized (moneyLock) {
+            money += amount;
+        }
+    }
+    
+    public void subtractMoney(int amount) {
+        synchronized (moneyLock) {
+            money -= amount;
+        }
     }
 
 }
