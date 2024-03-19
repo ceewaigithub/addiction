@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import blackjack.BlackJackApp;
 import blackjack.BlackJackApp2;
 import highlow.*;
+import object.OBJ_DoorOpen;
 import Baccarat.*;
 import world.GamePanel;
 import world.KeyHandler;
@@ -34,7 +35,7 @@ public class User extends Entity{
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        sprite = "default";
+        sprite = "player1";
         setDefaultValues();
         getPlayerImage();
     }
@@ -142,10 +143,10 @@ public class User extends Entity{
                     if (keyH.spacePressed) {
                         if (money >= 50) {
                             money -= 50;
+                            gp.playSE(5);
                             gp.ui.showMessage("Money - 50");
-                            gp.obj[idx] = null;
+                            gp.obj[idx] = new OBJ_DoorOpen();
                         } else {
-                            gp.playSE(3);
                             gp.ui.showMessage("You don't have enough money");
                         }
                     }
@@ -155,7 +156,7 @@ public class User extends Entity{
                     if (keyH.spacePressed) {
                         gp.playSE(1);
                         gp.frame.setVisible(false);
-                        BaccaratApp b = new BaccaratApp();
+                        BaccaratApp b = new BaccaratApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
@@ -164,7 +165,7 @@ public class User extends Entity{
                     if (keyH.spacePressed) {
                         gp.playSE(1);
                         gp.frame.setVisible(false);
-                        HighLowApp hl = new HighLowApp();
+                        HighLowApp hl = new HighLowApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
