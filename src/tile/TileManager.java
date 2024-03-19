@@ -113,7 +113,7 @@ public class TileManager {
     public void loadMap() {
         try {
             String currentDirectory = new File("").getAbsolutePath();
-            File mapFile = new File(currentDirectory + "/res/maps/map02.txt");
+            File mapFile = new File(currentDirectory + "/res/maps/map03.txt");
             BufferedReader br = new BufferedReader(new FileReader(mapFile));
 
             int col = 0;
