@@ -124,14 +124,48 @@ public class User extends Entity{
     public void interactWithObject(int idx) {
         if (idx != 999) {
             String objectName = gp.obj[idx].name;
-            if (objectName.equals("Chest")) {
-                gp.ui.showMessage("BlackJack");
-                if (keyH.spacePressed) {
-                    gp.playSE(1);
-                    gp.frame.setVisible(false);
-                    BlackJackApp2 bj = new BlackJackApp2(this, gp.frame);
-                    clearKeyPresses(); // clear key presses so that the player doesn't move while playing
-                }
+            // if (objectName.equals("Chest")) {
+            //     gp.ui.showMessage("BlackJack");
+            //     if (keyH.spacePressed) {
+            //         gp.playSE(1);
+            //         gp.frame.setVisible(false);
+            //         BlackJackApp2 bj = new BlackJackApp2(this, gp.frame);
+            //         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
+            //     }
+            // } else if (objectName.equals("Door")) {
+            //     gp.ui.showMessage("Pay 50 to enter");
+            //     if (keyH.spacePressed) {
+            //         if (money >= 50) {
+            //             gp.playSE(1);
+            //             money -= 50;
+            //         } else {
+            //             gp.ui.showMessage("You don't have enough money");
+            //         }
+            //     }
+            // }
+            switch (objectName) {
+                case "Chest":
+                    gp.ui.showMessage("BlackJack");
+                    if (keyH.spacePressed) {
+                        gp.playSE(1);
+                        gp.frame.setVisible(false);
+                        BlackJackApp2 bj = new BlackJackApp2(this, gp.frame);
+                        clearKeyPresses(); // clear key presses so that the player doesn't move while playing
+                    }
+                    break;
+                case "Door":
+                    gp.ui.showMessage("Pay 50 to enter");
+                    if (keyH.spacePressed) {
+                        if (money >= 50) {
+                            money -= 50;
+                            gp.ui.showMessage("Money - 50");
+                            gp.obj[idx] = null;
+                        } else {
+                            gp.playSE(3);
+                            gp.ui.showMessage("You don't have enough money");
+                        }
+                    }
+                    break;
             }
         }
     }
