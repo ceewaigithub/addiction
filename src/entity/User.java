@@ -23,6 +23,7 @@ public class User extends Entity{
     public final int screenX;
     public final int screenY;
     public int money = 0;
+    public String sprite;
 
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -32,6 +33,7 @@ public class User extends Entity{
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        sprite = "default";
         setDefaultValues();
         getPlayerImage();
     }
@@ -48,17 +50,17 @@ public class User extends Entity{
             String currentDirectory = new File("").getAbsolutePath();
             System.out.println("Current Directory: " + currentDirectory);
 
-            up1 = ImageIO.read(new File(currentDirectory + "/res/player/boy_up_1.png"));
-            up2 = ImageIO.read(new File(currentDirectory + "/res/player/boy_up_2.png"));
+            up1 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_up_1.png"));
+            up2 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_up_2.png"));
 
-            down1 = ImageIO.read(new File(currentDirectory + "/res/player/boy_down_1.png"));
-            down2 = ImageIO.read(new File(currentDirectory + "/res/player/boy_down_2.png"));
+            down1 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_down_1.png"));
+            down2 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_down_2.png"));
 
-            left1 = ImageIO.read(new File(currentDirectory + "/res/player/boy_left_1.png"));
-            left2 = ImageIO.read(new File(currentDirectory + "/res/player/boy_left_2.png"));
+            left1 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_left_1.png"));
+            left2 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_left_2.png"));
 
-            right1 = ImageIO.read(new File(currentDirectory + "/res/player/boy_right_1.png"));
-            right2 = ImageIO.read(new File(currentDirectory + "/res/player/boy_right_2.png"));
+            right1 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_right_1.png"));
+            right2 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_right_2.png"));
 
         } catch (Exception e) {
             System.out.println("Error getting player image: " + e);
