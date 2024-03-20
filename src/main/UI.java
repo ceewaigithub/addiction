@@ -11,6 +11,7 @@ import world.GamePanel;
 public class UI {
 
     GamePanel gp;
+    Graphics2D g2;
     Font aerial_10;
     BufferedImage coinImage;
     public boolean messageOn = false;
@@ -49,6 +50,17 @@ public class UI {
             }
         }
 
+        if (gp.gameState == gp.pauseState) {
+            drawPauseScreen(g2);
+        }
+
+    }
+
+    public void drawPauseScreen(Graphics2D g2) {
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
+        int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("PAUSED")) / 2;
+        int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        g2.drawString("PAUSED", messageX, messageY);
     }
 
 }
