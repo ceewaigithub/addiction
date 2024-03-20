@@ -1,13 +1,16 @@
 package world;
 
 import java.awt.event.KeyListener;
+
+import main.Sound;
+
 import java.awt.event.KeyEvent;
 
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, spacePressed;
-
+    Sound sound = new Sound();
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp) {
@@ -42,8 +45,10 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
+                gp.playSE(6);
                 gp.gameState = gp.pauseState;
             } else if (gp.gameState == gp.pauseState) {
+                gp.playSE(7);
                 gp.gameState = gp.playState;
             }
         }
@@ -69,5 +74,5 @@ public class KeyHandler implements KeyListener {
             spacePressed = false;
         }
     }
-    
+
 }

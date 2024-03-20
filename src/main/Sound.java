@@ -23,6 +23,8 @@ public class Sound {
             soundURL[3] = new File(currentDirectory + "/res/sound/Cancel.wav").toURI().toURL();
             soundURL[4] = new File(currentDirectory + "/res/sound/Jump.wav").toURI().toURL();
             soundURL[5] = new File(currentDirectory + "/res/sound/door.wav").toURI().toURL();
+            soundURL[6] = new File(currentDirectory + "/res/sound/Menu_In.wav").toURI().toURL();
+            soundURL[7] = new File(currentDirectory + "/res/sound/Menu_Out.wav").toURI().toURL();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
