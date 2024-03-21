@@ -14,8 +14,10 @@ class HighLowGame {
     private Card nextCard;
     private int score;
     private List<Player> players;
+    private BettingSystem bettingSystem;
 
-    public HighLowGame() {
+    public HighLowGame(BettingSystem bettingSystem) {
+        this.bettingSystem = bettingSystem;
         players = new ArrayList<>();
     }
 
@@ -53,6 +55,20 @@ class HighLowGame {
             }
             return false;
         }        
+    }
+
+    public int checkScore(){
+        int winnings = 0;
+        if (score == 0) {
+            bettingSystem.loseBet();
+        } else {
+            int multiplier = (int) (0.125 * Math.pow(2.0, score - 1));
+            winnings = bettingSystem.getPlayerBet() * multiplier;
+            System.out.println(multiplier);
+            bettingSystem.winBet(multiplier);
+        }
+        return winnings;
+
     }
 
     public List<Player> getPlayers(){
