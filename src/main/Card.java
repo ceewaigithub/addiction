@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class Card {
+public class Card implements Comparable<Card>{
     private String suit;
     private String rank;
 
@@ -46,6 +46,26 @@ public class Card {
         } else {
             return Integer.parseInt(rank);
         }
+    }
+
+    public int getRankIndex() {
+        if (rank.equals("a")) {
+            return 1;
+        } else if (rank.equals("t")){
+            return 10;
+        } else if (rank.equals("j")){
+            return 11;
+        } else if (rank.equals("q")){
+            return 12;
+        } else if (rank.equals("k")){
+            return 13;
+        } else {
+            return Integer.parseInt(rank);
+        }
+    }
+
+    public int compareTo(Card anotherCard) {
+        return getRankIndex() - anotherCard.getRankIndex();
     }
 
     //    public String getImagePath() {
