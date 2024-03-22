@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import entity.User;
 import main.Deck;
 import main.Player;
+import main.BettingSystem;
 import main.Card;
 
 public class BlackJack2 {
@@ -17,22 +18,29 @@ public class BlackJack2 {
     // Variables
     private User user;
     private Deck deck;
-    private Player dealer;
-    private Player player;
+    private List<Player> players;
     private boolean gameStatus = true;
+    private BettingSystem bettingSystem;
 
     // Constructor
-    public BlackJack2(User user) {
+    public BlackJack2(User user, BettingSystem bettingSystem) {
 
         // Pass in user
         this.user = user;
 
+        // Pass in betting system
+        this.bettingSystem = bettingSystem;
+
         // Create deck
         deck = new Deck();
 
-        // Create dealer & player
-        dealer = new Player("dealer");
-        player = new Player("player");
+        // Create player list
+        players = new ArrayList<>();
+    }
+
+    // Add players
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
     // Basic getters
@@ -41,15 +49,19 @@ public class BlackJack2 {
     }
 
     public Player getDealer() {
-        return dealer;
+        return players.getFirst();
     }
 
     public Player getPlayer() {
-        return player;
+        return players.getLast();
     }
 
     public boolean getGameStatus() {
         return gameStatus;
+    }
+
+    public BettingSystem getBettingSystem() {
+        return bettingSystem;
     }
 
     // Start game
@@ -58,8 +70,10 @@ public class BlackJack2 {
         deck.shuffle();
 
         // Deal initial cards to players
-        dealer.addCard(deck.dealCard());
-        player.addCard(deck.dealCard());
+        for (Player player : players) {
+            player.addCard(deck.dealCard());
+            player.addCard(deck.dealCard());
+        }
 
         // Now, user will either hit or stay
     }
@@ -68,20 +82,15 @@ public class BlackJack2 {
     public void hit() {
         // Deal card to player
         Card drawn_card = deck.dealCard();
-        player.addCard(drawn_card);
-    }
-
-    // User stays
-    public void stay() {
-        // No change to player
+        getPlayer().addCard(drawn_card);
     }
 
     public void dealerTurn(boolean playerStays) {
 
-        if (dealer.getHandValue() < 17) {
+        if (getDealer().getHandValue() < 17) {
             // Dealer hits
             Card drawn_card = getDeck().dealCard();
-            dealer.addCard(drawn_card);
+            getDealer().addCard(drawn_card);
 
             // Player's turn next
         } else {
@@ -105,22 +114,22 @@ public class BlackJack2 {
         ArrayList<Player> winners = new ArrayList<Player>();
         boolean playerWin = false;
 
-        if (dealer.getHandValue() > 21 && player.getHandValue() > 21) {
+        if (getDealer().getHandValue() > 21 && getPlayer().getHandValue() > 21) {
             winners = null;
-        } else if (dealer.getHandValue() > 21 && player.getHandValue() <= 21) {
-            winners.add(player);
+        } else if (getDealer().getHandValue() > 21 && getPlayer().getHandValue() <= 21) {
+            winners.add(getPlayer());
             playerWin = true;
-        } else if (dealer.getHandValue() <= 21 && player.getHandValue() > 21) {
-            winners.add(dealer);
+        } else if (getDealer().getHandValue() <= 21 && getPlayer().getHandValue() > 21) {
+            winners.add(getDealer());
         } else {
-            if (dealer.getHandValue() > player.getHandValue()) {
-                winners.add(dealer);
-            } else if (dealer.getHandValue() < player.getHandValue()) {
-                winners.add(player);
+            if (getDealer().getHandValue() > getPlayer().getHandValue()) {
+                winners.add(getDealer());
+            } else if (getDealer().getHandValue() < getPlayer().getHandValue()) {
+                winners.add(getPlayer());
                 playerWin = true;
             } else {
-                winners.add(dealer);
-                winners.add(player);
+                winners.add(getDealer());
+                winners.add(getPlayer());
                 playerWin = true;
             }
         }
@@ -128,15 +137,23 @@ public class BlackJack2 {
         // Update user bank
         updateUserBank(playerWin);
 
-        // Based on winners, return respective message
+        // Based on winners, return respective message & update betting system
         String message = "";
 
         if (winners == null) {
             message = "All players busted!";
+            bettingSystem.pushBet();
         } else if (winners.size() == 1) {
             message = winners.get(0).getName() + " is the winner!";
+
+            if (playerWin) {
+                bettingSystem.winBet(2);
+            } else {
+                bettingSystem.loseBet();
+            }
         } else if (winners.size() > 1) {
             message = "It's a tie!";
+            bettingSystem.pushBet();
         }
 
         return message;

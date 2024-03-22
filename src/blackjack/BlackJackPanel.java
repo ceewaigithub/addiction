@@ -3,10 +3,9 @@ package blackjack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
-
+import java.util.List;
 import javax.swing.*;
+import main.BettingSystem;
 
 public class BlackJackPanel extends JPanel {
 
@@ -14,16 +13,22 @@ public class BlackJackPanel extends JPanel {
     private BlackJack2 blackjack;
     private JFrame frame;
     private JFrame mapFrame;
-    private JPanel gamePanel, buttonPanel; 
+    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; 
+    private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, stayButton, exitButton;
     private int boardWidth = 800;
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
+    private BettingSystem bettingSystem;
+
     // Constructor
-    public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame) {
+    public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem) {
 
         // Pass in blackjack game
         this.blackjack = blackjack;
+
+        // Get betting system
+        this.bettingSystem = bettingSystem;
 
         // Pass in current frame
         this.frame = frame;
@@ -38,10 +43,10 @@ public class BlackJackPanel extends JPanel {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Set up blackJackAssetSetter
+        // Set up blackJackAssetSetter 
         bJackAssetSetter = new BlackJackAssetSetter(blackjack, boardWidth, boardHeight);
 
-        // Set up gamePanel + add gamePanel
+        // Set up gamePanel
         gamePanel = new JPanel() {
             public void paintComponent(Graphics g) {
                 // Paint standard features
@@ -50,20 +55,46 @@ public class BlackJackPanel extends JPanel {
                 bJackAssetSetter.drawHands(g);
                 // If game ends, endGame paints the results
                 if (!blackjack.getGameStatus()) {
-                    endGame(g, blackjack.determineWinners());
+                    endGame(blackjack.determineWinners());
                 }
             }
         };
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(new Color(255, 90, 01));
-        frame.add(gamePanel);
-        // Update frame color immediately
-        gamePanel.revalidate();
-        gamePanel.repaint();
 
-        // Set up buttonPanel + add buttonPanel
+        // Top Panel
+        topPanel = new JPanel();
+        topPanel.setBackground(gamePanel.getBackground());
+        topLabel = new JLabel("Dealer");
+        topLabel.setForeground(Color.WHITE);
+        topLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        topPanel.add(topLabel);
+
+        // Bottom Panel
+        bottomPanel = new JPanel();
+        bottomPanel.setBackground(gamePanel.getBackground());
+        bottomLabel = new JLabel("Player (You)");
+        bottomLabel.setForeground(Color.WHITE);
+        bottomLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        bottomPanel.add(bottomLabel);
+
+        // Add Top and Bottom panels to the gamePanel
+        gamePanel.add(topPanel, BorderLayout.NORTH);
+        gamePanel.add(bottomPanel, BorderLayout.SOUTH);
+
+        // Add messageLabel to the gamePanel
+        messageLabel = new JLabel();
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gamePanel.add(messageLabel, BorderLayout.CENTER);
+        
+        // // Update frame color immediately
+        // gamePanel.revalidate();
+        // gamePanel.repaint();
+
+        // Set up buttonPanel
         buttonPanel = new JPanel();
-        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Set up hitButton + purpose hitButton + add hitButton
         hitButton = new JButton("Hit");
@@ -74,9 +105,6 @@ public class BlackJackPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Hit in game
                 blackjack.hit();
-                // Repaint panel
-                frame.revalidate();
-                frame.repaint();
                 // Dealer turn
                 blackjack.dealerTurn(false);
                 // Repaint panel
@@ -92,11 +120,6 @@ public class BlackJackPanel extends JPanel {
         stayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Stay in game
-                blackjack.stay();
-                // Repaint panel
-                frame.revalidate();
-                frame.repaint();
                 // Dealer turn
                 blackjack.dealerTurn(true);
                 // Repaint panel
@@ -116,20 +139,54 @@ public class BlackJackPanel extends JPanel {
             }
         });
 
-        // After setting up GUI, start game
-        blackjack.startGame();
+        // Set up betting panel
+        bettingPanel = bettingSystem.getBettingPanel();
+
+        // Get betButton + purpose betButton
+        bettingSystem.getPlaceBetButton().addActionListener(e -> {
+            placeBet();
+        });
+
+        // Add buttonPanel & bettingPanel to the frame's SOUTH position
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new BoxLayout(controlPanel,BoxLayout.Y_AXIS));
+        controlPanel.add(bettingPanel);
+        controlPanel.add(buttonPanel);
+        frame.add(controlPanel, BorderLayout.SOUTH);
+
+        // Add gamePanel
+        frame.add(gamePanel);
+
+        // After setting up GUI, place bet
+        bettingSystem.updateBettingPanel();
+        bettingPanel.setVisible(true);
+        buttonPanel.setVisible(false);
+        setMessage("Place bet to start game");
     }
 
-    public void endGame(Graphics g, String message) {
+    public void setMessage(String message) {
+        messageLabel.setText(message);
+    }
+
+    // Remove bettingPanel when player places bet
+    public void placeBet(){
+        if(bettingSystem.getPlayerBet() > 0) {
+            bettingPanel.setVisible(false);
+            buttonPanel.setVisible(true);
+            setMessage("");
+            // After betting, start game
+            blackjack.startGame();
+        }
+    }
+
+    public void endGame(String message) {
 
         // Repaint panel
         frame.revalidate();
         frame.repaint();
 
         // Display results
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        g.setColor(Color.white);
-        g.drawString(message, (boardWidth - g.getFontMetrics().stringWidth(message)) / 2, boardHeight / 2);
+        setMessage(message);
 
         // Remove all buttons + add exit button
         buttonPanel.removeAll();

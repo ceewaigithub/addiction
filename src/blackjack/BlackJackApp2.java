@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import entity.User;
+import main.BettingSystem;
 import main.Card;
 import main.Deck;
 import main.Player;
@@ -29,15 +30,21 @@ public class BlackJackApp2 {
         this.user = user;
         this.mapFrame = mapFrame;
 
+        // Create players
+        Player dealer = new Player("Dealer");
+        Player player = new Player("Player");
+
+        // Create betting system
+        BettingSystem bettingSystem = new BettingSystem(player);
+    
         // Create blackJack game
-        BlackJack2 blackjack = new BlackJack2(user);
+        BlackJack2 blackjack = new BlackJack2(user, bettingSystem);
+        blackjack.addPlayer(dealer);
+        blackjack.addPlayer(player);
 
         // Starting BlackJackApp runs BlackJackGUI
         JFrame bJframe = new JFrame("BlackJack");
-        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame);
-        
-        // After setting up GUI, start game
-        blackjack.startGame();
+        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame, bettingSystem);
     }
 
     public static void main(String[] args) {

@@ -40,7 +40,7 @@ public class BlackJackAssetSetter {
 
             // Draw dealer's hand (back if ongoing/front if over)
             int dealerX = (boardWidth - (dealer.getHand().size() * cardWidth)) / 2;
-            int dealerY = 20;
+            int dealerY = 40;
             if (blackjack.getGameStatus()) {
                 drawCardImage(g, dealer, dealerX, dealerY, true);
             } else {
@@ -49,7 +49,7 @@ public class BlackJackAssetSetter {
 
             // Draw player's hand
             int playerX = (boardWidth - (player.getHand().size() * cardWidth)) / 2;
-            int playerY = boardHeight - cardHeight - 80;
+            int playerY = boardHeight - cardHeight - 120;
             drawCardImage(g, player, playerX, playerY, false);
         } catch (Exception e) {
             e.printStackTrace();
