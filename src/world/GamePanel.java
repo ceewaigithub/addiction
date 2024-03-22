@@ -13,6 +13,7 @@ import main.NewGameException;
 import main.Sound;
 import main.UI;
 import object.SuperObject;
+import shop.ShopManager;
 import tile.TileManager;
 
 import javax.swing.JFrame;
@@ -42,15 +43,18 @@ public class GamePanel extends JPanel implements Runnable {
     int fps = 60;
 
     public TileManager tm = new TileManager(this);
+    public ShopManager sm;
     KeyHandler keyH = new KeyHandler(this);
 
-    Sound music = new Sound();
+    public boolean musicEnabled = false;
+
+    public Sound music = new Sound();
     Sound se = new Sound();
 
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
-    Config config = new Config(this);
+    public Config config = new Config(this);
     Thread gameThread;
 
     public int gameState;
@@ -70,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.frame = frame;
+        sm = new ShopManager(this);
         
         try {
             config.loadGameConfig();
@@ -80,7 +85,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void startGame() {
         aSetter.setObject();
-        setBackgroundMusic();
+
+        if (musicEnabled) {
+            setBackgroundMusic();
+        }
+        
         gameState = titleState;
     }
 
@@ -149,6 +158,10 @@ public class GamePanel extends JPanel implements Runnable {
         ui.draw(g2);
 
         g2.dispose();
+    }
+
+    public void setCurrentSprite(String sprite) {
+        user.sprite = sprite;
     }
 
     public void playMusic(int i) {

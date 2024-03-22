@@ -3,6 +3,7 @@ package world;
 import java.awt.event.KeyListener;
 
 import main.Sound;
+import shop.SpriteItem;
 
 import java.awt.event.KeyEvent;
 
@@ -26,23 +27,25 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-
+    
         if (gp.gameState == gp.titleState) {
-            if (code == KeyEvent.VK_W) {
-                gp.playSE(1);
-                gp.ui.commandNumber--;
-                if (gp.ui.commandNumber < 0) {
-                    gp.ui.commandNumber = 3;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.playSE(1);
-                gp.ui.commandNumber++;
-                if (gp.ui.commandNumber > 3) {
-                    gp.ui.commandNumber = 0;
-                }
-            }
             if (gp.ui.titleScreenState == 0) {
+                if (code == KeyEvent.VK_W) {
+                    gp.playSE(1);
+                    gp.ui.commandNumber--;
+                    if (gp.ui.commandNumber < 0) {
+                        gp.ui.commandNumber = 3;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_S) {
+                    gp.playSE(1);
+                    gp.ui.commandNumber++;
+                    if (gp.ui.commandNumber > 3) {
+                        gp.ui.commandNumber = 0;
+                    }
+                }
+    
                 if (code == KeyEvent.VK_SPACE) {
                     gp.playSE(1);
                     if (gp.ui.commandNumber == 0) {
@@ -50,6 +53,7 @@ public class KeyHandler implements KeyListener {
                     }
                     if (gp.ui.commandNumber == 1) {
                         gp.ui.titleScreenState = 1;
+                        gp.ui.commandNumber = 0;
                     }
                     if (gp.ui.commandNumber == 2) {
                         gp.config.setGameConfig();
@@ -57,20 +61,49 @@ public class KeyHandler implements KeyListener {
                     if (gp.ui.commandNumber == 3) {
                         System.exit(0);
                     }
-                } else if (gp.ui.titleScreenState == 1) {
-                    if (code == KeyEvent.VK_SPACE) {
-                        gp.playSE(1);
-                        if (gp.ui.commandNumber == 0) {
-                            gp.ui.titleScreenState = 0;
+                }
+            } else if (gp.ui.titleScreenState == 1) {
+                if (code == KeyEvent.VK_W) {
+                    gp.playSE(1);
+                    gp.ui.commandNumber--;
+                    if (gp.ui.commandNumber < 0) {
+                        gp.ui.commandNumber = gp.sm.getShopItems().size();
+                    }
+                }
+    
+                if (code == KeyEvent.VK_S) {
+                    gp.playSE(1);
+                    gp.ui.commandNumber++;
+                    if (gp.ui.commandNumber > gp.sm.getShopItems().size()) {
+                        gp.ui.commandNumber = 0;
+                    }
+                }
+    
+                if (code == KeyEvent.VK_SPACE) {
+                    if (gp.ui.commandNumber == gp.sm.getShopItems().size()) {
+                        gp.ui.titleScreenState = 0;
+                        gp.ui.commandNumber = 0;
+                    } else {
+                        boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
+                        if (gp.sm.getShopItems().get(gp.ui.commandNumber) instanceof SpriteItem && gp.sm.getShopItems().get(gp.ui.commandNumber).isPurchased()) {
+                            SpriteItem spriteItem = (SpriteItem) gp.sm.getShopItems().get(gp.ui.commandNumber);
+                            if (spriteItem.getSprite() != gp.user.sprite) {
+                                gp.setCurrentSprite(spriteItem.getSprite());
+                                gp.playSE(1);
+                            }
+                        } else {
+                            if (bought) {
+                                gp.playSE(1);
+                            } else {
+                                gp.playSE(3);
+                            }
                         }
-                        if (gp.ui.commandNumber == 1) {
-                            gp.ui.titleScreenState = 0;
-                        }
+
                     }
                 }
             }
         }
-
+    
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -86,7 +119,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             spacePressed = true;
         }
-
         if (code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
                 gp.playSE(6);
@@ -97,7 +129,6 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();

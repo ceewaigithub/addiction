@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 import object.OBJ_Coin;
+import shop.ShopItem;
+import shop.SpriteItem;
 import world.GamePanel;
 
 public class UI {
@@ -158,44 +160,11 @@ public class UI {
 
     }
 
-    public void drawTitleScreenShop(Graphics2D g2) {
-        g2.setColor(new Color(40, 40, 43));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
-        // Set the font to a game font
-        Font gameFont = new Font("GameFont", Font.BOLD, 50);
-        g2.setFont(gameFont);
-
-        // Draw title with shadow
-        String title = "Shop";
-        FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
-        int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
-        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
-        
-        // Draw shadow
-        g2.setColor(Color.darkGray);
-        g2.drawString(title, titleX + 2, titleY + 2);
-        
-        // Draw title
-        g2.setColor(Color.decode("#ff6600")); // Set the color to #ff6600 (orange)
-        g2.drawString(title, titleX, titleY);
-
-        // Draw menu items
-        Font menuItemFont = new Font("GameFont", Font.BOLD, 20);
-        g2.setFont(menuItemFont);
-        int menuItemX = (gp.getWidth() - fontMetrics.stringWidth("Buy")) / 2;
-        int menuItemY = titleY + 100; // Adjust the Y position for menu items
-        g2.setColor(Color.WHITE); // Set the color to white
-
-        // Draw arrows based on commandNumber
-        if (commandNumber == 0) {
-            g2.drawString("-> Buy", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Back", menuItemX, menuItemY);
-        } else if (commandNumber == 1) {
-            g2.drawString("Buy", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("-> Back", menuItemX, menuItemY);
+    public void drawMenuItem(Graphics2D g2, int menuItemX, int menuItemY, String menuItemText, int menuItemNumber) {
+        if (commandNumber == menuItemNumber) {
+            g2.drawString("> " + menuItemText, menuItemX, menuItemY);
+        } else {
+            g2.drawString(menuItemText, menuItemX, menuItemY);
         }
     }
 
@@ -229,40 +198,73 @@ public class UI {
         g2.setColor(Color.WHITE); // Set the color to white
 
         // Draw arrows based on commandNumber
-        if (commandNumber == 0) {
-            g2.drawString("-> Start/Continue", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Shop", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Save", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Exit", menuItemX, menuItemY);
-        } else if (commandNumber == 1) {
-            g2.drawString("Start/Continue", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("-> Shop", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Save", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Exit", menuItemX, menuItemY);
-        } else if (commandNumber == 2) {
-            g2.drawString("Start/Continue", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Shop", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("-> Save", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Exit", menuItemX, menuItemY);
-        } else if (commandNumber == 3) {
-            g2.drawString("Start/Continue", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Shop", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("Save", menuItemX, menuItemY);
-            menuItemY += 50; // Adjust the Y position for the next menu item
-            g2.drawString("-> Exit", menuItemX, menuItemY);
+        drawMenuItem(g2, menuItemX, menuItemY, "Start/Continue", 0);
+        menuItemY += 50; // Adjust the Y position for the next menu item
+        drawMenuItem(g2, menuItemX, menuItemY, "Shop", 1);
+        menuItemY += 50; // Adjust the Y position for the next menu item
+        drawMenuItem(g2, menuItemX, menuItemY, "Save", 2);
+        menuItemY += 50; // Adjust the Y position for the next menu item
+        drawMenuItem(g2, menuItemX, menuItemY, "Exit", 3);
+    }
+
+
+    public void drawTitleScreenShop(Graphics2D g2) {
+        g2.setColor(new Color(40, 40, 43));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // Set the font to a game font
+        Font gameFont = new Font("GameFont", Font.BOLD, 50);
+        g2.setFont(gameFont);
+
+        // Draw title with shadow
+        String title = "Shop";
+        FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
+        int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
+        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+
+        // Draw shadow
+        g2.setColor(Color.darkGray);
+        g2.drawString(title, titleX + 2, titleY + 2);
+
+        // Draw title
+        g2.setColor(Color.decode("#ff6600")); // Set the color to #ff6600 (orange)
+        g2.drawString(title, titleX, titleY);
+
+        // Draw shop items
+        Font itemFont = new Font("GameFont", Font.PLAIN, 16);
+        g2.setFont(itemFont);
+        int itemX = (gp.getWidth() - fontMetrics.stringWidth("Buy")) / 2;
+        int itemY = titleY + 100; // Adjust the Y position for shop items
+        g2.setColor(Color.WHITE); // Set the color to white
+
+        for (int i = 0; i < gp.sm.getShopItems().size(); i++) {
+            ShopItem item = gp.sm.getShopItems().get(i);
+            String itemText = item.getName();
+            if (!item.isPurchased()) {
+                itemText += " - Price: " + item.getPrice();
+            }
+            if (item.isPurchased()) {
+                if (item instanceof SpriteItem) {
+                    if (((SpriteItem) item).getSprite().equals(gp.user.sprite)) {
+                        itemText += " - Equipped";
+                    }
+                } else {
+                    itemText += " - Purchased";
+                }
+                g2.setColor(Color.GRAY); // Set the color to gray for purchased items
+            } else {
+                g2.setColor(Color.WHITE); // Set the color to white for non-purchased items
+            }
+
+            drawMenuItem(g2, itemX, itemY, itemText, i);
+
+            itemY += 30; // Adjust the Y position for the next item
         }
 
+        // Draw "Back" option
+        String backText = "Back";
+        g2.setColor(Color.WHITE); // Set the color to white for the "Back" option
+        drawMenuItem(g2, itemX, itemY, backText, gp.sm.getShopItems().size());
     }
 
     public void drawPauseScreen(Graphics2D g2) {

@@ -3,7 +3,9 @@ package main;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
+import shop.ShopItem;
 import world.GamePanel;
 import java.io.File;
 
@@ -15,6 +17,15 @@ public class Config {
     }
 
     public void setGameConfig() {
+        // Check if config.txt exists, if not create one
+        File configFile = new File("config.txt");
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("config.txt"));
             bw.write("money=" + gp.user.money);
@@ -33,6 +44,7 @@ public class Config {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        gp.sm.saveShopItems();
     }
 
     public void loadGameConfig() throws NewGameException {
@@ -56,6 +68,13 @@ public class Config {
             }
             br.close();
 
+            gp.sm.loadShopItems();
+            List<ShopItem> shopItems = gp.sm.getShopItems();
+            for (ShopItem item : shopItems) {
+                if (item.getName().equals("Sound")) {
+                    gp.musicEnabled = true;
+                }
+            }
             try {
                 gp.user.money = Integer.parseInt(data[0].substring(6));
                 gp.user.sprite = data[1].substring(7);
@@ -65,12 +84,56 @@ public class Config {
             } catch (Exception e) {
                 throw new NewGameException("New game, empty config file.");
             }
-            
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void saveShopItems(String data) {
+        // Check if config.txt exists, if not create one
+        File configFile = new File("shopItems.txt");
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("shopItems.txt"));
+            bw.write(data);
+            bw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public String loadShopItems() {
+        // Check if config.txt exists, if not create one
+        File configFile = new File("shopItems.txt");
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String data = "";
+        try {
+            String line;
+            java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader("shopItems.txt"));
+            while ((line = br.readLine()) != null) {
+                data += line + "\n";
+            }
+            br.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }

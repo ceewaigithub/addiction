@@ -35,10 +35,11 @@ public class User extends Entity{
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        sprite = "player1";
+        sprite = "default";
         setDefaultValues();
         getPlayerImage();
     }
+
 
     public void setDefaultValues() {
         worldX = gp.worldWidth / 2 - gp.tileSize / 2;
