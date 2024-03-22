@@ -242,25 +242,28 @@ public class UI {
             String itemText = item.getName();
             if (!item.isPurchased()) {
                 itemText += " - Price: " + item.getPrice();
-            }
-            if (item.isPurchased()) {
+                g2.setColor(Color.WHITE); // Set the color to white for non-purchased items
+            } else {
                 if (item instanceof SpriteItem) {
-                    if (((SpriteItem) item).getSprite().equals(gp.user.sprite)) {
+                    SpriteItem spriteItem = (SpriteItem) item;
+                    if (spriteItem.getSprite().equals(gp.sm.getCurrentSprite())) {
                         itemText += " - Equipped";
+                        g2.setColor(Color.GREEN); // Set the color to green for the equipped sprite
+                    } else {
+                        itemText += " - Purchased";
+                        g2.setColor(Color.GRAY); // Set the color to gray for purchased sprite items
                     }
                 } else {
                     itemText += " - Purchased";
+                    g2.setColor(Color.GRAY); // Set the color to gray for purchased items
                 }
-                g2.setColor(Color.GRAY); // Set the color to gray for purchased items
-            } else {
-                g2.setColor(Color.WHITE); // Set the color to white for non-purchased items
             }
 
             drawMenuItem(g2, itemX, itemY, itemText, i);
 
             itemY += 30; // Adjust the Y position for the next item
         }
-
+    
         // Draw "Back" option
         String backText = "Back";
         g2.setColor(Color.WHITE); // Set the color to white for the "Back" option

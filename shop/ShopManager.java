@@ -2,23 +2,24 @@ package shop;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import world.GamePanel;
 
 public class ShopManager {
     private List<ShopItem> shopItems;
     private GamePanel gp;
+    private String currentSprite;
 
     public ShopManager(GamePanel gp) {
         this.gp = gp;
         shopItems = new ArrayList<>();
         initializeShopItems();
         loadShopItems();
+        currentSprite = gp.user.sprite;
     }
 
     private void initializeShopItems() {
         shopItems.add(new ShopItem("Sound", "Be able to hear!", 50));
-        ShopItem defaultSprite = new SpriteItem("Default Sprite : player1", "Default player sprite", 0, "default");
+        ShopItem defaultSprite = new SpriteItem("Default Sprite : default", "Default player sprite", 0, "default");
         defaultSprite.setPurchased(true);
         shopItems.add(defaultSprite);
         shopItems.add(new SpriteItem("New Sprite 1 : player1", "Unlock a new player sprite", 200, "player1"));
@@ -29,11 +30,28 @@ public class ShopManager {
 
     public boolean buyItem(int index) {
         ShopItem item = shopItems.get(index);
-        if (!item.isPurchased() && gp.user.money >= item.getPrice()) {
-            gp.user.money -= item.getPrice();
-            item.setPurchased(true);
-            applyItemEffect(item);
-            return true;
+        if (item instanceof SpriteItem) {
+            SpriteItem spriteItem = (SpriteItem) item;
+            if (!spriteItem.isPurchased() && gp.user.money >= spriteItem.getPrice()) {
+                gp.user.money -= spriteItem.getPrice();
+                spriteItem.setPurchased(true);
+                currentSprite = spriteItem.getSprite();
+                gp.user.sprite = currentSprite;
+                gp.user.getPlayerImage();
+                return true;
+            } else if (spriteItem.isPurchased()) {
+                currentSprite = spriteItem.getSprite();
+                gp.user.sprite = currentSprite;
+                gp.user.getPlayerImage();
+                return true;
+            }
+        } else {
+            if (!item.isPurchased() && gp.user.money >= item.getPrice()) {
+                gp.user.money -= item.getPrice();
+                item.setPurchased(true);
+                applyItemEffect(item);
+                return true;
+            }
         }
         return false;
     }
@@ -42,10 +60,6 @@ public class ShopManager {
         switch (item.getName()) {
             case "Sound":
                 gp.musicEnabled = true;
-                break;
-            case "New Sprite 1 : player1":
-                gp.user.sprite = "player1";
-                gp.user.getPlayerImage();
                 break;
             case "Speed Upgrade":
                 gp.user.speed++;
@@ -64,7 +78,7 @@ public class ShopManager {
     public void saveShopItems() {
         StringBuilder sb = new StringBuilder();
         for (ShopItem item : shopItems) {
-            sb.append(item.toSaveString()).append("\n");
+            sb.append(item.toSaveString()).append("\\n");
         }
         gp.config.saveShopItems(sb.toString());
     }
@@ -74,7 +88,7 @@ public class ShopManager {
         if (data.isEmpty()) {
             return;
         }
-        String[] lines = data.split("\n");
+        String[] lines = data.split("\\n");
         shopItems.clear();
         for (String line : lines) {
             shopItems.add(ShopItem.fromSaveString(line));
@@ -87,4 +101,7 @@ public class ShopManager {
         }
     }
 
+    public String getCurrentSprite() {
+        return currentSprite;
+    }
 }
