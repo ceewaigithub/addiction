@@ -60,7 +60,7 @@ public class BlackJackPanel extends JPanel {
             }
         };
         gamePanel.setLayout(new BorderLayout());
-        gamePanel.setBackground(new Color(255, 90, 01));
+        gamePanel.setBackground(new Color(0, 116, 3));
 
         // Top Panel
         topPanel = new JPanel();
