@@ -35,16 +35,11 @@ public class ShopManager {
             if (!spriteItem.isPurchased() && gp.user.money >= spriteItem.getPrice()) {
                 gp.user.money -= spriteItem.getPrice();
                 spriteItem.setPurchased(true);
-                currentSprite = spriteItem.getSprite();
-                gp.user.sprite = currentSprite;
-                gp.user.getPlayerImage();
-                return true;
-            } else if (spriteItem.isPurchased()) {
-                currentSprite = spriteItem.getSprite();
-                gp.user.sprite = currentSprite;
-                gp.user.getPlayerImage();
-                return true;
             }
+            currentSprite = spriteItem.getSprite();
+            gp.user.sprite = currentSprite;
+            gp.user.getPlayerImage();
+            return true;
         } else {
             if (!item.isPurchased() && gp.user.money >= item.getPrice()) {
                 gp.user.money -= item.getPrice();
@@ -78,8 +73,9 @@ public class ShopManager {
     public void saveShopItems() {
         StringBuilder sb = new StringBuilder();
         for (ShopItem item : shopItems) {
-            sb.append(item.toSaveString()).append("\\n");
+            sb.append(item.toSaveString()).append("\n");
         }
+        sb.append("currentSprite:").append(currentSprite).append("\n");
         gp.config.saveShopItems(sb.toString());
     }
 
@@ -88,10 +84,16 @@ public class ShopManager {
         if (data.isEmpty()) {
             return;
         }
-        String[] lines = data.split("\\n");
+        String[] lines = data.split("\n");
         shopItems.clear();
         for (String line : lines) {
-            shopItems.add(ShopItem.fromSaveString(line));
+            if (line.startsWith("currentSprite:")) {
+                currentSprite = line.substring("currentSprite:".length());
+                gp.user.sprite = currentSprite;
+                gp.user.getPlayerImage();
+            } else {
+                shopItems.add(ShopItem.fromSaveString(line));
+            }
         }
     }
 

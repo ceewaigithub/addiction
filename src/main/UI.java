@@ -103,7 +103,7 @@ public class UI {
     public void drawControls(Graphics2D g2, int x, int y, int width, int height) {
         // Calculate the height required to fit the instructions
         g2.setFont(new Font("Monospaced", Font.PLAIN, 12));
-        String controls = "Controls:\nW - Move Up\nA - Move Left\nS - Move Down\nD - Move Right\nSpace - Interact\nESC - Menu";
+        String controls = "Controls:\nW - Up\nA - Left\nS - Down\nD - Right\nSpace - Interact\nESC - Menu";
         String[] lines = controls.split("\n");
         int lineHeight = g2.getFontMetrics().getHeight();
         int requiredHeight = lineHeight * (lines.length + 1);
@@ -207,7 +207,6 @@ public class UI {
         drawMenuItem(g2, menuItemX, menuItemY, "Exit", 3);
     }
 
-
     public void drawTitleScreenShop(Graphics2D g2) {
         g2.setColor(new Color(40, 40, 43));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -246,7 +245,7 @@ public class UI {
             } else {
                 if (item instanceof SpriteItem) {
                     SpriteItem spriteItem = (SpriteItem) item;
-                    if (spriteItem.getSprite().equals(gp.sm.getCurrentSprite())) {
+                    if (spriteItem.getSprite().equals(gp.user.sprite)) {
                         itemText += " - Equipped";
                         g2.setColor(Color.GREEN); // Set the color to green for the equipped sprite
                     } else {
@@ -263,7 +262,7 @@ public class UI {
 
             itemY += 30; // Adjust the Y position for the next item
         }
-    
+
         // Draw "Back" option
         String backText = "Back";
         g2.setColor(Color.WHITE); // Set the color to white for the "Back" option

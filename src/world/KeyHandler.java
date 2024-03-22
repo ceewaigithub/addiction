@@ -3,6 +3,7 @@ package world;
 import java.awt.event.KeyListener;
 
 import main.Sound;
+import shop.ShopItem;
 import shop.SpriteItem;
 
 import java.awt.event.KeyEvent;
@@ -79,26 +80,34 @@ public class KeyHandler implements KeyListener {
                     }
                 }
     
-                if (code == KeyEvent.VK_SPACE) {
+               if (code == KeyEvent.VK_SPACE) {
                     if (gp.ui.commandNumber == gp.sm.getShopItems().size()) {
                         gp.ui.titleScreenState = 0;
                         gp.ui.commandNumber = 0;
                     } else {
-                        boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
-                        if (gp.sm.getShopItems().get(gp.ui.commandNumber) instanceof SpriteItem && gp.sm.getShopItems().get(gp.ui.commandNumber).isPurchased()) {
-                            SpriteItem spriteItem = (SpriteItem) gp.sm.getShopItems().get(gp.ui.commandNumber);
-                            if (spriteItem.getSprite() != gp.user.sprite) {
-                                gp.setCurrentSprite(spriteItem.getSprite());
+                        ShopItem selectedItem = gp.sm.getShopItems().get(gp.ui.commandNumber);
+                        if (selectedItem instanceof SpriteItem) {
+                            SpriteItem selectedSpriteItem = (SpriteItem) selectedItem;
+                            if (selectedSpriteItem.isPurchased()) {
+                                gp.user.sprite = selectedSpriteItem.getSprite();
+                                gp.user.getPlayerImage();
                                 gp.playSE(1);
+                            } else {
+                                boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
+                                if (bought) {
+                                    gp.playSE(1);
+                                } else {
+                                    gp.playSE(3);
+                                }
                             }
                         } else {
+                            boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
                             if (bought) {
                                 gp.playSE(1);
                             } else {
                                 gp.playSE(3);
                             }
                         }
-
                     }
                 }
             }

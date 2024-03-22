@@ -38,7 +38,7 @@ public class ShopItem {
     }
 
     public String toSaveString() {
-        return name + "," + description + "," + price + "," + purchased;
+        return "ShopItem," + name + "," + description + "," + price + "," + purchased;
     }
 
     public static ShopItem fromString(String str) {
@@ -49,9 +49,17 @@ public class ShopItem {
     public static ShopItem fromSaveString(String str) {
         String[] parts = str.split(",");
         if (parts.length >= 4) {
-            ShopItem item = new ShopItem(parts[0], parts[1], Integer.parseInt(parts[2]));
-            item.setPurchased(Boolean.parseBoolean(parts[3]));
-            return item;
+            String itemType = parts[0];
+            if (itemType.equals("SpriteItem")) {
+
+                SpriteItem item = new SpriteItem(parts[2], parts[3], Integer.parseInt(parts[4]), parts[6]);
+                item.setPurchased(Boolean.parseBoolean(parts[5]));
+                return item;
+            } else {
+                ShopItem item = new ShopItem(parts[1], parts[2], Integer.parseInt(parts[3]));
+                item.setPurchased(Boolean.parseBoolean(parts[4]));
+                return item;
+            }
         } else {
             throw new IllegalArgumentException("Invalid save string: " + str);
         }
@@ -68,6 +76,5 @@ public class ShopItem {
     public int hashCode() {
         return name.hashCode() + description.hashCode() + price;
     }
-
 
 }

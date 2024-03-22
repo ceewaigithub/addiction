@@ -66,7 +66,7 @@ public class User extends Entity{
             right2 = ImageIO.read(new File(currentDirectory + "/res/player/" + sprite + "_right_2.png"));
 
         } catch (Exception e) {
-            System.out.println("Error getting player image: " + e);
+            System.out.println("Error getting player image: " + e + " " + sprite);
         }
     }
 

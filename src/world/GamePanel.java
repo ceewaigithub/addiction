@@ -75,6 +75,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.frame = frame;
         sm = new ShopManager(this);
+        try {
+            config.loadGameConfig();
+            sm.loadShopItems(); // Load shop items after loading the game configuration
+        } catch (NewGameException e) {
+            System.out.println(e.getMessage());
+        }
         
         try {
             config.loadGameConfig();
