@@ -32,13 +32,13 @@ public class KeyHandler implements KeyListener {
                 gp.playSE(1);
                 gp.ui.commandNumber--;
                 if (gp.ui.commandNumber < 0) {
-                    gp.ui.commandNumber = 2;
+                    gp.ui.commandNumber = 3;
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.playSE(1);
                 gp.ui.commandNumber++;
-                if (gp.ui.commandNumber > 2) {
+                if (gp.ui.commandNumber > 3) {
                     gp.ui.commandNumber = 0;
                 }
             }
@@ -52,21 +52,23 @@ public class KeyHandler implements KeyListener {
                         gp.ui.titleScreenState = 1;
                     }
                     if (gp.ui.commandNumber == 2) {
+                        gp.config.setGameConfig();
+                    }
+                    if (gp.ui.commandNumber == 3) {
                         System.exit(0);
                     }
-                }
-            } else if (gp.ui.titleScreenState == 1) {
-                if (code == KeyEvent.VK_SPACE) {
-                    gp.playSE(1);
-                    if (gp.ui.commandNumber == 0) {
-                        gp.ui.titleScreenState = 0;
-                    }
-                    if (gp.ui.commandNumber == 1) {
-                        gp.ui.titleScreenState = 0;
+                } else if (gp.ui.titleScreenState == 1) {
+                    if (code == KeyEvent.VK_SPACE) {
+                        gp.playSE(1);
+                        if (gp.ui.commandNumber == 0) {
+                            gp.ui.titleScreenState = 0;
+                        }
+                        if (gp.ui.commandNumber == 1) {
+                            gp.ui.titleScreenState = 0;
+                        }
                     }
                 }
             }
-
         }
 
         if (code == KeyEvent.VK_W) {

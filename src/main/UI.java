@@ -47,6 +47,8 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawImage(coinImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, null);
         g2.drawString("x " + gp.user.money, 55, 45);
+        drawControls(g2, gp.tileSize, gp.getHeight() - gp.screenHeight - gp.tileSize, gp.screenWidth, gp.screenHeight);
+
 
         if (messageOn) {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
@@ -61,10 +63,8 @@ public class UI {
             }
         }
 
-
-
         if (gp.gameState == gp.playState) {
-            drawControls(g2, gp.tileSize, gp.getHeight() - gp.screenHeight - gp.tileSize, gp.screenWidth, gp.screenHeight);
+
         }
 
         if (gp.gameState == gp.pauseState) {
@@ -234,17 +234,31 @@ public class UI {
             menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("Shop", menuItemX, menuItemY);
             menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Save", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("Exit", menuItemX, menuItemY);
         } else if (commandNumber == 1) {
             g2.drawString("Start/Continue", menuItemX, menuItemY);
             menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("-> Shop", menuItemX, menuItemY);
             menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Save", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("Exit", menuItemX, menuItemY);
         } else if (commandNumber == 2) {
             g2.drawString("Start/Continue", menuItemX, menuItemY);
             menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("Shop", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("-> Save", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Exit", menuItemX, menuItemY);
+        } else if (commandNumber == 3) {
+            g2.drawString("Start/Continue", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Shop", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Save", menuItemX, menuItemY);
             menuItemY += 50; // Adjust the Y position for the next menu item
             g2.drawString("-> Exit", menuItemX, menuItemY);
         }

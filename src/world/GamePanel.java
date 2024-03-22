@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import entity.CollisionChecker;
 import entity.User;
 import main.AssetSetter;
+import main.Config;
+import main.NewGameException;
 import main.Sound;
 import main.UI;
 import object.SuperObject;
@@ -48,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    Config config = new Config(this);
     Thread gameThread;
 
     public int gameState;
@@ -67,6 +70,12 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.frame = frame;
+        
+        try {
+            config.loadGameConfig();
+        } catch (NewGameException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void startGame() {
