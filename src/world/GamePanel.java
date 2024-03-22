@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGame() {
         aSetter.setObject();
 
-        if (musicEnabled) {
+        if (sm.isSoundPurchased()) {
             setBackgroundMusic();
         }
         
@@ -171,16 +171,20 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playMusic(int i) {
-        music.setFile(i);
-        music.play();
-        music.loop();
+        if (sm.isSoundPurchased()) {
+            music.setFile(i);
+            music.play();
+            music.loop();
+        }
     }
 
     public void setBackgroundMusic() {
-        music.setFile(0);
-        music.play();
-        music.loop();
-        music.setVolume(0.25f);
+        if (sm.isSoundPurchased()) {
+            music.setFile(0);
+            music.play();
+            music.loop();
+            music.setVolume(0.25f);
+        }
     }
 
     public void stopMusic() {
@@ -188,10 +192,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playSE(int i) {
-        se.setFile(i);
-        //sound.fadeBackgroundMusic();
-        se.setVolume(1.5f);
-        se.play();
+        if (sm.isSoundPurchased()) {
+            se.setFile(i);
+            se.setVolume(1.5f);
+            se.play();
+        }
     }
 
 }

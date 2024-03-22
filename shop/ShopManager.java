@@ -28,6 +28,15 @@ public class ShopManager {
         shopItems.add(new ShopItem("Speed Upgrade", "Increase player speed by 3", 1000));
     }
 
+    public boolean isSoundPurchased() {
+        for (ShopItem item : shopItems) {
+            if (item.getName().equals("Sound") && item.isPurchased()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean buyItem(int index) {
         ShopItem item = shopItems.get(index);
         if (item instanceof SpriteItem) {
@@ -45,6 +54,9 @@ public class ShopManager {
                 gp.user.money -= item.getPrice();
                 item.setPurchased(true);
                 applyItemEffect(item);
+                if (item.getName().equals("Sound")) {
+                    gp.setBackgroundMusic();
+                }
                 return true;
             }
         }

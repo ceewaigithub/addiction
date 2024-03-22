@@ -41,15 +41,21 @@ public class Sound {
     }
 
     public void play() {
-        clip.start();
+        if (clip != null && !clip.isRunning()) {
+            clip.start();
+        }
     }
 
     public void loop() {
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if (clip != null && !clip.isRunning()) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
 
     public void stop() {
-        clip.stop();
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
     }
 
     public void setVolume(float volume) {
