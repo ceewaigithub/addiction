@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
@@ -18,6 +19,10 @@ public class UI {
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
+    public int commandNumber = 0;
+
+    // title screen state: 0 : main, 1: shop
+    public int titleScreenState = 0;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -33,6 +38,11 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
+
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen(g2);
+        }
+
         g2.setFont(aerial_10);
         g2.setColor(Color.white);
         g2.drawImage(coinImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, null);
@@ -50,6 +60,8 @@ public class UI {
                 messageCounter = 0;
             }
         }
+
+
 
         if (gp.gameState == gp.playState) {
             drawControls(g2, gp.tileSize, gp.getHeight() - gp.screenHeight - gp.tileSize, gp.screenWidth, gp.screenHeight);
@@ -88,8 +100,8 @@ public class UI {
 
     public void drawControls(Graphics2D g2, int x, int y, int width, int height) {
         // Calculate the height required to fit the instructions
-        g2.setFont(aerial_10);
-        String controls = "Controls:\nW - Move Up\nA - Move Left\nS - Move Down\nD - Move Right\nSpace - Interact\nESC - Pause Game";
+        g2.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        String controls = "Controls:\nW - Move Up\nA - Move Left\nS - Move Down\nD - Move Right\nSpace - Interact\nESC - Menu";
         String[] lines = controls.split("\n");
         int lineHeight = g2.getFontMetrics().getHeight();
         int requiredHeight = lineHeight * (lines.length + 1);
@@ -134,6 +146,109 @@ public class UI {
         for (int i = 0; i < lines.length; i++) {
             g2.drawString(lines[i], textX, textY + lineHeight * i);
         }
+    }
+
+    public void drawTitleScreen(Graphics2D g2) {
+
+        if (titleScreenState == 0) {
+            drawTitleScreenMain(g2);
+        } else if (titleScreenState == 1) {
+            drawTitleScreenShop(g2);
+        }
+
+    }
+
+    public void drawTitleScreenShop(Graphics2D g2) {
+        g2.setColor(new Color(40, 40, 43));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // Set the font to a game font
+        Font gameFont = new Font("GameFont", Font.BOLD, 50);
+        g2.setFont(gameFont);
+
+        // Draw title with shadow
+        String title = "Shop";
+        FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
+        int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
+        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        
+        // Draw shadow
+        g2.setColor(Color.darkGray);
+        g2.drawString(title, titleX + 2, titleY + 2);
+        
+        // Draw title
+        g2.setColor(Color.decode("#ff6600")); // Set the color to #ff6600 (orange)
+        g2.drawString(title, titleX, titleY);
+
+        // Draw menu items
+        Font menuItemFont = new Font("GameFont", Font.BOLD, 20);
+        g2.setFont(menuItemFont);
+        int menuItemX = (gp.getWidth() - fontMetrics.stringWidth("Buy")) / 2;
+        int menuItemY = titleY + 100; // Adjust the Y position for menu items
+        g2.setColor(Color.WHITE); // Set the color to white
+
+        // Draw arrows based on commandNumber
+        if (commandNumber == 0) {
+            g2.drawString("-> Buy", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Back", menuItemX, menuItemY);
+        } else if (commandNumber == 1) {
+            g2.drawString("Buy", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("-> Back", menuItemX, menuItemY);
+        }
+    }
+
+    public void drawTitleScreenMain(Graphics2D g2) {
+        g2.setColor(new Color(40, 40, 43));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // Set the font to a game font
+        Font gameFont = new Font("GameFont", Font.BOLD, 50);
+        g2.setFont(gameFont);
+
+        // Draw title with shadow
+        String title = "addiction.";
+        FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
+        int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
+        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        
+        // Draw shadow
+        g2.setColor(Color.darkGray);
+        g2.drawString(title, titleX + 2, titleY + 2);
+        
+        // Draw title
+        g2.setColor(Color.decode("#ff6600")); // Set the color to #ff6600 (orange)
+        g2.drawString(title, titleX, titleY);
+
+        // Draw menu items
+        Font menuItemFont = new Font("GameFont", Font.BOLD, 20);
+        g2.setFont(menuItemFont);
+        int menuItemX = (gp.getWidth() - fontMetrics.stringWidth("Start")) / 2;
+        int menuItemY = titleY + 100; // Adjust the Y position for menu items
+        g2.setColor(Color.WHITE); // Set the color to white
+
+        // Draw arrows based on commandNumber
+        if (commandNumber == 0) {
+            g2.drawString("-> Start/Continue", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Shop", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Exit", menuItemX, menuItemY);
+        } else if (commandNumber == 1) {
+            g2.drawString("Start/Continue", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("-> Shop", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Exit", menuItemX, menuItemY);
+        } else if (commandNumber == 2) {
+            g2.drawString("Start/Continue", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("Shop", menuItemX, menuItemY);
+            menuItemY += 50; // Adjust the Y position for the next menu item
+            g2.drawString("-> Exit", menuItemX, menuItemY);
+        }
+
     }
 
     public void drawPauseScreen(Graphics2D g2) {

@@ -27,6 +27,48 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        if (gp.gameState == gp.titleState) {
+            if (code == KeyEvent.VK_W) {
+                gp.playSE(1);
+                gp.ui.commandNumber--;
+                if (gp.ui.commandNumber < 0) {
+                    gp.ui.commandNumber = 2;
+                }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.playSE(1);
+                gp.ui.commandNumber++;
+                if (gp.ui.commandNumber > 2) {
+                    gp.ui.commandNumber = 0;
+                }
+            }
+            if (gp.ui.titleScreenState == 0) {
+                if (code == KeyEvent.VK_SPACE) {
+                    gp.playSE(1);
+                    if (gp.ui.commandNumber == 0) {
+                        gp.gameState = gp.playState;
+                    }
+                    if (gp.ui.commandNumber == 1) {
+                        gp.ui.titleScreenState = 1;
+                    }
+                    if (gp.ui.commandNumber == 2) {
+                        System.exit(0);
+                    }
+                }
+            } else if (gp.ui.titleScreenState == 1) {
+                if (code == KeyEvent.VK_SPACE) {
+                    gp.playSE(1);
+                    if (gp.ui.commandNumber == 0) {
+                        gp.ui.titleScreenState = 0;
+                    }
+                    if (gp.ui.commandNumber == 1) {
+                        gp.ui.titleScreenState = 0;
+                    }
+                }
+            }
+
+        }
+
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -46,8 +88,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
                 gp.playSE(6);
-                gp.gameState = gp.pauseState;
-            } else if (gp.gameState == gp.pauseState) {
+                gp.gameState = gp.titleState;
+            } else if (gp.gameState == gp.titleState) {
                 gp.playSE(7);
                 gp.gameState = gp.playState;
             }
