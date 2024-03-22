@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import world.GamePanel;
+import java.io.File;
 
 public class Config {
     GamePanel gp;
@@ -35,6 +36,15 @@ public class Config {
     }
 
     public void loadGameConfig() throws NewGameException {
+        // Check if config.txt exists, if not create one
+        File configFile = new File("config.txt");
+        if (!configFile.exists()) {
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             String[] data = new String[7];
             String line;
