@@ -21,7 +21,6 @@ public class BlackJack2 {
     private List<Player> players;
     private boolean gameStatus = true;
     private BettingSystem bettingSystem;
-    private int isWin;
 
     // Constructor
     public BlackJack2(User user, BettingSystem bettingSystem) {
@@ -67,11 +66,6 @@ public class BlackJack2 {
 
     public BettingSystem getBettingSystem() {
         return bettingSystem;
-    }
-
-    public int getisWin() {
-        // Returns -1 if lost, 0 if tied, and 1 if won
-        return isWin;
     }
 
     // Start game
@@ -166,21 +160,24 @@ public class BlackJack2 {
         if (winners.isEmpty()) {
             message = "All players busted!";
             bettingSystem.loseBet();
-            isWin = -1;
         } else if (winners.size() == 1) {
             message = winners.get(0).getName() + " is the winner!";
+            if (reducePlayerHand(winners.get(0)) == 21) {
+                message = winners.get(0).getName() + " is the winner with Blackjack!";
+            }
 
             if (playerWin) {
-                bettingSystem.winBet(2);
-                isWin = 1;
+                if (reducePlayerHand(getPlayer()) == 21) {
+                    bettingSystem.winBet(3);
+                } else {
+                    bettingSystem.winBet(2);
+                }
             } else {
                 bettingSystem.loseBet();
-                isWin = -1;
             }
         } else if (winners.size() > 1) {
             message = "It's a tie!";
             bettingSystem.pushBet();
-            isWin = 0;
         }
 
         return message;
