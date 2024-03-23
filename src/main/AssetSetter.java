@@ -2,11 +2,13 @@ package main;
 
 import object.*;
 import world.GamePanel;
+import object.OBJ_Door;
 
 public class AssetSetter {
     GamePanel gp;
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
+        
     }
     public void setObject() {
         gp.obj[0] = new OBJ_BlackJack();
@@ -40,5 +42,19 @@ public class AssetSetter {
         gp.obj[7] = new OBJ_HighLow();
         gp.obj[7].x = 29 * gp.tileSize;
         gp.obj[7].y = 13 * gp.tileSize;
+    }
+
+    public void openDoors() {
+        // Declare the obj variable
+        Object[] obj = gp.obj;
+        // Set the opened state of the doors based on the loaded configuration
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] instanceof OBJ_Door) {
+                boolean isOpen = ((OBJ_Door) obj[i]).isOpen();
+                if (isOpen) {
+                    ((OBJ_Door) obj[i]).setOpen(isOpen);
+                }
+            }
+        }
     }
 }

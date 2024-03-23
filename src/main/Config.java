@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import object.OBJ_Door;
+import object.SuperObject;
 import shop.ShopItem;
 import world.GamePanel;
 import java.io.File;
@@ -39,6 +41,16 @@ public class Config {
             bw.write("speed=" + gp.user.speed);
             bw.newLine();
 
+            SuperObject obj[] = gp.obj;
+            // save opened doors
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    if (obj[i].name.equals("Door")) {
+                       bw.write(i + "=" + ((object.OBJ_Door) obj[i]).isOpen() + ",");
+                    }
+                }
+            }
+            
             bw.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -58,7 +70,7 @@ public class Config {
             }
         }
         try {
-            String[] data = new String[7];
+            String[] data = new String[8];
             String line;
             int i = 0;
             java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader("config.txt"));
@@ -81,6 +93,18 @@ public class Config {
                 gp.user.worldX = Integer.parseInt(data[2].substring(7));
                 gp.user.worldY = Integer.parseInt(data[3].substring(7));
                 gp.user.speed = Integer.parseInt(data[4].substring(6));
+                
+
+                String[] doorData = data[5].split(",");
+                for (int j = 0; j < doorData.length; j++) {
+                    String[] door = doorData[j].split("=");
+                    int idx = Integer.parseInt(door[0]);
+                    boolean isOpen = Boolean.parseBoolean(door[1]);
+                    if (idx >= 0 && idx < gp.obj.length && gp.obj[idx] instanceof OBJ_Door) {
+                        ((OBJ_Door) gp.obj[idx]).setOpen(isOpen);
+                    }
+                }
+
             } catch (Exception e) {
                 throw new NewGameException("New game, empty config file.");
             }
