@@ -44,10 +44,10 @@ public class ShopManager {
             if (!spriteItem.isPurchased() && gp.user.money >= spriteItem.getPrice()) {
                 gp.user.money -= spriteItem.getPrice();
                 spriteItem.setPurchased(true);
+                currentSprite = spriteItem.getSprite();
+                gp.user.sprite = currentSprite;
+                gp.user.getPlayerImage();
             }
-            currentSprite = spriteItem.getSprite();
-            gp.user.sprite = currentSprite;
-            gp.user.getPlayerImage();
             return true;
         } else {
             if (!item.isPurchased() && gp.user.money >= item.getPrice()) {
