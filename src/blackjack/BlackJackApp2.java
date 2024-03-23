@@ -33,6 +33,7 @@ public class BlackJackApp2 {
         // Create players
         Player dealer = new Player("Dealer");
         Player player = new Player("Player");
+        
 
         // Create betting system
         BettingSystem bettingSystem = new BettingSystem(player);
@@ -44,7 +45,15 @@ public class BlackJackApp2 {
 
         // Starting BlackJackApp runs BlackJackGUI
         JFrame bJframe = new JFrame("BlackJack");
-        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame, bettingSystem);
+        BlackJackPanel blackJackPanel = new BlackJackPanel(blackjack, bJframe, mapFrame, bettingSystem, user);
+
+        // if (!blackjack.getGameStatus()) {
+        //     if (blackjack.getResult()) {
+        //         user.addMoney(10);
+        //     } else {
+        //         user.subtractMoney(10);
+        //     }
+        // }
     }
 
     public static void main(String[] args) {

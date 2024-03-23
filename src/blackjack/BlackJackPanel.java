@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
+
+import entity.User;
 import main.BettingSystem;
 
 public class BlackJackPanel extends JPanel {
@@ -20,10 +22,11 @@ public class BlackJackPanel extends JPanel {
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
     private BettingSystem bettingSystem;
+    private User user;
 
     // Constructor
-    public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem) {
-
+    public BlackJackPanel(BlackJack2 blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem, User user) {
+        
         // Pass in blackjack game
         this.blackjack = blackjack;
 
@@ -35,6 +38,9 @@ public class BlackJackPanel extends JPanel {
 
         // Pass in previous frame
         this.mapFrame = mapFrame;
+
+        // Pass in user
+        this.user = user;
 
         // Set up frame
         frame.setSize(boardWidth, boardHeight);
@@ -133,6 +139,11 @@ public class BlackJackPanel extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (blackjack.getResult()) {
+                    user.money += 10;
+                } else {
+                    user.money -= 10;
+                }
                 // Close frame
                 frame.setVisible(false);
                 mapFrame.setVisible(true);

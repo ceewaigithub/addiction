@@ -21,6 +21,7 @@ public class BlackJack2 {
     private List<Player> players;
     private boolean gameStatus = true;
     private BettingSystem bettingSystem;
+    private boolean isWin;
 
     // Constructor
     public BlackJack2(User user, BettingSystem bettingSystem) {
@@ -36,6 +37,9 @@ public class BlackJack2 {
 
         // Create player list
         players = new ArrayList<>();
+
+        // isWin is first false
+        isWin = false;
     }
 
     // Add players
@@ -134,9 +138,6 @@ public class BlackJack2 {
             }
         }
 
-        // Update user bank
-        updateUserBank(playerWin);
-
         // Based on winners, return respective message & update betting system
         String message = "";
 
@@ -147,7 +148,7 @@ public class BlackJack2 {
             message = winners.get(0).getName() + " is the winner!";
 
             if (playerWin) {
-                bettingSystem.winBet(2);
+                bettingSystem.winBet(1);
             } else {
                 bettingSystem.loseBet();
             }
@@ -156,16 +157,15 @@ public class BlackJack2 {
             bettingSystem.pushBet();
         }
 
+        if (playerWin) {
+            isWin = true;
+        }
+
         return message;
     }
 
-    public synchronized void updateUserBank(boolean playerWin) {
-        // Update user bank based on game result
-        if (playerWin) {
-            user.addMoney(10);
-        } else {
-            user.subtractMoney(10);
-        }
+    public boolean getResult() {
+        return isWin;
     }
 
 }

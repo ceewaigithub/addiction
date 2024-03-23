@@ -240,5 +240,4 @@ public class User extends Entity{
             money -= amount;
         }
     }
-
 }
