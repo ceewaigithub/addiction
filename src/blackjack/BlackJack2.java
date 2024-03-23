@@ -145,7 +145,7 @@ public class BlackJack2 {
 
         if (winners == null) {
             message = "All players busted!";
-            bettingSystem.pushBet();
+            bettingSystem.loseBet();
             // System.out.println(bettingSystem.getPlayerBalance());
             isWin = -1;
         } else if (winners.size() == 1) {

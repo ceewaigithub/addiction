@@ -139,11 +139,6 @@ public class BlackJackPanel extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // if (blackjack.getisWin() == 1) {
-                //     user.money += (bettingSystem.getPlayerBalance() - 1000);
-                // } else if (blackjack.getisWin() == -1) {
-                //     user.money += (bettingSystem.getPlayerBalance() - 1000);
-                // }
                 user.money += (bettingSystem.getPlayerBalance() - 1000);
                 // Close frame
                 frame.setVisible(false);
