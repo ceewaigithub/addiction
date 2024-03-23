@@ -59,10 +59,15 @@ public class BlackJackAssetSetter {
     // Draw individual cards
     public void drawCardImage(Graphics g, Player player, int x, int y, boolean back) {
 
-        String currentDirectory = new File("").getAbsolutePath();
-
         for (int i = 0; i < player.getHand().size(); i++) {
-            Card card = player.getHand().get(i);
+            
+            Card card;
+            if (back) {
+                card = new Card("b");
+            } else {
+                card = player.getHand().get(i);
+            }
+            
             int cardX = x + (i * (cardWidth + spacing));
             int cardY = y;
             card.printCard(g, cardX, cardY);

@@ -97,21 +97,17 @@ public class BlackJack2 {
 
     public int reducePlayerHand(Player player) {
         int currentHand = player.getHandValue();
-        int reducedHand = 0;
         for (Card card : player.getHand()) {
             if (card.isAce() && currentHand > 21) {
-                reducedHand += 1;
                 currentHand -= 10;
-            } else {
-                reducedHand += card.getValue();
             }
         }
-        return reducedHand;
+        return currentHand;
     }
 
     public void dealerTurn(boolean playerStays) {
 
-        if (getDealer().getHandValue() < 17) {
+        if (reducePlayerHand(getDealer()) < 17) {
             // Dealer hits
             Card drawn_card = getDeck().dealCard();
             getDealer().addCard(drawn_card);
@@ -139,11 +135,10 @@ public class BlackJack2 {
 
         for (Player player : players) {
 
-            int handSize = player.getHandValue();
+            int handSize = reducePlayerHand(player);
 
-            // Hand size with ace will be reduced to ideal hand
             if (handSize > 21) {
-                handSize = reducePlayerHand(player);
+                continue;
             }
 
             if (handSize > maxHandSize) {
