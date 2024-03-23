@@ -136,14 +136,13 @@ public class BlackJack2 {
 
         ArrayList<Player> winners = new ArrayList<Player>();
         int maxHandSize = 0;
-        boolean allBusted = true;
 
         for (Player player : players) {
 
             int handSize = player.getHandValue();
 
             // Hand size with ace will be reduced to ideal hand
-            while (handSize > 21) {
+            if (handSize > 21) {
                 handSize = reducePlayerHand(player);
             }
 
@@ -151,16 +150,10 @@ public class BlackJack2 {
                 maxHandSize = handSize;
                 winners.clear();
                 winners.add(player);
-                allBusted = false;
             } else if (handSize == maxHandSize) {
                 winners.add(player);
-                allBusted = false;
             } else {
                 continue;
-            }
-
-            if (handSize <= 21) {
-                allBusted = false;
             }
         }
 
