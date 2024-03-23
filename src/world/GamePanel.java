@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import entity.CollisionChecker;
 import entity.User;
@@ -12,6 +13,7 @@ import main.Config;
 import main.NewGameException;
 import main.Sound;
 import main.UI;
+import object.OBJ_Door;
 import object.SuperObject;
 import shop.ShopManager;
 import tile.TileManager;
@@ -54,7 +56,6 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
-    public Config config = new Config(this);
     Thread gameThread;
 
     public int gameState;
@@ -67,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     public User user = new User(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
+    public Config config = new Config(this);
     
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -76,25 +78,24 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.frame = frame;
         sm = new ShopManager(this);
+
+        aSetter.setObject();
         try {
             config.loadGameConfig();
             sm.loadShopItems(); // Load shop items after loading the game configuration
+            System.out.println("Game loaded from save file successfully");
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
         
-        try {
-            config.loadGameConfig();
-        } catch (NewGameException e) {
-            System.out.println(e.getMessage());
-        }
         if (sm.isSoundPurchased()) {
             musicEnabled = true;
         }
+        openAllOpenedDoors();
+
     }
 
     public void startGame() {
-        aSetter.setObject();
 
         if (sm.isSoundPurchased()) {
             setBackgroundMusic();
@@ -104,6 +105,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (user.money < -100) {
             gameState = gameOverState;
         }
+
     }
 
     public void restartGame() {
@@ -198,6 +200,15 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    public void openAllOpenedDoors() {
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] != null && obj[i] instanceof OBJ_Door) {
+                if (!((OBJ_Door) obj[i]).isLocked()) {
+                    ((OBJ_Door) obj[i]).setOpen(true);
+                }
+            }
+        }
+    }
 
     public void setCurrentSprite(String sprite) {
         user.sprite = sprite;

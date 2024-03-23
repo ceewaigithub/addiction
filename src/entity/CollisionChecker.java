@@ -20,7 +20,7 @@ public class CollisionChecker {
         int entityBottomRow = entityBottomWorldY / gp.tileSize;
 
         int tileNum1, tileNum2;
-        
+
         switch (entity.direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
@@ -60,14 +60,14 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
         for (int i = 0; i < gp.obj.length; i++) {
-            if (gp.obj[i] != null) {
-                
+            if (gp.obj[i] != null && gp.obj[i].collision) {
+
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
-                
+
                 gp.obj[i].solidArea.x = gp.obj[i].x + gp.obj[i].solidArea.x;
                 gp.obj[i].solidArea.y = gp.obj[i].y + gp.obj[i].solidArea.y;
-                
+
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;

@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import blackjack.BlackJackApp2;
 import highlow.*;
-import object.OBJ_DoorOpen;
+import object.OBJ_Door;
 import Baccarat.*;
 import world.GamePanel;
 import world.KeyHandler;
@@ -140,15 +140,18 @@ public class User extends Entity{
                     }
                     break;
                 case "Door":
-                    gp.ui.showMessage("Pay 50 to unlock");
-                    if (keyH.spacePressed) {
-                        if (money >= 50) {
-                            money -= 50;
-                            gp.playSE(5);
-                            gp.ui.showMessage("Money - 50");
-                            gp.obj[idx] = new OBJ_DoorOpen();
-                        } else {
-                            gp.ui.showMessage("You don't have enough money");
+                    if (((OBJ_Door)gp.obj[idx]).isLocked()) {
+                        gp.ui.showMessage("Pay 50 to unlock");
+                        if (keyH.spacePressed) {
+                            if (money >= 50) {
+                                money -= 50;
+                                gp.playSE(5);
+                                gp.ui.showMessage("Money - 50");
+                                ((OBJ_Door)gp.obj[idx]).setOpen(true);
+                                clearKeyPresses();
+                            } else {
+                                gp.ui.showMessage("You don't have enough money");
+                            }
                         }
                     }
                     break;
