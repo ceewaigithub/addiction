@@ -9,7 +9,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import blackjack.BlackJackApp;
 import blackjack.BlackJackApp2;
 import highlow.*;
 import object.OBJ_DoorOpen;
