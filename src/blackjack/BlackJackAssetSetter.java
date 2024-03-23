@@ -62,10 +62,10 @@ public class BlackJackAssetSetter {
         String currentDirectory = new File("").getAbsolutePath();
 
         for (int i = 0; i < player.getHand().size(); i++) {
-            String imagePath = currentDirectory + "/res/" + player.getHand().get(i).getImagePath();
-            if (back) imagePath = currentDirectory + "/res/cards/b.gif";
-            Image cardImg = new ImageIcon(imagePath).getImage();
-            g.drawImage(cardImg, x + (i * (cardWidth + spacing)), y, cardWidth, cardHeight, null);
+            Card card = player.getHand().get(i);
+            int cardX = x + (i * (cardWidth + spacing));
+            int cardY = y;
+            card.printCard(g, cardX, cardY);
         }
     }
 }

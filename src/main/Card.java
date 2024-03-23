@@ -75,6 +75,7 @@ public class Card implements Comparable<Card>{
     public String toString() {
         return rank + "" + suit;
     }
+
     public Image getImage() {
         try {
             String imagePath = "res/cards/" + rank + suit + ".gif";
@@ -100,12 +101,6 @@ public class Card implements Comparable<Card>{
 
     public boolean isAce() {
         return rank.equals("a");
-    }
-
-
-    // Sara to remove:
-    public String getImagePath() {
-        return "./cards/" + rank + suit + ".gif";
     }
 
 }
