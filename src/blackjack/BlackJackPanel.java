@@ -234,6 +234,8 @@ public class BlackJackPanel extends JPanel {
         hitButton.setVisible(false);
         stayButton.setVisible(false);
         exitButton.setVisible(true);
-        nextGameButton.setVisible(true);
+        if (blackjack.getPlayer().getBalance() > 0) {
+            nextGameButton.setVisible(true);
+        }
     }
 }
