@@ -95,6 +95,20 @@ public class BlackJack2 {
         getPlayer().addCard(drawn_card);
     }
 
+    public int reducePlayerHand(Player player) {
+        int currentHand = player.getHandValue();
+        int reducedHand = 0;
+        for (Card card : player.getHand()) {
+            if (card.isAce() && currentHand > 21) {
+                reducedHand += 1;
+                currentHand -= 10;
+            } else {
+                reducedHand += card.getValue();
+            }
+        }
+        return reducedHand;
+    }
+
     public void dealerTurn(boolean playerStays) {
 
         if (getDealer().getHandValue() < 17) {
@@ -120,54 +134,64 @@ public class BlackJack2 {
 
     public String determineWinners() {
 
-        // Add winners into list
         ArrayList<Player> winners = new ArrayList<Player>();
-        boolean playerWin = false;
+        int maxHandSize = 0;
+        boolean allBusted = true;
 
-        if (getDealer().getHandValue() > 21 && getPlayer().getHandValue() > 21) {
-            winners = null;
-        } else if (getDealer().getHandValue() > 21 && getPlayer().getHandValue() <= 21) {
-            winners.add(getPlayer());
-            playerWin = true;
-        } else if (getDealer().getHandValue() <= 21 && getPlayer().getHandValue() > 21) {
-            winners.add(getDealer());
-        } else {
-            if (getDealer().getHandValue() > getPlayer().getHandValue()) {
-                winners.add(getDealer());
-            } else if (getDealer().getHandValue() < getPlayer().getHandValue()) {
-                winners.add(getPlayer());
-                playerWin = true;
+        for (Player player : players) {
+
+            int handSize = player.getHandValue();
+
+            // Hand size with ace will be reduced to ideal hand
+            while (handSize > 21) {
+                handSize = reducePlayerHand(player);
+            }
+
+            if (handSize > maxHandSize) {
+                maxHandSize = handSize;
+                winners.clear();
+                winners.add(player);
+                allBusted = false;
+            } else if (handSize == maxHandSize) {
+                winners.add(player);
+                allBusted = false;
             } else {
-                winners.add(getDealer());
-                winners.add(getPlayer());
-                playerWin = true;
+                continue;
+            }
+
+            if (handSize <= 21) {
+                allBusted = false;
             }
         }
 
+        // Update playerWin
+        boolean playerWin = false;
+        for (Player winner : winners) {
+            if (getPlayer().equals(winner)) {
+                playerWin = true;
+            }
+        }
+        
         // Based on winners, return respective message & update betting system
         String message = "";
 
-        if (winners == null) {
+        if (winners.isEmpty()) {
             message = "All players busted!";
             bettingSystem.loseBet();
-            // System.out.println(bettingSystem.getPlayerBalance());
             isWin = -1;
         } else if (winners.size() == 1) {
             message = winners.get(0).getName() + " is the winner!";
 
             if (playerWin) {
                 bettingSystem.winBet(2);
-                // System.out.println(bettingSystem.getPlayerBalance() - 1000);
                 isWin = 1;
             } else {
                 bettingSystem.loseBet();
-                // System.out.println(bettingSystem.getPlayerBalance());
                 isWin = -1;
             }
         } else if (winners.size() > 1) {
             message = "It's a tie!";
             bettingSystem.pushBet();
-            // System.out.println(bettingSystem.getPlayerBalance());
             isWin = 0;
         }
 
