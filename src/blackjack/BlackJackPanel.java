@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
 
+import Baccarat.BaccaratGame;
 import entity.User;
 import main.BettingSystem;
 
@@ -17,7 +18,7 @@ public class BlackJackPanel extends JPanel {
     private JFrame mapFrame;
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; 
     private JLabel messageLabel, topLabel, bottomLabel;
-    private JButton hitButton, stayButton, exitButton;
+    private JButton hitButton, stayButton, exitButton, nextGameButton;
     private int boardWidth = 800;
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
@@ -94,17 +95,12 @@ public class BlackJackPanel extends JPanel {
         messageLabel.setFont(new Font("Arial", Font.BOLD, 24));
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gamePanel.add(messageLabel, BorderLayout.CENTER);
-        
-        // // Update frame color immediately
-        // gamePanel.revalidate();
-        // gamePanel.repaint();
 
         // Set up buttonPanel
         buttonPanel = new JPanel();
 
         // Set up hitButton + purpose hitButton + add hitButton
         hitButton = new JButton("Hit");
-        buttonPanel.add(hitButton);
         hitButton.setFocusable(false);
         hitButton.addActionListener(new ActionListener() {
             @Override
@@ -118,10 +114,10 @@ public class BlackJackPanel extends JPanel {
                 frame.repaint();
             }
         });
+        buttonPanel.add(hitButton);
 
         // Set up stayButton + purpose stayButton + add stayButton
         stayButton = new JButton("Stay");
-        buttonPanel.add(stayButton);
         stayButton.setFocusable(false);
         stayButton.addActionListener(new ActionListener() {
             @Override
@@ -133,9 +129,27 @@ public class BlackJackPanel extends JPanel {
                 frame.repaint();
             }
         });
+        buttonPanel.add(stayButton);
 
-        // Set up exitButton + purpose exitButton
+        // Set up nextGameButton + purpose nextGameButton + add (invisible)
+        nextGameButton = new JButton("Next Game");
+        nextGameButton.setFocusable(false);
+        nextGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Restart game
+                restartGame();
+                // Repaint panel
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+        buttonPanel.add(nextGameButton);
+        nextGameButton.setVisible(false);
+
+        // Set up exitButton + purpose exitButton + add (invisible)
         exitButton = new JButton("Exit");
+        exitButton.setFocusable(false);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,6 +159,8 @@ public class BlackJackPanel extends JPanel {
                 mapFrame.setVisible(true);
             }
         });
+        buttonPanel.add(exitButton);
+        exitButton.setVisible(false);
 
         // Set up betting panel
         bettingPanel = bettingSystem.getBettingPanel();
@@ -165,6 +181,10 @@ public class BlackJackPanel extends JPanel {
         frame.add(gamePanel);
 
         // After setting up GUI, place bet
+        startGame();
+    }
+
+    public void startGame() {
         bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
         buttonPanel.setVisible(false);
@@ -186,6 +206,21 @@ public class BlackJackPanel extends JPanel {
         }
     }
 
+    public void restartGame(){
+        // Clear previous string
+        setMessage("");
+        // Set original buttons visible
+        exitButton.setVisible(false);
+        nextGameButton.setVisible(false);
+        hitButton.setVisible(true);
+        stayButton.setVisible(true);
+        // Clear all cards + reset game status
+        blackjack.setGameStatus(true);
+        blackjack.endRound();
+        // Start
+        startGame();
+    }
+
     public void endGame(String message) {
 
         // Repaint panel
@@ -195,8 +230,10 @@ public class BlackJackPanel extends JPanel {
         // Display results
         setMessage(message);
 
-        // Remove all buttons + add exit button
-        buttonPanel.removeAll();
-        buttonPanel.add(exitButton);
+        // Set exit to visible
+        hitButton.setVisible(false);
+        stayButton.setVisible(false);
+        exitButton.setVisible(true);
+        nextGameButton.setVisible(true);
     }
 }

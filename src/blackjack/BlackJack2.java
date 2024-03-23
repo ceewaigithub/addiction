@@ -61,6 +61,10 @@ public class BlackJack2 {
         return gameStatus;
     }
 
+    public void setGameStatus(boolean gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
     public BettingSystem getBettingSystem() {
         return bettingSystem;
     }
@@ -170,4 +174,10 @@ public class BlackJack2 {
         return message;
     }
 
+    public void endRound(){
+        for (Player player : players) {
+            player.discardHand();
+        }
+    }
+    
 }
