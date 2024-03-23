@@ -136,4 +136,18 @@ public class Config {
         return data;
     }
 
+    public void restartGame() {
+        File configFile = new File("config.txt");
+        if (configFile.exists()) {
+            configFile.delete();
+        }
+        File shopItemsFile = new File("shopItems.txt");
+        if (shopItemsFile.exists()) {
+            shopItemsFile.delete();
+        }
+        gp.sm.resetShopItems();
+        gp.sm.loadShopItems();
+        gp.user.setDefaultValues();
+    }
+
 }

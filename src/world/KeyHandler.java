@@ -111,6 +111,34 @@ public class KeyHandler implements KeyListener {
                     }
                 }
             }
+        } else if (gp.gameState == gp.gameOverState) {
+
+            if (code == KeyEvent.VK_W) {
+                gp.playSE(1);
+                gp.ui.commandNumber--;
+                if (gp.ui.commandNumber < 0) {
+                    gp.ui.commandNumber = 1;
+                }
+            }
+
+            if (code == KeyEvent.VK_S) {
+                gp.playSE(1);
+                gp.ui.commandNumber++;
+                if (gp.ui.commandNumber > 1) {
+                    gp.ui.commandNumber = 0;
+                }
+            }
+
+            if (code == KeyEvent.VK_SPACE) {
+                if (gp.ui.commandNumber == 0) {
+                    gp.playSE(1);
+                    gp.restartGame();
+                    gp.gameState = gp.playState;
+                } else if (gp.ui.commandNumber == 1) {
+                    gp.playSE(1);
+                    System.exit(0);
+                }
+            }
         }
     
         if (code == KeyEvent.VK_W) {

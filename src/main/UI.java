@@ -73,6 +73,10 @@ public class UI {
             drawPauseScreen(g2);
         }
 
+        if (gp.gameState == gp.gameOverState) {
+            drawGameOverScreen(g2);
+        }
+
     }
 
     public void drawDialogueState(Graphics2D g2) {
@@ -274,6 +278,35 @@ public class UI {
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("PAUSED")) / 2;
         int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
         g2.drawString("PAUSED", messageX, messageY);
+    }
+
+    public void drawGameOverScreen(Graphics2D g2) {
+        // Draw black background
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.getWidth(), gp.getHeight());
+
+        // Draw "GAME OVER" message
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
+        g2.setColor(Color.WHITE);
+        int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("GAME OVER")) / 2;
+        int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        g2.drawString("GAME OVER", messageX, messageY);
+
+        // Draw subheader
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20));
+        g2.setColor(Color.RED);
+        int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("Balance below -100.")) / 2;
+        int subheaderY = messageY + 50;
+        g2.drawString("Balance below -100.", subheaderX, subheaderY);
+
+        // Add padding between subheader and menu items
+        int padding = 20;
+        int menuItemY = subheaderY + g2.getFontMetrics().getHeight() + padding;
+
+        // Draw smaller menu items with smaller font size
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16));
+        drawMenuItem(g2, gp.getWidth() / 2, menuItemY, "Restart Game", 0);
+        drawMenuItem(g2, gp.getWidth() / 2, menuItemY + 30, "Exit", 1);
     }
 
 }

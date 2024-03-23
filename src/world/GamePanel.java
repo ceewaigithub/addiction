@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int titleState = 4;
+    public final int gameOverState = 5;
 
     public User user = new User(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
@@ -87,6 +88,9 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
+        if (sm.isSoundPurchased()) {
+            musicEnabled = true;
+        }
     }
 
     public void startGame() {
@@ -97,6 +101,22 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         gameState = titleState;
+        if (user.money < -100) {
+            gameState = gameOverState;
+        }
+    }
+
+    public void restartGame() {
+        config.restartGame();
+        user.money = 100;
+        user.setDefaultValues();
+        user.getPlayerImage();
+        gameState = titleState;
+        if (sm.isSoundPurchased()) {
+            setBackgroundMusic();
+        } else {
+            stopMusic();
+        }
     }
 
     public void startGameThread() {
@@ -147,12 +167,24 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pauseState) {
             // Do nothing
         }
+        if (gameState == dialogueState) {
+            // Do nothing
+        }
+        if (gameState == titleState) {
+            // Do nothing
+        }
+        if (gameState == gameOverState) {
+            // Do nothing
+        }
+        if (user.money < -100) {
+            gameState = gameOverState;
+        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if (gameState != titleState) {
+        if (gameState != titleState || gameState != gameOverState) {
             tm.draw(g2);
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) {
@@ -165,6 +197,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2.dispose();
     }
+
 
     public void setCurrentSprite(String sprite) {
         user.sprite = sprite;
