@@ -71,22 +71,4 @@ public class Player {
         System.out.println(name + "'s Hand Size: " + hand.size());
     }
 
-
-    public boolean hasBlackJack() {
-        return getHandValue() == 21;
-    }
-
-    public boolean hasBusted() {
-        return getHandValue() > 21;
-    }
-
-    public boolean wantsToHit() {
-        // Implement player's decision logic
-        if (getHandValue() < 17) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }

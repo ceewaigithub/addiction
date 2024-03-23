@@ -68,9 +68,6 @@ public class Card implements Comparable<Card>{
         return getRankIndex() - anotherCard.getRankIndex();
     }
 
-    //    public String getImagePath() {
-//        return "cards/" + rank + suit + ".gif";
-//    }
     @Override
     public String toString() {
         return rank + "" + suit;
