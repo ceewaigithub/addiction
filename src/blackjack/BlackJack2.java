@@ -31,9 +31,6 @@ public class BlackJack2 {
         // Pass in betting system
         this.bettingSystem = bettingSystem;
 
-        // Create deck
-        deck = new Deck();
-
         // Create player list
         players = new ArrayList<>();
     }
@@ -71,6 +68,7 @@ public class BlackJack2 {
     // Start game
     public void startGame() {
         // Shuffle the deck
+        deck = new Deck();
         deck.shuffle();
 
         // Deal initial cards to players
