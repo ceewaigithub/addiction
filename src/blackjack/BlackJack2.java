@@ -83,10 +83,16 @@ public class BlackJack2 {
     }
 
     // User hits
-    public void hit() {
-        // Deal card to player
+    public boolean hit() {
+        // Deal card to player unless busted
         Card drawn_card = deck.dealCard();
         getPlayer().addCard(drawn_card);
+
+        // If hand is more than or 21, return false to disable hit
+        if (reducePlayerHand(getPlayer()) >= 21) {
+            return false;
+        }
+        return true;
     }
 
     public int reducePlayerHand(Player player) {

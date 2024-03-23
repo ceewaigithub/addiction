@@ -106,7 +106,7 @@ public class BlackJackPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Hit in game
-                blackjack.hit();
+                hitButton.setVisible(blackjack.hit());
                 // Dealer turn
                 blackjack.dealerTurn(false);
                 // Repaint panel
@@ -234,7 +234,7 @@ public class BlackJackPanel extends JPanel {
         hitButton.setVisible(false);
         stayButton.setVisible(false);
         exitButton.setVisible(true);
-        if (blackjack.getPlayer().getBalance() > 0) {
+        if (bettingSystem.getPlayerBalance() > 0) {
             nextGameButton.setVisible(true);
         }
     }
