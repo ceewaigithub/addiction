@@ -105,10 +105,10 @@ public class BettingSystem {
     }
 
     public void winBet(int multiplier) {
-        System.out.println(player.getBalance());
+        // System.out.println(player.getBalance());
         player.setBalance(player.getBalance() + currentBet * multiplier);
         updateBettingPanel();
-        System.out.println(player.getBalance());
+        // System.out.println(player.getBalance());
         currentBet = 0;
     }
     public void loseBet() {
