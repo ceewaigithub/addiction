@@ -140,7 +140,7 @@ public class User extends Entity{
                     }
                     break;
                 case "Door":
-                    gp.ui.showMessage("Pay 50 to enter");
+                    gp.ui.showMessage("Pay 50 to unlock");
                     if (keyH.spacePressed) {
                         if (money >= 50) {
                             money -= 50;
