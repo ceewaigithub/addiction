@@ -24,7 +24,7 @@ If your balance drops below -100, you will lose the game. So, be mindful of your
 
 To run the game, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/addiction.git`
+1. Clone the repository: `git clone https://github.com/ceewaigithub/addiction.git`
 2. Navigate to the project directory: `cd addiction`
 3. Compile the Java files using the provided script:
     - For Unix/Linux: `bash compile_and_run.sh`
