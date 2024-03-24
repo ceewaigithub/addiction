@@ -1,4 +1,5 @@
-class/*
 .DS_Store
 config.txt
 shopItems.txt
+class/
+*.class
