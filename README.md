@@ -33,7 +33,7 @@ To run the game, follow these steps:
 
 ## :joystick: Controls
 
-- Use the '''WASD''' keys to move your character around the casino
+- Use the ```WASD``` keys to move your character around the casino
 - Press the spacebar to interact with gambling games and objects
 - Follow the on-screen instructions to navigate through the game's menus and dialogues
 
