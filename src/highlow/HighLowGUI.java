@@ -41,7 +41,7 @@ public class HighLowGUI {
         // Top Panel
         topPanel = new JPanel();
         topPanel.setBackground(gamePanel.getBackground());
-        topLabel = new JLabel("*Note: You win money if you can score more than 3");
+        topLabel = new JLabel("*Payout: (Bet * Score) | (Score > 2) else 0");
         topLabel.setForeground(Color.WHITE);
         topLabel.setFont(new Font("Arial", Font.BOLD, 15));
         topLabel.setHorizontalAlignment(JLabel.CENTER);

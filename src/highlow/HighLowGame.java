@@ -59,10 +59,10 @@ class HighLowGame {
 
     public int checkScore(){
         int winnings = 0;
-        if (score == 0) {
+        if (score <= 2) {
             bettingSystem.loseBet();
         } else {
-            int multiplier = (int) (0.125 * Math.pow(2.0, score - 1));
+            int multiplier = score;
             winnings = bettingSystem.getPlayerBet() * multiplier;
             System.out.println(multiplier);
             bettingSystem.winBet(multiplier);
