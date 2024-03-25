@@ -2,7 +2,6 @@ package Baccarat;
 
 import javax.swing.JFrame;
 
-import blackjack.BlackJackPanel;
 import entity.User;
 import main.BettingGUI;
 import main.BettingSystem;

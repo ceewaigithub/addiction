@@ -9,7 +9,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import blackjack.BlackJackApp2;
+import blackjack.BlackJackApp;
 import highlow.*;
 import object.OBJ_Door;
 import Baccarat.*;
@@ -135,7 +135,7 @@ public class User extends Entity{
                     if (keyH.spacePressed) {
                         gp.playSE(1);
                         gp.frame.setVisible(false);
-                        BlackJackApp2 bj = new BlackJackApp2(this, gp.frame);
+                        BlackJackApp bj = new BlackJackApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
