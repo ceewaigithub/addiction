@@ -177,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == gameOverState) {
             // Do nothing
         }
-        if (user.money <= 0) {
+        if (user.money < 0) {
             gameState = gameOverState;
         }
     }
