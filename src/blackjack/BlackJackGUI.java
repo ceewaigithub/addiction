@@ -10,7 +10,7 @@ import Baccarat.BaccaratGame;
 import entity.User;
 import main.BettingSystem;
 
-public class BlackJackPanel extends JPanel {
+public class BlackJackGUI extends JPanel {
 
     // Variables
     private BlackJack blackjack;
@@ -26,7 +26,7 @@ public class BlackJackPanel extends JPanel {
     private User user;
 
     // Constructor
-    public BlackJackPanel(BlackJack blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem, User user) {
+    public BlackJackGUI(BlackJack blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem, User user) {
         
         // Pass in blackjack game
         this.blackjack = blackjack;
