@@ -24,12 +24,8 @@ public class BettingSystem {
         this.user = user;
         currentBet = 0;
 
-//    bettingSystem = new BettingSystem();
-
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120, 20));
-//        clearBetButton.setUI(new BasicButtonUI());
-//        clearBetButton.setBorderPainted(false);
         clearBetButton.addActionListener(e -> {
             resetBet();
             updateBettingPanel();

@@ -36,7 +36,7 @@ public class BlackJackApp2 {
         
 
         // Create betting system
-        BettingSystem bettingSystem = new BettingSystem(player);
+        BettingSystem bettingSystem = new BettingSystem(user);
     
         // Create blackJack game
         BlackJack2 blackjack = new BlackJack2(user, bettingSystem);
