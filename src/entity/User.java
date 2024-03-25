@@ -155,8 +155,8 @@ public class User extends Entity{
                         }
                     }
                     break;
-                case "Bacarrat":
-                    gp.ui.showMessage("Bacarrat");
+                case "Baccarat":
+                    gp.ui.showMessage("Baccarat");
                     if (keyH.spacePressed) {
                         gp.playSE(1);
                         gp.frame.setVisible(false);

@@ -27,11 +27,11 @@ public class AssetSetter {
         gp.obj[3].x = 22 * gp.tileSize;
         gp.obj[3].y = 15 * gp.tileSize;
 
-        gp.obj[4] = new OBJ_Bacarrat();
+        gp.obj[4] = new OBJ_Baccarat();
         gp.obj[4].x = 19 * gp.tileSize;
         gp.obj[4].y = 17 * gp.tileSize;
 
-        gp.obj[5] = new OBJ_Bacarrat();
+        gp.obj[5] = new OBJ_Baccarat();
         gp.obj[5].x = 14 * gp.tileSize;
         gp.obj[5].y = 17 * gp.tileSize;
 
