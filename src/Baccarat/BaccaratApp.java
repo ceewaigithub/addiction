@@ -19,7 +19,7 @@ public class BaccaratApp {
         this.mapFrame = mapFrame;
         Player player = new Player("Player");
         Player dealer = new Player("Dealer");
-        BettingSystem bettingSystem = new BettingSystem(player);
+        BettingSystem bettingSystem = new BettingSystem(user);
         BaccaratGame baccaratGame = new BaccaratGame(bettingSystem);
         baccaratGame.addPlayer(player);
         baccaratGame.addPlayer(dealer);
@@ -28,15 +28,15 @@ public class BaccaratApp {
         baccaratGUI.start();
     }
 
-    public static void main(String[] args) {
-        Player player = new Player("Player");
-        Player dealer = new Player("Dealer");
-        BettingSystem bettingSystem = new BettingSystem(player);
-        BaccaratGame baccaratGame = new BaccaratGame(bettingSystem);
-        baccaratGame.addPlayer(player);
-        baccaratGame.addPlayer(dealer);
-
-        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingSystem);
-        baccaratGUI.start();
-    }
+//    public static void main(String[] args) {
+//        Player player = new Player("Player");
+//        Player dealer = new Player("Dealer");
+//        BettingSystem bettingSystem = new BettingSystem(user);
+//        BaccaratGame baccaratGame = new BaccaratGame(bettingSystem);
+//        baccaratGame.addPlayer(player);
+//        baccaratGame.addPlayer(dealer);
+//
+//        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingSystem);
+//        baccaratGUI.start();
+//    }
 }

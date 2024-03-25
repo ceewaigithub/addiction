@@ -54,7 +54,7 @@ public class BaccaratGame {
             if(playerScore >= 8 || dealerScore >= 8){
                 playerTurn = -1;
                 if(playerScore > dealerScore){
-                    bettingSystem.winBet(2);
+                    bettingSystem.winBet(1);
                     return "Player";
                 }else if (playerScore < dealerScore){
                     bettingSystem.loseBet();
@@ -67,7 +67,7 @@ public class BaccaratGame {
             return "";
         } else {
             if(playerScore > dealerScore){
-                bettingSystem.winBet(2);
+                bettingSystem.winBet(1 );
                 return "Player";
             }else if (playerScore < dealerScore){
                 bettingSystem.loseBet();
