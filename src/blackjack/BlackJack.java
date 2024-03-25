@@ -163,7 +163,7 @@ public class BlackJack {
 
         if (winners.isEmpty()) {
             message = "All players busted!";
-            bettingSystem.loseBet();
+            bettingSystem.pushBet();
         } else if (winners.size() == 1) {
             message = winners.get(0).getName() + " is the winner!";
             if (reducePlayerHand(winners.get(0)) == 21) {
@@ -172,9 +172,9 @@ public class BlackJack {
 
             if (playerWin) {
                 if (reducePlayerHand(getPlayer()) == 21) {
-                    bettingSystem.winBet(3);
-                } else {
                     bettingSystem.winBet(2);
+                } else {
+                    bettingSystem.winBet(1);
                 }
             } else {
                 bettingSystem.loseBet();

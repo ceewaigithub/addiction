@@ -26,16 +26,13 @@ public class BlackJackGUI extends JPanel {
     private User user;
 
     // Constructor
-    public BlackJackGUI(BlackJack blackjack, JFrame frame, JFrame mapFrame, BettingSystem bettingSystem, User user) {
+    public BlackJackGUI(BlackJack blackjack, JFrame mapFrame, BettingSystem bettingSystem, User user) {
         
         // Pass in blackjack game
         this.blackjack = blackjack;
 
         // Get betting system
         this.bettingSystem = bettingSystem;
-
-        // Pass in current frame
-        this.frame = frame;
 
         // Pass in previous frame
         this.mapFrame = mapFrame;
@@ -44,6 +41,7 @@ public class BlackJackGUI extends JPanel {
         this.user = user;
 
         // Set up frame
+        frame = new JFrame("Blackjack");
         frame.setSize(boardWidth, boardHeight);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -153,7 +151,6 @@ public class BlackJackGUI extends JPanel {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user.money += (bettingSystem.getPlayerBalance() - 1000);
                 // Close frame
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
