@@ -7,18 +7,26 @@ import main.BettingGUI;
 import main.BettingSystem;
 import main.Player;
 import main.Card;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import entity.User;
 
 public class HighLowGUI {
     private JFrame frame;
     private HighLowGame highLowGame;
 
+    private User user;
+    private JFrame mapFrame;
+
     private BettingSystem bettingSystem;
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel, centerPanel, centerPanelRow1, centerPanelRow2, centerPanelRow3;
     private JLabel topLabel, bottomLabel, centerLabel, messageLabel;
     private JButton higherButton, lowerButton, exitButton, nextGameButton;
-    private List<Player> players;
+    // private List<Player> players;
 
-    public HighLowGUI(HighLowGame highLowGame, BettingSystem bettingSystem) {
+    public HighLowGUI(HighLowGame highLowGame, BettingSystem bettingSystem, JFrame mapFrame, User user) {
+        this.mapFrame = mapFrame;
+        this.user = user;
         this.bettingSystem = bettingSystem;
         bettingPanel = bettingSystem.getBettingPanel();
         this.highLowGame = highLowGame;
@@ -146,7 +154,19 @@ public class HighLowGUI {
             placeBet();
         });
 
-        exitButton.addActionListener(e -> System.exit(0));
+        // exitButton.addActionListener(e -> {
+        //     System.exit(0);
+        // });
+
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                user.money += (bettingSystem.getPlayerBalance() - 1000);
+                // Close frame
+                frame.setVisible(false);
+                mapFrame.setVisible(true);
+            }
+        });
 
         // Make frame visible
         frame.setVisible(true);
@@ -243,13 +263,17 @@ public class HighLowGUI {
 
     public void hideBettingControl(){
         bettingPanel.setVisible(false);
-        buttonPanel.setVisible(true);
+        higherButton.setVisible(true);
+        lowerButton.setVisible(true);
+        // buttonPanel.setVisible(true);
     }
 
     public void showBettingControl(){
         bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
-        buttonPanel.setVisible(false);
+        higherButton.setVisible(false);
+        lowerButton.setVisible(false);
+        // buttonPanel.setVisible(false);
     }
 
     public void placeBet(){
