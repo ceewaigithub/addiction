@@ -3,7 +3,6 @@ package Baccarat;
 import javax.swing.JFrame;
 
 import entity.User;
-import main.BettingGUI;
 import main.BettingSystem;
 import main.Player;
 public class BaccaratApp {
@@ -22,7 +21,7 @@ public class BaccaratApp {
         baccaratGame.addPlayer(player);
         baccaratGame.addPlayer(dealer);
 
-        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingSystem);
+        BaccaratGUI baccaratGUI = new BaccaratGUI(baccaratGame, bettingSystem, mapFrame);
         baccaratGUI.start();
     }
 

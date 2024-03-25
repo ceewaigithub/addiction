@@ -46,8 +46,8 @@ public class BaccaratGame {
 
     public String compareScore(boolean natural){
         System.out.println("comparing score");
-        Player player = players.get(0);
-        Player dealer = players.get(1);
+        Player player = players.getFirst();
+        Player dealer = players.getLast();
         int playerScore = player.getHandValue()%10;
         int dealerScore = dealer.getHandValue()%10;
         if(natural){
@@ -84,7 +84,7 @@ public class BaccaratGame {
     }
 
     public void hit(){
-        players.get(playerTurn).addCard(deck.dealCard());
+        players.getFirst().addCard(deck.dealCard());
         nextPlayerTurn();
     }
     public void stand(){
@@ -96,16 +96,13 @@ public class BaccaratGame {
     }
 
     public void dealerTurn(){
-        if(players.get(playerTurn).getHandValue() % 10 < 4){
-            players.get(playerTurn).addCard(deck.dealCard());
+        if(players.getLast().getHandValue() % 10 < 4){
+            players.getLast().addCard(deck.dealCard());
         }
     }
 
     public boolean isActiveRound(){
         return activeRound;
-    }
-    public Deck getDeck() {
-        return deck;
     }
 
     public List<Player> getPlayers(){

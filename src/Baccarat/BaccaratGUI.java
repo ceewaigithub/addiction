@@ -1,28 +1,30 @@
 package Baccarat;
 
-import main.BettingGUI;
 import main.BettingSystem;
 import main.Player;
 import main.Card;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class BaccaratGUI {
     private JFrame frame;
+    private JFrame mapFrame;
     private BaccaratGame BaccaratGame;
-
     private BettingSystem bettingSystem;
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel;
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, standButton, exitButton, nextGameButton;
     private List<Player> players;
-    public BaccaratGUI(BaccaratGame baccaratGame, BettingSystem bettingSystem) {
+    public BaccaratGUI(BaccaratGame baccaratGame, BettingSystem bettingSystem, JFrame mapFrame) {
 
         this.bettingSystem = bettingSystem;
         bettingPanel = bettingSystem.getBettingPanel();
         BaccaratGame = baccaratGame;
         frame = new JFrame("Baccarat");
+        this.mapFrame = mapFrame;
         int boardWidth = 800;
         int boardHeight = 540;
 
@@ -145,7 +147,14 @@ public class BaccaratGUI {
             placeBet();
         });
 
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Close frame
+                frame.setVisible(false);
+                mapFrame.setVisible(true);
+            }
+        });
 
         frame.setVisible(true);
     }
