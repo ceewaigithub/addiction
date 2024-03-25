@@ -2,12 +2,6 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import entity.User;
 import main.Deck;
 import main.Player;
 import main.BettingSystem;
@@ -16,17 +10,13 @@ import main.Card;
 public class BlackJack {
 
     // Variables
-    private User user;
     private Deck deck;
     private List<Player> players;
     private boolean gameStatus = true;
     private BettingSystem bettingSystem;
 
     // Constructor
-    public BlackJack(User user, BettingSystem bettingSystem) {
-
-        // Pass in user
-        this.user = user;
+    public BlackJack(BettingSystem bettingSystem) {
 
         // Pass in betting system
         this.bettingSystem = bettingSystem;

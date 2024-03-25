@@ -2,7 +2,6 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 
 public class Card implements Comparable<Card>{
     private String suit;

@@ -1,21 +1,9 @@
 package blackjack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.random.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import entity.User;
 import main.BettingSystem;
-import main.Card;
-import main.Deck;
 import main.Player;
-import tile.Tile;
 
 public class BlackJackApp {
 
@@ -38,24 +26,11 @@ public class BlackJackApp {
         BettingSystem bettingSystem = new BettingSystem(user);
     
         // Create blackJack game
-        BlackJack blackjack = new BlackJack(user, bettingSystem);
+        BlackJack blackjack = new BlackJack(bettingSystem);
         blackjack.addPlayer(dealer);
         blackjack.addPlayer(player);
 
         // Starting BlackJackApp runs BlackJackGUI
-        BlackJackGUI blackJackPanel = new BlackJackGUI(blackjack, mapFrame, bettingSystem, user);
-
-        // if (!blackjack.getGameStatus()) {
-        //     if (blackjack.getResult()) {
-        //         user.addMoney(10);
-        //     } else {
-        //         user.subtractMoney(10);
-        //     }
-        // }
-    }
-
-    public static void main(String[] args) {
-        
-        BlackJackApp bj = new BlackJackApp(null, new JFrame());
+        new BlackJackGUI(blackjack, mapFrame, bettingSystem);
     }
 }

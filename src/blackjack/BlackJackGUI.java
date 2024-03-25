@@ -3,11 +3,7 @@ package blackjack;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.*;
-
-import Baccarat.BaccaratGame;
-import entity.User;
 import main.BettingSystem;
 
 public class BlackJackGUI extends JPanel {
@@ -23,10 +19,9 @@ public class BlackJackGUI extends JPanel {
     private int boardHeight = 540;
     private BlackJackAssetSetter bJackAssetSetter;
     private BettingSystem bettingSystem;
-    private User user;
 
     // Constructor
-    public BlackJackGUI(BlackJack blackjack, JFrame mapFrame, BettingSystem bettingSystem, User user) {
+    public BlackJackGUI(BlackJack blackjack, JFrame mapFrame, BettingSystem bettingSystem) {
         
         // Pass in blackjack game
         this.blackjack = blackjack;
@@ -36,9 +31,6 @@ public class BlackJackGUI extends JPanel {
 
         // Pass in previous frame
         this.mapFrame = mapFrame;
-
-        // Pass in user
-        this.user = user;
 
         // Set up frame
         frame = new JFrame("Blackjack");
