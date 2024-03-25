@@ -8,6 +8,11 @@ echo Compiling Java files...
 for /r src %%F in (*.java) do (
     echo Compiling %%F...
     javac -d class -cp class "%%F"
+    if errorlevel 1 (
+        echo Compilation failed for %%F
+        pause
+        exit /b 1
+    )
 )
 
 REM Run the Main class
