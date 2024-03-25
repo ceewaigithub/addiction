@@ -297,7 +297,7 @@ public class UI {
         g2.setColor(Color.RED);
         int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("Balance below $0.")) / 2;
         int subheaderY = messageY + 50;
-        g2.drawString("Balance below -100.", subheaderX, subheaderY);
+        g2.drawString("Balance below $0.", subheaderX, subheaderY);
 
         // Add padding between subheader and menu items
         int padding = 20;
