@@ -3,7 +3,7 @@ package main;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-import entity.user;
+import entity.User;
 
 public class BettingSystem {
     private final String[] chipPaths = { "1", "2", "5", "10", "50" };
@@ -89,13 +89,13 @@ public class BettingSystem {
     }
 
     public int getPlayerBalance() {
-        return user.money;
+        return user.getBalance();
     }
     public int getPlayerBet(){
         return currentBet;
     }
     public void placeBet(int amount) {
-        if (amount > 0 && amount <= user.money) {
+        if (amount > 0 && amount <= user.getBalance()) {
             currentBet += amount;
             user.subtractMoney(amount);
 //            playerBalance -= amount;
