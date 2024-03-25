@@ -43,8 +43,7 @@ public class BlackJackApp {
         blackjack.addPlayer(player);
 
         // Starting BlackJackApp runs BlackJackGUI
-        JFrame bJframe = new JFrame("BlackJack");
-        BlackJackGUI blackJackPanel = new BlackJackGUI(blackjack, bJframe, mapFrame, bettingSystem, user);
+        BlackJackGUI blackJackPanel = new BlackJackGUI(blackjack, mapFrame, bettingSystem, user);
 
         // if (!blackjack.getGameStatus()) {
         //     if (blackjack.getResult()) {
