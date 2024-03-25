@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
+import entity.user;
 
 public class BettingSystem {
     private final String[] chipPaths = { "1", "2", "5", "10", "50" };
@@ -17,10 +18,10 @@ public class BettingSystem {
     private int width = 64;
     private int height = 64;
     private int currentBet;
-    private Player player;
+    private User user;
 
-    public BettingSystem(Player player) {
-        this.player = player;
+    public BettingSystem(User user) {
+        this.user = user;
         currentBet = 0;
 
 //    bettingSystem = new BettingSystem();
@@ -88,15 +89,15 @@ public class BettingSystem {
     }
 
     public int getPlayerBalance() {
-        return player.getBalance();
+        return user.money;
     }
     public int getPlayerBet(){
         return currentBet;
     }
     public void placeBet(int amount) {
-        if (amount > 0 && amount <= player.getBalance()) {
+        if (amount > 0 && amount <= user.money) {
             currentBet += amount;
-            player.setBalance(player.getBalance() - amount);
+            user.subtractMoney(amount);
 //            playerBalance -= amount;
             System.out.println(currentBet);
         } else {
@@ -105,27 +106,21 @@ public class BettingSystem {
     }
 
     public void winBet(int multiplier) {
-        // System.out.println(player.getBalance());
-        player.setBalance(player.getBalance() + currentBet * multiplier);
+        user.addMoney(currentBet * (1 + multiplier));
         updateBettingPanel();
-        // System.out.println(player.getBalance());
         currentBet = 0;
     }
     public void loseBet() {
-        // Player loses the bet
         updateBettingPanel();
         currentBet = 0;
-        // Handle any additional logic, like checking if the player is bankrupt
     }
 
     public void pushBet() {
-        // Player gets back the bet amount
-        player.setBalance(player.getBalance() + currentBet);
         updateBettingPanel();
         currentBet = 0;
     }
     public void resetBet(){
-        player.setBalance(player.getBalance() + currentBet); //clear be
+        user.addMoney(currentBet); //clear be
         currentBet = 0;
         System.out.println("Cleared");
     }
