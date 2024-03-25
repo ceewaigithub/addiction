@@ -161,7 +161,6 @@ public class HighLowGUI {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                user.money += (bettingSystem.getPlayerBalance() - 1000);
                 // Close frame
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
