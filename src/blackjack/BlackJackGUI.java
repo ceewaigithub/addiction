@@ -96,9 +96,7 @@ public class BlackJackGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Hit in game
-                hitButton.setVisible(blackjack.hit());
-                // Dealer turn
-                blackjack.dealerTurn(false);
+                blackjack.hit();
                 // Repaint panel
                 frame.revalidate();
                 frame.repaint();
@@ -112,8 +110,8 @@ public class BlackJackGUI extends JPanel {
         stayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Dealer turn
-                blackjack.dealerTurn(true);
+                // Stay in game
+                blackjack.stay();
                 // Repaint panel
                 frame.revalidate();
                 frame.repaint();

@@ -71,16 +71,19 @@ public class BlackJackGame {
     }
 
     // User hits
-    public boolean hit() {
-        // Deal card to player unless busted
+    public void hit() {
+        // Deal card
         Card drawn_card = deck.dealCard();
         getPlayer().addCard(drawn_card);
 
-        // If hand is more than or 21, return false to disable hit
+        // If player busted or 21, dealer's turn
         if (reducePlayerHand(getPlayer()) >= 21) {
-            return false;
+            dealerTurn();
         }
-        return true;
+    }
+
+    public void stay() {
+        dealerTurn();
     }
 
     public int reducePlayerHand(Player player) {
@@ -93,30 +96,20 @@ public class BlackJackGame {
         return currentHand;
     }
 
-    public void dealerTurn(boolean playerStays) {
+    public void dealerTurn() {
 
-        if (reducePlayerHand(getDealer()) < 17) {
+        while (reducePlayerHand(getDealer()) < 17) {
             // Dealer hits
             Card drawn_card = getDeck().dealCard();
             getDealer().addCard(drawn_card);
-
-            // Player's turn next
-        } else {
-            // Dealer stays
-
-            // Either end game
-            if (playerStays) {
-                // If both dealer and player stays, game ends 
-                gameStatus = false;
-                // Winners are determined
-                determineWinners();
-            }
-
-            // Or player's turn next
         }
+
+        determineWinners();
     }
 
     public String determineWinners() {
+
+        gameStatus = false;
 
         ArrayList<Player> winners = new ArrayList<Player>();
         int maxHandSize = 0;

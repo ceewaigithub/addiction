@@ -75,7 +75,7 @@ public class Card implements Comparable<Card>{
     public Image getImage() {
         try {
             String imagePath = "res/cards/" + rank + suit + ".gif";
-            System.out.println(imagePath);
+            // System.out.println(imagePath);
             return new ImageIcon(imagePath).getImage();
         } catch (Exception e) {
             e.printStackTrace();
