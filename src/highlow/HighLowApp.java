@@ -24,14 +24,14 @@ public class HighLowApp {
         HighLowGUI highLowGUI = new HighLowGUI(highLowGame, bettingSystem);
         highLowGUI.start();
     }
-    public static void main(String[] args) {
-
-        Player player = new Player("Player");
-        BettingSystem bettingSystem = new BettingSystem(player);
-        HighLowGame highLowGame = new HighLowGame(bettingSystem);
-        highLowGame.addPlayer(player);
-
-        HighLowGUI highLowGUI = new HighLowGUI(highLowGame, bettingSystem);
-        highLowGUI.start();
-    }
+//    public static void main(String[] args) {
+//
+//        Player player = new Player("Player");
+//        BettingSystem bettingSystem = new BettingSystem(player);
+//        HighLowGame highLowGame = new HighLowGame(bettingSystem);
+//        highLowGame.addPlayer(player);
+//
+//        HighLowGUI highLowGUI = new HighLowGUI(highLowGame, bettingSystem);
+//        highLowGUI.start();
+//    }
 }       

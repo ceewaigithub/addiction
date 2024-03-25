@@ -112,6 +112,7 @@ public class BettingSystem {
     }
 
     public void pushBet() {
+        user.addMoney(currentBet);
         updateBettingPanel();
         currentBet = 0;
     }
