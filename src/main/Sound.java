@@ -10,10 +10,18 @@ import java.io.File;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 
+/**
+ * The Sound class represents a sound player that can play, loop, stop, and adjust the volume of audio clips.
+ * It provides methods to load sound files and control the playback of the clips.
+ */
 public class Sound {
     Clip clip;
     URL soundURL[] = new URL[30];
 
+    /**
+     * Constructs a Sound object and initializes the sound URLs.
+     * The sound URLs are loaded from the specified file paths.
+     */
     public Sound() {
         String currentDirectory = new File("").getAbsolutePath();
         try {
@@ -30,6 +38,12 @@ public class Sound {
         }
     }
 
+    /**
+     * Sets the audio file to be played based on the specified index.
+     * The index corresponds to the position of the sound URL in the array.
+     *
+     * @param i the index of the sound URL
+     */
     public void setFile(int i) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
@@ -40,50 +54,41 @@ public class Sound {
         }
     }
 
+    /**
+     * Plays the audio clip if it is not already running.
+     */
     public void play() {
         if (clip != null && !clip.isRunning()) {
             clip.start();
         }
     }
 
+    /**
+     * Loops the audio clip continuously if it is not already running.
+     */
     public void loop() {
         if (clip != null && !clip.isRunning()) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
+    /**
+     * Stops the audio clip if it is running.
+     */
     public void stop() {
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
     }
 
+    /**
+     * Sets the volume of the audio clip.
+     * The volume is specified as a float value between 0.0 and 1.0.
+     *
+     * @param volume the volume level
+     */
     public void setVolume(float volume) {
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
-    }
-
-    public void fadeBackgroundMusic() {
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        float originalVolume = gainControl.getValue();
-
-        // Lower the volume by half
-        float targetVolume = originalVolume - 6.0f; // Adjust the value as needed
-        float fadeDuration = 2000.0f; // Adjust the duration as needed
-        float fadeStep = (targetVolume - originalVolume) / fadeDuration;
-
-        // Gradually decrease the volume
-        while (gainControl.getValue() > targetVolume) {
-            float currentVolume = gainControl.getValue();
-            gainControl.setValue(currentVolume + fadeStep);
-            try {
-                Thread.sleep(10); // Adjust the sleep duration as needed
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Restore the original volume
-        gainControl.setValue(originalVolume);
     }
 }

@@ -21,6 +21,10 @@ import tile.TileManager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * The GamePanel class represents the main panel of the game. It extends the JPanel class and implements the Runnable interface.
+ * It contains the game logic, screen settings, world settings, game settings, and various methods for managing the game state.
+ */
 public class GamePanel extends JPanel implements Runnable {
 
     // Screen Settings
@@ -70,6 +74,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Config config = new Config(this);
     
+    /**
+     * Constructs a GamePanel object with the specified JFrame.
+     * Initializes the panel's dimensions, background color, key listener, and focus.
+     * Loads game configuration and shop items.
+     * Sets the background music if sound is purchased.
+     * Opens all unlocked doors.
+     * @param frame The JFrame object to associate with the GamePanel.
+     */
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -95,6 +107,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * Starts the game by setting the game state to titleState or gameOverState.
+     * If the player has no money, the game state is set to gameOverState.
+     */
     public void startGame() {
 
         if (sm.isSoundPurchased()) {
@@ -108,6 +124,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    /**
+     * Restarts the game by resetting the game configuration, user values, and game state.
+     * Sets the background music if sound is purchased, otherwise stops the music.
+     */
     public void restartGame() {
         config.restartGame();
         user.setDefaultValues();
@@ -120,6 +140,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Starts the game thread.
+     */
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -161,6 +184,15 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Updates the game state based on the current game state.
+     * If the game state is playState, updates the user.
+     * If the game state is pauseState, does nothing.
+     * If the game state is dialogueState, does nothing.
+     * If the game state is titleState, does nothing.
+     * If the game state is gameOverState, does nothing.
+     * If the user's money is less than 0, sets the game state to gameOverState.
+     */
     public void update() {
         if (gameState == playState) {
             user.update();
@@ -182,6 +214,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -199,6 +232,9 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    /**
+     * Opens all unlocked doors in the game.
+     */
     public void openAllOpenedDoors() {
         for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null && obj[i] instanceof OBJ_Door) {
@@ -209,10 +245,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Sets the current sprite for the user.
+     * @param sprite The sprite to set for the user.
+     */
     public void setCurrentSprite(String sprite) {
         user.sprite = sprite;
     }
 
+    /**
+     * Plays the specified music file if sound is purchased.
+     * @param i The index of the music file to play.
+     */
     public void playMusic(int i) {
         if (sm.isSoundPurchased()) {
             music.setFile(i);
@@ -221,6 +265,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Sets the background music if sound is purchased.
+     */
     public void setBackgroundMusic() {
         if (sm.isSoundPurchased()) {
             music.setFile(0);
@@ -230,10 +277,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Stops the currently playing music.
+     */
     public void stopMusic() {
         music.stop();
     }
 
+    /**
+     * Plays the specified sound effect if sound is purchased.
+     * @param i The index of the sound effect to play.
+     */
     public void playSE(int i) {
         if (sm.isSoundPurchased()) {
             se.setFile(i);

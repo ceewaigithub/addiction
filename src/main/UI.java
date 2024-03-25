@@ -12,6 +12,9 @@ import shop.ShopItem;
 import shop.SpriteItem;
 import world.GamePanel;
 
+/**
+ * The UI class represents the user interface of the game. It handles drawing various screens and elements on the screen.
+ */
 public class UI {
 
     GamePanel gp;
@@ -26,6 +29,11 @@ public class UI {
     // title screen state: 0 : main, 1: shop
     public int titleScreenState = 0;
 
+    /**
+     * Constructs a new UI object with the specified GamePanel.
+     *
+     * @param gp The GamePanel object associated with this UI.
+     */
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -34,11 +42,21 @@ public class UI {
         coinImage = coin.image;
     }
 
+    /**
+     * Displays a message on the screen.
+     *
+     * @param text The text to be displayed as a message.
+     */
     public void showMessage(String text) {
         this.message = text;
         messageOn = true;
     }
 
+    /**
+     * Draws the UI elements on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void draw(Graphics2D g2) {
 
         if (gp.gameState == gp.titleState) {
@@ -79,6 +97,11 @@ public class UI {
 
     }
 
+    /**
+     * Draws the dialogue state on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void drawDialogueState(Graphics2D g2) {
         
         // window 
@@ -94,6 +117,14 @@ public class UI {
 
     }
 
+    /**
+     * Draws a sub-window on the screen.
+     *
+     * @param x      The x-coordinate of the sub-window.
+     * @param y      The y-coordinate of the sub-window.
+     * @param width  The width of the sub-window.
+     * @param height The height of the sub-window.
+     */
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0);
 
@@ -104,6 +135,15 @@ public class UI {
 
     }
 
+    /**
+     * Draws the controls on the screen.
+     *
+     * @param g2     The Graphics2D object used for drawing.
+     * @param x      The x-coordinate of the controls.
+     * @param y      The y-coordinate of the controls.
+     * @param width  The width of the controls.
+     * @param height The height of the controls.
+     */
     public void drawControls(Graphics2D g2, int x, int y, int width, int height) {
         // Calculate the height required to fit the instructions
         g2.setFont(new Font("Monospaced", Font.PLAIN, 12));
@@ -154,6 +194,11 @@ public class UI {
         }
     }
 
+    /**
+     * Draws the title screen on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void drawTitleScreen(Graphics2D g2) {
 
         if (titleScreenState == 0) {
@@ -164,6 +209,15 @@ public class UI {
 
     }
 
+    /**
+     * Draws a menu item on the screen.
+     *
+     * @param g2             The Graphics2D object used for drawing.
+     * @param menuItemX      The x-coordinate of the menu item.
+     * @param menuItemY      The y-coordinate of the menu item.
+     * @param menuItemText   The text of the menu item.
+     * @param menuItemNumber The number of the menu item.
+     */
     public void drawMenuItem(Graphics2D g2, int menuItemX, int menuItemY, String menuItemText, int menuItemNumber) {
         if (commandNumber == menuItemNumber) {
             g2.drawString("> " + menuItemText, menuItemX, menuItemY);
@@ -172,6 +226,11 @@ public class UI {
         }
     }
 
+    /**
+     * Draws the main title screen on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void drawTitleScreenMain(Graphics2D g2) {
         g2.setColor(new Color(40, 40, 43));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -211,6 +270,11 @@ public class UI {
         drawMenuItem(g2, menuItemX, menuItemY, "Exit", 3);
     }
 
+    /**
+     * Draws the shop screen on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void drawTitleScreenShop(Graphics2D g2) {
         g2.setColor(new Color(40, 40, 43));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -273,6 +337,11 @@ public class UI {
         drawMenuItem(g2, itemX, itemY, backText, gp.sm.getShopItems().size());
     }
 
+    /**
+     * Draws the pause screen on the screen.
+     *
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void drawPauseScreen(Graphics2D g2) {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("PAUSED")) / 2;

@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import world.GamePanel;
 
+/**
+ * The ShopManager class represents a manager for the in-game shop.
+ * It handles the management of shop items, purchases, and effects.
+ */
 public class ShopManager {
     private List<ShopItem> shopItems;
     private GamePanel gp;
     private String currentSprite;
 
+    /**
+     * Constructs a ShopManager object with the specified GamePanel.
+     * 
+     * @param gp the GamePanel object associated with the shop manager
+     */
     public ShopManager(GamePanel gp) {
         this.gp = gp;
         shopItems = new ArrayList<>();
@@ -17,6 +26,10 @@ public class ShopManager {
         currentSprite = gp.user.sprite;
     }
 
+    /**
+     * Initializes the shop items with default values.
+     * This method is called during the construction of the ShopManager object.
+     */
     private void initializeShopItems() {
         shopItems.add(new ShopItem("Sound", "Be able to hear!", 50));
         ShopItem defaultSprite = new SpriteItem("Default Sprite : default", "Default player sprite", 0, "default");
@@ -28,6 +41,11 @@ public class ShopManager {
         shopItems.add(new ShopItem("Speed Upgrade", "Increase player speed by 3", 1000));
     }
 
+    /**
+     * Checks if the sound item has been purchased.
+     * 
+     * @return true if the sound item has been purchased, false otherwise
+     */
     public boolean isSoundPurchased() {
         for (ShopItem item : shopItems) {
             if (item.getName().equals("Sound") && item.isPurchased()) {
@@ -37,6 +55,12 @@ public class ShopManager {
         return false;
     }
 
+    /**
+     * Buys the shop item at the specified index.
+     * 
+     * @param index the index of the shop item to buy
+     * @return true if the item was successfully purchased, false otherwise
+     */
     public boolean buyItem(int index) {
         ShopItem item = shopItems.get(index);
         if (item instanceof SpriteItem) {
@@ -63,6 +87,11 @@ public class ShopManager {
         return false;
     }
 
+    /**
+     * Applies the effect of the purchased shop item.
+     * 
+     * @param item the shop item to apply the effect of
+     */
     private void applyItemEffect(ShopItem item) {
         switch (item.getName()) {
             case "Sound":
@@ -74,14 +103,28 @@ public class ShopManager {
         }
     }
 
+    /**
+     * Returns the list of shop items.
+     * 
+     * @return the list of shop items
+     */
     public List<ShopItem> getShopItems() {
         return shopItems;
     }
 
+    /**
+     * Sets the list of shop items.
+     * 
+     * @param shopItems the list of shop items to set
+     */
     public void setShopItems(List<ShopItem> shopItems) {
         this.shopItems = shopItems;
     }
 
+    /**
+     * Saves the shop items to a file.
+     * This method is called when the shop items need to be saved.
+     */
     public void saveShopItems() {
         StringBuilder sb = new StringBuilder();
         for (ShopItem item : shopItems) {
@@ -91,6 +134,10 @@ public class ShopManager {
         gp.config.saveShopItems(sb.toString());
     }
 
+    /**
+     * Loads the shop items from a file.
+     * This method is called when the shop items need to be loaded.
+     */
     public void loadShopItems() {
         String data = gp.config.loadShopItems();
         if (data.isEmpty()) {
@@ -109,12 +156,21 @@ public class ShopManager {
         }
     }
 
+    /**
+     * Resets the purchased status of all shop items.
+     * This method is called when the shop items need to be reset.
+     */
     public void resetShopItems() {
         for (ShopItem item : shopItems) {
             item.setPurchased(false);
         }
     }
 
+    /**
+     * Returns the current sprite.
+     * 
+     * @return the current sprite
+     */
     public String getCurrentSprite() {
         return currentSprite;
     }

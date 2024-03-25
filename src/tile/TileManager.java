@@ -12,11 +12,21 @@ import world.GamePanel;
 import java.io.File;
 import java.io.FileReader;
 
+/**
+ * The TileManager class is responsible for managing the tiles in the game.
+ * It loads the tile images from a tile sheet and loads the map from a text file.
+ * It also handles drawing the tiles on the screen.
+ */
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int mapTileNum[][];
 
+    /**
+     * Constructs a TileManager object.
+     * 
+     * @param gp The GamePanel object associated with the TileManager.
+     */
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[256];
@@ -25,6 +35,10 @@ public class TileManager {
         loadMap();
     }
 
+    /**
+     * Loads the tile images from a tile sheet.
+     * Each index of the 16x16 image is loaded as a tile.
+     */
     public void getTileImage() {
         try {
             String currentDirectory = new File("").getAbsolutePath();
@@ -63,6 +77,9 @@ public class TileManager {
         }
     }
 
+    /**
+     * Loads the map from a text file.
+     */
     public void loadMap() {
         try {
             String currentDirectory = new File("").getAbsolutePath();
@@ -90,6 +107,11 @@ public class TileManager {
         }
     }
 
+    /**
+     * Draws the tiles on the screen.
+     * 
+     * @param g2 The Graphics2D object used for drawing.
+     */
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
@@ -115,5 +137,4 @@ public class TileManager {
             }
         }
     }
-
 }

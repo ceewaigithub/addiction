@@ -11,13 +11,24 @@ import shop.ShopItem;
 import world.GamePanel;
 import java.io.File;
 
+/**
+ * The Config class is responsible for managing the game configuration settings and data persistence.
+ * It provides methods to save and load game configuration, as well as shop items data.
+ */
 public class Config {
     GamePanel gp;
 
+    /**
+     * Constructor for the Config class.
+     * @param gp The GamePanel object.
+     */
     public Config(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Sets the game configuration by saving the current game state to a file.
+     */
     public void setGameConfig() {
         // Check if config.txt exists, if not create one
         File configFile = new File("config.txt");
@@ -53,12 +64,15 @@ public class Config {
             
             bw.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         gp.sm.saveShopItems();
     }
 
+    /**
+     * Loads the game configuration by reading the saved game state from a file.
+     * @throws NewGameException If the config file is empty, indicating a new game.
+     */
     public void loadGameConfig() throws NewGameException {
         // Check if config.txt exists, if not create one
         File configFile = new File("config.txt");
@@ -110,11 +124,14 @@ public class Config {
             }
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
+    /**
+     * Saves the shop items data to a file.
+     * @param data The shop items data to be saved.
+     */
     public void saveShopItems(String data) {
         // Check if config.txt exists, if not create one
         File configFile = new File("shopItems.txt");
@@ -130,11 +147,14 @@ public class Config {
             bw.write(data);
             bw.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
+    /**
+     * Loads the shop items data from a file.
+     * @return The loaded shop items data.
+     */
     public String loadShopItems() {
         // Check if config.txt exists, if not create one
         File configFile = new File("shopItems.txt");
@@ -154,12 +174,14 @@ public class Config {
             }
             br.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return data;
     }
 
+    /**
+     * Restarts the game by deleting the config and shop items files, resetting shop items, and setting default values.
+     */
     public void restartGame() {
         File configFile = new File("config.txt");
         if (configFile.exists()) {

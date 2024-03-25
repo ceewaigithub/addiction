@@ -2,18 +2,34 @@ package entity;
 
 import world.GamePanel;
 
+/**
+ * The CollisionChecker class is responsible for checking collisions between entities and objects in the game.
+ */
 public class CollisionChecker {
     GamePanel gp;
 
+    /**
+     * Constructs a CollisionChecker object with the specified GamePanel.
+     * 
+     * @param gp The GamePanel object to associate with the CollisionChecker.
+     */
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Checks for collisions between the specified entity and tiles in the game.
+     * 
+     * @param entity The entity to check for collisions.
+     */
     public void checkTile(Entity entity) {
+        // Calculate the world coordinates of the entity's solid area
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+
+        // Calculate the column and row indices of the entity's solid area in the tile map
         int entityLeftCol = entityLeftWorldX / gp.tileSize;
         int entityRightCol = entityRightWorldX / gp.tileSize;
         int entityTopRow = entityTopWorldY / gp.tileSize;
@@ -23,6 +39,7 @@ public class CollisionChecker {
 
         switch (entity.direction) {
             case "up":
+                // Adjust the top row index based on the entity's speed
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityTopRow][entityRightCol];
@@ -31,6 +48,7 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
+                // Adjust the bottom row index based on the entity's speed
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityBottomRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityRightCol];
@@ -39,6 +57,7 @@ public class CollisionChecker {
                 }
                 break;
             case "left":
+                // Adjust the left column index based on the entity's speed
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityLeftCol];
@@ -47,6 +66,7 @@ public class CollisionChecker {
                 }
                 break;
             case "right":
+                // Adjust the right column index based on the entity's speed
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityRightCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityRightCol];
@@ -57,11 +77,19 @@ public class CollisionChecker {
         }
     }
 
+    /**
+     * Checks for collisions between the specified entity and objects in the game.
+     * 
+     * @param entity The entity to check for collisions.
+     * @param player A boolean value indicating whether the entity is the player.
+     * @return The index of the object that the entity collided with, or 999 if no collision occurred.
+     */
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
         for (int i = 0; i < gp.obj.length; i++) {
             if (gp.obj[i] != null && gp.obj[i].collision) {
 
+                // Adjust the solid areas of the entity and object based on their world coordinates
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
@@ -70,6 +98,7 @@ public class CollisionChecker {
 
                 switch (entity.direction) {
                     case "up":
+                        // Adjust the entity's solid area based on its speed and check for intersection with the object's solid area
                         entity.solidArea.y -= entity.speed;
                         if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
                             entity.collisionOn = true;
@@ -98,6 +127,8 @@ public class CollisionChecker {
                         }
                         break;
                 }
+
+                // Reset the solid areas of the entity and object to their default values
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;

@@ -4,12 +4,24 @@ import object.*;
 import world.GamePanel;
 import object.OBJ_Door;
 
+/**
+ * The AssetSetter class is responsible for setting up the game assets and manipulating them.
+ */
 public class AssetSetter {
     GamePanel gp;
+
+    /**
+     * Constructs an AssetSetter object with the specified GamePanel.
+     * 
+     * @param gp the GamePanel object
+     */
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
-        
     }
+
+    /**
+     * Sets up the game objects and their positions.
+     */
     public void setObject() {
         gp.obj[0] = new OBJ_BlackJack();
         gp.obj[0].x = 28 * gp.tileSize;
@@ -44,6 +56,9 @@ public class AssetSetter {
         gp.obj[7].y = 13 * gp.tileSize;
     }
 
+    /**
+     * Opens the doors based on the loaded configuration.
+     */
     public void openDoors() {
         // Declare the obj variable
         Object[] obj = gp.obj;

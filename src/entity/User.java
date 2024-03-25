@@ -16,7 +16,14 @@ import Baccarat.*;
 import world.GamePanel;
 import world.KeyHandler;
 
-public class User extends Entity{
+/**
+ * The User class represents a user in the game. It extends the Entity class and contains
+ * information about the user's position, money, sprite, and other attributes.
+ */
+/**
+ * Represents a User in the game.
+ */
+public class User extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
@@ -26,6 +33,12 @@ public class User extends Entity{
     public String sprite;
     private final Object moneyLock = new Object();
 
+    /**
+     * Constructs a User object.
+     * 
+     * @param gp    The GamePanel object.
+     * @param keyH  The KeyHandler object.
+     */
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -39,7 +52,9 @@ public class User extends Entity{
         getPlayerImage();
     }
 
-
+    /**
+     * Sets the default values for the User.
+     */
     public void setDefaultValues() {
         worldX = gp.worldWidth / 2 - gp.tileSize / 2;
         worldY = gp.worldHeight / 2 - gp.tileSize / 2;
@@ -48,6 +63,9 @@ public class User extends Entity{
         money = 250;
     }
 
+    /**
+     * Loads the player's image based on the sprite.
+     */
     public void getPlayerImage() {
         try {
             String currentDirectory = new File("").getAbsolutePath();
@@ -70,6 +88,9 @@ public class User extends Entity{
         }
     }
 
+    /**
+     * Updates the User's position and handles collisions.
+     */
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
@@ -126,6 +147,11 @@ public class User extends Entity{
         }
     }
 
+    /**
+     * Interacts with the object at the given index.
+     * 
+     * @param idx The index of the object.
+     */
     public void interactWithObject(int idx) {
         if (idx != 999) {
             String objectName = gp.obj[idx].name;
@@ -177,10 +203,18 @@ public class User extends Entity{
         }
     }
 
+    /**
+     * Gets the current balance of the User.
+     * 
+     * @return The current balance.
+     */
     public int getBalance(){
         return money;
     }
 
+    /**
+     * Clears the key presses.
+     */
     public void clearKeyPresses() {
         keyH.spacePressed = false;
         keyH.upPressed = false;
@@ -189,10 +223,12 @@ public class User extends Entity{
         keyH.rightPressed = false;
     }
 
+    /**
+     * Draws the User on the screen.
+     * 
+     * @param g2 The Graphics2D object.
+     */
     public void draw(Graphics2D g2) {
-        // g2.setColor(Color.white);
-        // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-
         BufferedImage image = null;
         switch (direction) {
             case "up":
@@ -228,16 +264,25 @@ public class User extends Entity{
                 }
                 break;
         }
-        //System.out.println(money);
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 
+    /**
+     * Adds money to the User's balance.
+     * 
+     * @param amount The amount to add.
+     */
     public void addMoney(int amount) {
         synchronized (moneyLock) {
             money += amount;
         }
     }
     
+    /**
+     * Subtracts money from the User's balance.
+     * 
+     * @param amount The amount to subtract.
+     */
     public void subtractMoney(int amount) {
         synchronized (moneyLock) {
             money -= amount;

@@ -8,6 +8,9 @@ import shop.SpriteItem;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * The KeyHandler class implements the KeyListener interface and handles keyboard input for the game.
+ */
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
@@ -15,16 +18,32 @@ public class KeyHandler implements KeyListener {
     Sound sound = new Sound();
     boolean checkDrawTime = false;
 
+    /**
+     * Constructs a KeyHandler object with the specified GamePanel.
+     * 
+     * @param gp the GamePanel object to associate with the KeyHandler
+     */
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Invoked when a key has been typed.
+     * This method is not implemented in this class.
+     * 
+     * @param e the KeyEvent object representing the key event
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
     }
 
+    /**
+     * Invoked when a key has been pressed.
+     * 
+     * @param e the KeyEvent object representing the key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -166,6 +185,12 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
+
+    /**
+     * Invoked when a key has been released.
+     * 
+     * @param e the KeyEvent object representing the key event
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
