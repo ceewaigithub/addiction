@@ -51,6 +51,7 @@ public class BlackJackGUI extends JPanel {
                 // Paint hands
                 bJackAssetSetter.drawHands(g);
                 // If game ends, endGame paints the results
+                // ???
                 if (!blackjack.getGameStatus()) {
                     endGame(blackjack.determineWinners());
                 }
@@ -202,6 +203,7 @@ public class BlackJackGUI extends JPanel {
         hitButton.setVisible(true);
         stayButton.setVisible(true);
         // Clear all cards + reset game status
+        // ???
         blackjack.setGameStatus(true);
         blackjack.endRound();
         // Start
