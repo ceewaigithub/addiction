@@ -172,6 +172,7 @@ public class Config {
         gp.sm.resetShopItems();
         gp.sm.loadShopItems();
         gp.user.setDefaultValues();
+        gp.aSetter.setObject();
     }
 
 }

@@ -45,7 +45,7 @@ public class User extends Entity{
         worldY = gp.worldHeight / 2 - gp.tileSize / 2;
         speed = 4;
         direction = "down";
-        money = 100;
+        money = 250;
     }
 
     public void getPlayerImage() {
@@ -143,7 +143,7 @@ public class User extends Entity{
                     if (((OBJ_Door)gp.obj[idx]).isLocked()) {
                         gp.ui.showMessage("Pay 50 to unlock");
                         if (keyH.spacePressed) {
-                            if (money >= 50) {
+                            if (money > 50) {
                                 money -= 50;
                                 gp.playSE(5);
                                 gp.ui.showMessage("Money - 50");

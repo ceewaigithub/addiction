@@ -295,7 +295,7 @@ public class UI {
         // Draw subheader
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20));
         g2.setColor(Color.RED);
-        int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("Balance below -100.")) / 2;
+        int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("Balance below $0.")) / 2;
         int subheaderY = messageY + 50;
         g2.drawString("Balance below -100.", subheaderX, subheaderY);
 

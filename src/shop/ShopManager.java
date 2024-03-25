@@ -41,7 +41,7 @@ public class ShopManager {
         ShopItem item = shopItems.get(index);
         if (item instanceof SpriteItem) {
             SpriteItem spriteItem = (SpriteItem) item;
-            if (!spriteItem.isPurchased() && gp.user.money >= spriteItem.getPrice()) {
+            if (!spriteItem.isPurchased() && gp.user.money > spriteItem.getPrice()) {
                 gp.user.money -= spriteItem.getPrice();
                 spriteItem.setPurchased(true);
                 currentSprite = spriteItem.getSprite();
@@ -50,7 +50,7 @@ public class ShopManager {
             }
             return true;
         } else {
-            if (!item.isPurchased() && gp.user.money >= item.getPrice()) {
+            if (!item.isPurchased() && gp.user.money > item.getPrice()) {
                 gp.user.money -= item.getPrice();
                 item.setPurchased(true);
                 applyItemEffect(item);
