@@ -7,7 +7,7 @@ import main.Player;
 import main.BettingSystem;
 import main.Card;
 
-public class BlackJack {
+public class BlackJackGame {
 
     // Variables
     private Deck deck;
@@ -16,7 +16,7 @@ public class BlackJack {
     private BettingSystem bettingSystem;
 
     // Constructor
-    public BlackJack(BettingSystem bettingSystem) {
+    public BlackJackGame(BettingSystem bettingSystem) {
 
         // Pass in betting system
         this.bettingSystem = bettingSystem;

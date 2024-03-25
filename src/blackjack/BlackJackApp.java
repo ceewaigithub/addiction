@@ -26,7 +26,7 @@ public class BlackJackApp {
         BettingSystem bettingSystem = new BettingSystem(user);
     
         // Create blackJack game
-        BlackJack blackjack = new BlackJack(bettingSystem);
+        BlackJackGame blackjack = new BlackJackGame(bettingSystem);
         blackjack.addPlayer(dealer);
         blackjack.addPlayer(player);
 

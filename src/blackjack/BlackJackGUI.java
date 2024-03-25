@@ -9,7 +9,7 @@ import main.BettingSystem;
 public class BlackJackGUI extends JPanel {
 
     // Variables
-    private BlackJack blackjack;
+    private BlackJackGame blackjack;
     private JFrame frame;
     private JFrame mapFrame;
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; 
@@ -21,7 +21,7 @@ public class BlackJackGUI extends JPanel {
     private BettingSystem bettingSystem;
 
     // Constructor
-    public BlackJackGUI(BlackJack blackjack, JFrame mapFrame, BettingSystem bettingSystem) {
+    public BlackJackGUI(BlackJackGame blackjack, JFrame mapFrame, BettingSystem bettingSystem) {
         
         // Pass in blackjack game
         this.blackjack = blackjack;

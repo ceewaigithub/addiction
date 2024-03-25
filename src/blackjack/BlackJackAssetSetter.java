@@ -7,7 +7,7 @@ import main.Player;
 public class BlackJackAssetSetter {
     
     // Variables
-    private BlackJack blackjack;
+    private BlackJackGame blackjack;
     private int boardWidth;
     private int boardHeight;
     private int cardWidth = 73;
@@ -15,7 +15,7 @@ public class BlackJackAssetSetter {
     private int spacing = 10;
 
     // Constructor
-    public BlackJackAssetSetter(BlackJack blackjack, int boardWidth, int boardHeight) {
+    public BlackJackAssetSetter(BlackJackGame blackjack, int boardWidth, int boardHeight) {
         // Pass in blackjack
         this.blackjack = blackjack;
 
