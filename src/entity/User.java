@@ -211,6 +211,7 @@ public class User extends Entity {
     public int getBalance(){
         return money;
     }
+    public void setBalance(int money){this.money = money;}
 
     /**
      * Clears the key presses.

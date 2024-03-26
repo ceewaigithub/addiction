@@ -1,11 +1,9 @@
 package highlow;
 
 import java.awt.*;
-import java.util.List;
 import javax.swing.*;
-import main.BettingGUI;
+
 import main.BettingSystem;
-import main.Player;
 import main.Card;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

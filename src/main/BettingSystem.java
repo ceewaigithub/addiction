@@ -17,23 +17,23 @@ public class BettingSystem {
     private JLabel balanceLabel;
     private int width = 64;
     private int height = 64;
-    private int currentBet;
+    private int currentBet, tempBalance;
     private User user;
 
     public BettingSystem(User user) {
         this.user = user;
+        tempBalance = user.getBalance();
         currentBet = 0;
 
         clearBetButton = new JButton("Clear bet"); //Clear bet button
         clearBetButton.setPreferredSize(new Dimension(120, 20));
         clearBetButton.addActionListener(e -> {
             resetBet();
-            updateBettingPanel();
         });
         placeBetButton = new JButton("Place bet");//button to confirm bet
         placeBetButton.setPreferredSize(new Dimension(120, 20));
         placeBetButton.addActionListener(e->{
-            //
+            user.setBalance(tempBalance);
         });
         bettingPanel = new JPanel(); //panel for chips
         bettingPanel.setBackground(new Color(0, 116, 3));
@@ -46,8 +46,6 @@ public class BettingSystem {
                 new JButton(),
                 new JButton()
         };
-
-//        Border emptyborder = BorderFactory.createEmptyBorder();
 
         for (int i = 0; i < chipPaths.length; i++) { //adding image and actionlistener to button and to panel
             String imagePath = "res/chips/" + chipPaths[i] + ".png";
@@ -69,8 +67,8 @@ public class BettingSystem {
             bettingPanel.add(chipButtons[i]);
         }
 
-        betLabel = new JLabel("Bet: " + getPlayerBet());
-        balanceLabel = new JLabel("Balance: " + getPlayerBalance());
+        betLabel = new JLabel("Bet: " + currentBet);
+        balanceLabel = new JLabel("Balance: " + tempBalance);
 
         textPanel = new JPanel();
         textPanel.add(balanceLabel);
@@ -91,11 +89,10 @@ public class BettingSystem {
         return currentBet;
     }
     public void placeBet(int amount) {
-        if (amount > 0 && amount <= user.getBalance()) {
+        if (amount > 0 && amount <= tempBalance) {
             currentBet += amount;
-            user.subtractMoney(amount);
-//            playerBalance -= amount;
-            System.out.println(currentBet);
+            tempBalance -= amount;
+
         } else {
             System.out.println("Insufficient balance.");
         }
@@ -103,31 +100,37 @@ public class BettingSystem {
 
     public void winBet(int multiplier) {
         user.addMoney(currentBet * (1 + multiplier));
+        tempBalance = user.getBalance();
         updateBettingPanel();
         currentBet = 0;
     }
     public void loseBet() {
-        updateBettingPanel();
+        tempBalance = user.getBalance();
         currentBet = 0;
+        updateBettingPanel();
+        if(user.getBalance() == 0){
+            user.setBalance(-1);
+        }
     }
-
-
     public void pushBet() {
         user.addMoney(currentBet);
-        updateBettingPanel();
+        tempBalance = user.getBalance();
         currentBet = 0;
+        updateBettingPanel();
+        System.out.println("Push");
     }
     public void resetBet(){
-        user.addMoney(currentBet); //clear be
+        tempBalance += currentBet;
         currentBet = 0;
+        updateBettingPanel();
         System.out.println("Cleared");
     }
     public JPanel getBettingPanel() {
         return nestedPanel;
     }
     public void updateBettingPanel(){
-        betLabel.setText("Bet: " + getPlayerBet());
-        balanceLabel.setText("Balance: " + getPlayerBalance());
+        betLabel.setText("Bet: " + currentBet);
+        balanceLabel.setText("Balance: " + tempBalance);
     }
     public JButton getPlaceBetButton(){ return placeBetButton;}
 }
