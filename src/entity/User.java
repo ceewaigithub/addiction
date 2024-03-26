@@ -47,7 +47,6 @@ public class User extends Entity {
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        sprite = "default";
         setDefaultValues();
         getPlayerImage();
     }
@@ -60,6 +59,7 @@ public class User extends Entity {
         worldY = gp.worldHeight / 2 - gp.tileSize / 2;
         speed = 4;
         direction = "down";
+        sprite = "default";
         money = 250;
     }
 

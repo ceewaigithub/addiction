@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     public JFrame frame;
 
     // Game Settings
-    int fps = 60;
+    final int FPS = 60;
 
     public TileManager tm = new TileManager(this);
     public ShopManager sm;
@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
             config.loadGameConfig();
             sm.loadShopItems(); // Load shop items after loading the game configuration
             System.out.println("Game loaded from save file successfully");
+
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
@@ -104,7 +105,6 @@ public class GamePanel extends JPanel implements Runnable {
             musicEnabled = true;
         }
         openAllOpenedDoors();
-
     }
 
     /**
