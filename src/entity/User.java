@@ -56,7 +56,7 @@ public class User extends Entity {
      */
     public void setDefaultValues() {
         worldX = gp.worldWidth / 2 - gp.tileSize / 2;
-        worldY = gp.worldHeight / 2 - gp.tileSize / 2;
+        worldY = gp.worldHeight / 2 - gp.tileSize / 4;
         speed = 4;
         direction = "down";
         sprite = "default";
