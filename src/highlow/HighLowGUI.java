@@ -156,6 +156,7 @@ public class HighLowGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close frame
+                bettingSystem.checkBankrupt();
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
             }

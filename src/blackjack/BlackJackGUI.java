@@ -143,6 +143,7 @@ public class BlackJackGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close frame
+                bettingSystem.checkBankrupt();;
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
             }

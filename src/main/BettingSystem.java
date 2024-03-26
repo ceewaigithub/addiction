@@ -109,9 +109,6 @@ public class BettingSystem {
         tempBalance = user.getBalance();
         currentBet = 0;
         updateBettingPanel();
-        if(user.getBalance() == 0){
-            user.setBalance(-1);
-        }
     }
     public void pushBet() {
         user.addMoney(currentBet);
@@ -144,6 +141,11 @@ public class BettingSystem {
     }
     public void confirmBet() {
         user.setBalance(tempBalance);
+    }
+    public void checkBankrupt(){
+        if(user.getBalance() == 0){
+            user.setBalance(-1);
+        }
     }
     public JButton getPlaceBetButton(){ return placeBetButton;}
 }

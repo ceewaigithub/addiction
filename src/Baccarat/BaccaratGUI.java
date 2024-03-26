@@ -151,6 +151,7 @@ public class BaccaratGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close frame
+                bettingSystem.checkBankrupt();
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
             }
@@ -181,7 +182,9 @@ public class BaccaratGUI {
     public void disableButtons(){
         hitButton.setVisible(false);
         standButton.setVisible(false);
-        nextGameButton.setVisible(true);
+        if(bettingSystem.getPlayerBet() > 0) {
+            nextGameButton.setVisible(true);
+        }
     }
 
     public void hideBettingControl(){
