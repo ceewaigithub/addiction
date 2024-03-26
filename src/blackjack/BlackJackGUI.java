@@ -16,7 +16,7 @@ public class BlackJackGUI extends JPanel {
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, stayButton, exitButton, nextGameButton;
     private int boardWidth = 800;
-    private int boardHeight = 540;
+    private int boardHeight = 600;
     private BlackJackAssetSetter bJackAssetSetter;
     private BettingSystem bettingSystem;
 
@@ -48,6 +48,9 @@ public class BlackJackGUI extends JPanel {
             public void paintComponent(Graphics g) {
                 // Paint standard features
                 super.paintComponent(g);
+
+                Image backgroundImage = new ImageIcon("res/cards/blackjack.png").getImage();
+                g.drawImage(backgroundImage, 0, -80, boardWidth, boardHeight, this);
                 // Paint hands
                 bJackAssetSetter.drawHands(g);
                 // If game ends, endGame paints the results
@@ -143,7 +146,6 @@ public class BlackJackGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close frame
-                bettingSystem.checkBankrupt();;
                 frame.setVisible(false);
                 mapFrame.setVisible(true);
             }
@@ -192,9 +194,8 @@ public class BlackJackGUI extends JPanel {
             hitButton.setVisible(true);
             setMessage("");
             // After betting, start game
-            bettingSystem.confirmBet();
             blackjack.startGame();
-
+            bettingSystem.confirmBet();
         }
     }
 
