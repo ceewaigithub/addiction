@@ -7,20 +7,16 @@ import entity.User;
 
 public class BettingSystem {
     private final String[] chipPaths = { "1", "2", "5", "10", "50" };
-    private JPanel bettingPanel;
-    private JPanel textPanel;
-    private JPanel nestedPanel;
+    private JPanel bettingPanel, textPanel, nestedPanel;
     private JButton[] chipButtons;
-    private JButton placeBetButton;
-    private JLabel betLabel;
-    private JButton clearBetButton;
-    private JLabel balanceLabel;
+    private JButton placeBetButton, clearBetButton, allInButton;
+    private JLabel betLabel, balanceLabel;
     private int width = 64;
     private int height = 64;
     private int currentBet, tempBalance;
     private User user;
 
-    public BettingSystem(User user) {
+    public BettingSystem(User user) {g
         this.user = user;
         tempBalance = user.getBalance();
         currentBet = 0;
@@ -29,6 +25,11 @@ public class BettingSystem {
         clearBetButton.setPreferredSize(new Dimension(120, 20));
         clearBetButton.addActionListener(e -> {
             resetBet();
+        });
+        allInButton = new JButton("ALL IN");
+        allInButton.setPreferredSize(new Dimension(120, 20));
+        allInButton.addActionListener(e -> {
+            allInBet();
         });
         placeBetButton = new JButton("Place bet");//button to confirm bet
         placeBetButton.setPreferredSize(new Dimension(120, 20));
@@ -74,6 +75,7 @@ public class BettingSystem {
         textPanel.add(balanceLabel);
         textPanel.add(betLabel);
         textPanel.add(placeBetButton);
+        textPanel.add(allInButton);
         textPanel.add(clearBetButton);
 
         nestedPanel = new JPanel(); //nested panel for formatting text and bet panel
@@ -124,6 +126,15 @@ public class BettingSystem {
         currentBet = 0;
         updateBettingPanel();
         System.out.println("Cleared");
+    }
+    public void allInBet() {
+        if (tempBalance > 0) {
+            currentBet += tempBalance;
+            tempBalance = 0;
+            updateBettingPanel();
+        } else {
+            System.out.println("ALREADY ALL IN");
+        }
     }
     public JPanel getBettingPanel() {
         return nestedPanel;
