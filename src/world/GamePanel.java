@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     public JFrame frame;
 
     // Game Settings
-    final int FPS = 60;
+    int fps = 60;
 
     public TileManager tm = new TileManager(this);
     public ShopManager sm;
