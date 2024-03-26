@@ -32,11 +32,10 @@ public class BettingSystem {
             allInBet();
         });
         placeBetButton = new JButton("Place bet");//button to confirm bet
-        placeBetButton.setPreferredSize(new Dimension(120, 20));placeBetButton.addActionListener(e->{
-
-        });
+        placeBetButton.setPreferredSize(new Dimension(120, 20));
         bettingPanel = new JPanel(); //panel for chips
         bettingPanel.setBackground(new Color(0, 116, 3));
+//        bettingPanel.setOpaque(false);
         bettingPanel.setLayout(new GridLayout(0, 5));
 
         chipButtons = new JButton[] { //chip buttons
