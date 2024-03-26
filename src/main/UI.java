@@ -218,7 +218,11 @@ public class UI {
      * @param menuItemText   The text of the menu item.
      * @param menuItemNumber The number of the menu item.
      */
-    public void drawMenuItem(Graphics2D g2, int menuItemX, int menuItemY, String menuItemText, int menuItemNumber) {
+    public void drawMenuItem(Graphics2D g2, int menuItemY, String menuItemText, int menuItemNumber) {
+        FontMetrics fontMetrics = g2.getFontMetrics();
+        int menuItemWidth = fontMetrics.stringWidth(menuItemText);
+        int menuItemX = (gp.getWidth() - menuItemWidth) / 2;
+    
         if (commandNumber == menuItemNumber) {
             g2.drawString("> " + menuItemText, menuItemX, menuItemY);
         } else {
@@ -256,18 +260,17 @@ public class UI {
         // Draw menu items
         Font menuItemFont = new Font("GameFont", Font.BOLD, 20);
         g2.setFont(menuItemFont);
-        int menuItemX = (gp.getWidth() - fontMetrics.stringWidth("Start")) / 2;
         int menuItemY = titleY + 100; // Adjust the Y position for menu items
         g2.setColor(Color.WHITE); // Set the color to white
 
         // Draw arrows based on commandNumber
-        drawMenuItem(g2, menuItemX, menuItemY, "Start/Continue", 0);
+        drawMenuItem(g2, menuItemY, "Start/Continue", 0);
         menuItemY += 50; // Adjust the Y position for the next menu item
-        drawMenuItem(g2, menuItemX, menuItemY, "Shop", 1);
+        drawMenuItem(g2, menuItemY, "Shop", 1);
         menuItemY += 50; // Adjust the Y position for the next menu item
-        drawMenuItem(g2, menuItemX, menuItemY, "Save", 2);
+        drawMenuItem(g2, menuItemY, "Save", 2);
         menuItemY += 50; // Adjust the Y position for the next menu item
-        drawMenuItem(g2, menuItemX, menuItemY, "Exit", 3);
+        drawMenuItem(g2, menuItemY, "Exit", 3);
     }
 
     /**
@@ -300,7 +303,6 @@ public class UI {
         // Draw shop items
         Font itemFont = new Font("GameFont", Font.PLAIN, 16);
         g2.setFont(itemFont);
-        int itemX = (gp.getWidth() - fontMetrics.stringWidth("Buy")) / 2;
         int itemY = titleY + 100; // Adjust the Y position for shop items
         g2.setColor(Color.WHITE); // Set the color to white
 
@@ -326,7 +328,7 @@ public class UI {
                 }
             }
 
-            drawMenuItem(g2, itemX, itemY, itemText, i);
+            drawMenuItem(g2, itemY, itemText, i);
 
             itemY += 30; // Adjust the Y position for the next item
         }
@@ -334,7 +336,7 @@ public class UI {
         // Draw "Back" option
         String backText = "Back";
         g2.setColor(Color.WHITE); // Set the color to white for the "Back" option
-        drawMenuItem(g2, itemX, itemY, backText, gp.sm.getShopItems().size());
+        drawMenuItem(g2, itemY, backText, gp.sm.getShopItems().size());
     }
 
     /**
@@ -364,9 +366,9 @@ public class UI {
         // Draw subheader
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20));
         g2.setColor(Color.RED);
-        int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("Balance below $0.")) / 2;
+        int subheaderX = (gp.getWidth() - g2.getFontMetrics().stringWidth("YOU ARE BANKRUPT")) / 2;
         int subheaderY = messageY + 50;
-        g2.drawString("Balance below $0.", subheaderX, subheaderY);
+        g2.drawString("YOU ARE BANKRUPT", subheaderX, subheaderY);
 
         // Add padding between subheader and menu items
         int padding = 20;
@@ -374,8 +376,8 @@ public class UI {
 
         // Draw smaller menu items with smaller font size
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 16));
-        drawMenuItem(g2, gp.getWidth() / 2, menuItemY, "Restart Game", 0);
-        drawMenuItem(g2, gp.getWidth() / 2, menuItemY + 30, "Exit", 1);
+        drawMenuItem(g2, menuItemY, "Restart Game", 0);
+        drawMenuItem(g2, menuItemY + 30, "Exit", 1);
     }
 
 }
