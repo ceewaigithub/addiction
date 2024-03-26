@@ -152,10 +152,6 @@ public class HighLowGUI {
             placeBet();
         });
 
-        // exitButton.addActionListener(e -> {
-        //     System.exit(0);
-        // });
-
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -204,9 +200,12 @@ public class HighLowGUI {
     public void endGame(){
         higherButton.setVisible(false);
         lowerButton.setVisible(false);
-        nextGameButton.setVisible(true);
+        // nextGameButton.setVisible(true);
         int winnings = highLowGame.checkScore();
         messageLabel.setText("Game Over! Score: " + highLowGame.getScore() + " Winnings: " + winnings);
+        if (bettingSystem.getPlayerBalance() > 0) {
+            nextGameButton.setVisible(true);
+        }
     }
 
     public void addNextCard() {
@@ -262,7 +261,6 @@ public class HighLowGUI {
         bettingPanel.setVisible(false);
         higherButton.setVisible(true);
         lowerButton.setVisible(true);
-        // buttonPanel.setVisible(true);
     }
 
     public void showBettingControl(){
@@ -270,7 +268,6 @@ public class HighLowGUI {
         bettingPanel.setVisible(true);
         higherButton.setVisible(false);
         lowerButton.setVisible(false);
-        // buttonPanel.setVisible(false);
     }
 
     public void placeBet(){

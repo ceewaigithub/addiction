@@ -30,9 +30,6 @@ class HighLowGame {
         deck = new Deck();
         currCard = deck.dealCard();
         score = 0;
-
-        // Add the first card to the player's hand
-        // player.addCard(currCard);
     }
 
     // Checking if guess is correct or incorrect
@@ -40,7 +37,6 @@ class HighLowGame {
         nextCard = deck.dealCard();
         System.out.println("Current card: " + currCard + ", Next card is: " + nextCard);
         System.out.println("Guess: " + guess);
-        // player.addCard(currCard);
         
         if ((nextCard.compareTo(currCard) > 0 && guess.equals("H")) || (nextCard.compareTo(currCard) < 0 && guess.equals("L"))) {
             System.out.println("Correct guess");
@@ -63,7 +59,7 @@ class HighLowGame {
             bettingSystem.loseBet();
         } else {
             int multiplier = score;
-            winnings = bettingSystem.getPlayerBet() * multiplier;
+            winnings = bettingSystem.getPlayerBet() * (multiplier + 1);
             System.out.println(multiplier);
             bettingSystem.winBet(multiplier);
         }
