@@ -182,9 +182,7 @@ public class BaccaratGUI {
     public void disableButtons(){
         hitButton.setVisible(false);
         standButton.setVisible(false);
-        if(bettingSystem.getPlayerBet() > 0) {
-            nextGameButton.setVisible(true);
-        }
+        nextGameButton.setVisible(true);
     }
 
     public void hideBettingControl(){
