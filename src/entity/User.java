@@ -36,8 +36,8 @@ public class User extends Entity {
     /**
      * Constructs a User object.
      * 
-     * @param gp    The GamePanel object.
-     * @param keyH  The KeyHandler object.
+     * @param gp   The GamePanel object.
+     * @param keyH The KeyHandler object.
      */
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -105,19 +105,19 @@ public class User extends Entity {
             if (keyH.rightPressed) {
                 direction = "right";
             }
-
+    
             // Check for tile collision
             collisionOn = false;
             gp.cc.checkTile(this);
-
-            // check for object collision
+    
+            // Check for object collision
             int objIndex = gp.cc.checkObject(this, true);
             interactWithObject(objIndex);
             if (objIndex != 999) {
                 collisionOn = true;
             }
-            
-            // if collision is false, player can move
+    
+            // If collision is false, player can move
             if (collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -134,7 +134,7 @@ public class User extends Entity {
                         break;
                 }
             }
-
+    
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
@@ -144,6 +144,12 @@ public class User extends Entity {
                 }
                 spriteCounter = 0;
             }
+        }
+    
+        // Check for object interaction
+        int objectFacingIndex = gp.cc.isFacing(this);
+        if (objectFacingIndex != 999 && keyH.spacePressed) {
+            interactWithObject(objectFacingIndex);
         }
     }
 
@@ -166,14 +172,14 @@ public class User extends Entity {
                     }
                     break;
                 case "Door":
-                    if (((OBJ_Door)gp.obj[idx]).isLocked()) {
+                    if (((OBJ_Door) gp.obj[idx]).isLocked()) {
                         gp.ui.showMessage("Pay 50 to unlock");
                         if (keyH.spacePressed) {
                             if (money > 50) {
                                 money -= 50;
                                 gp.playSE(5);
                                 gp.ui.showMessage("Money - 50");
-                                ((OBJ_Door)gp.obj[idx]).setOpen(true);
+                                ((OBJ_Door) gp.obj[idx]).setOpen(true);
                                 clearKeyPresses();
                             } else {
                                 gp.ui.showMessage("You don't have enough money");
@@ -208,10 +214,13 @@ public class User extends Entity {
      * 
      * @return The current balance.
      */
-    public int getBalance(){
+    public int getBalance() {
         return money;
     }
-    public void setBalance(int money){this.money = money;}
+
+    public void setBalance(int money) {
+        this.money = money;
+    }
 
     /**
      * Clears the key presses.
@@ -278,7 +287,7 @@ public class User extends Entity {
             money += amount;
         }
     }
-    
+
     /**
      * Subtracts money from the User's balance.
      * 

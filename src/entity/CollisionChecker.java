@@ -3,7 +3,8 @@ package entity;
 import world.GamePanel;
 
 /**
- * The CollisionChecker class is responsible for checking collisions between entities and objects in the game.
+ * The CollisionChecker class is responsible for checking collisions between
+ * entities and objects in the game.
  */
 public class CollisionChecker {
     GamePanel gp;
@@ -29,7 +30,8 @@ public class CollisionChecker {
         int entityTopWorldY = entity.worldY + entity.solidArea.y;
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 
-        // Calculate the column and row indices of the entity's solid area in the tile map
+        // Calculate the column and row indices of the entity's solid area in the tile
+        // map
         int entityLeftCol = entityLeftWorldX / gp.tileSize;
         int entityRightCol = entityRightWorldX / gp.tileSize;
         int entityTopRow = entityTopWorldY / gp.tileSize;
@@ -82,14 +84,16 @@ public class CollisionChecker {
      * 
      * @param entity The entity to check for collisions.
      * @param player A boolean value indicating whether the entity is the player.
-     * @return The index of the object that the entity collided with, or 999 if no collision occurred.
+     * @return The index of the object that the entity collided with, or 999 if no
+     *         collision occurred.
      */
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
         for (int i = 0; i < gp.obj.length; i++) {
             if (gp.obj[i] != null && gp.obj[i].collision) {
 
-                // Adjust the solid areas of the entity and object based on their world coordinates
+                // Adjust the solid areas of the entity and object based on their world
+                // coordinates
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
@@ -98,7 +102,8 @@ public class CollisionChecker {
 
                 switch (entity.direction) {
                     case "up":
-                        // Adjust the entity's solid area based on its speed and check for intersection with the object's solid area
+                        // Adjust the entity's solid area based on its speed and check for intersection
+                        // with the object's solid area
                         entity.solidArea.y -= entity.speed;
                         if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
                             entity.collisionOn = true;
@@ -133,6 +138,55 @@ public class CollisionChecker {
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
+
+    /**
+     * Determines if the given entity is facing any object within the interaction
+     * range.
+     * 
+     * @param entity The entity to check.
+     * @return The index of the object that the entity is facing, or 999 if no
+     *         object is found.
+     */
+    public int isFacing(Entity entity) {
+        int index = 999;
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] != null) {
+                // Calculate the distance between the entity and the object
+                int distanceX = Math.abs(entity.worldX - gp.obj[i].x);
+                int distanceY = Math.abs(entity.worldY - gp.obj[i].y);
+
+                // Check if the entity is facing the object and within the interaction range
+                int interactionRange = gp.tileSize;
+                switch (entity.direction) {
+                    case "up":
+                        if (distanceX < interactionRange && distanceY < interactionRange
+                                && entity.worldY > gp.obj[i].y) {
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        if (distanceX < interactionRange && distanceY < interactionRange
+                                && entity.worldY < gp.obj[i].y) {
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        if (distanceX < interactionRange && distanceY < interactionRange
+                                && entity.worldX > gp.obj[i].x) {
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        if (distanceX < interactionRange && distanceY < interactionRange
+                                && entity.worldX < gp.obj[i].x) {
+                            index = i;
+                        }
+                        break;
+                }
             }
         }
         return index;
