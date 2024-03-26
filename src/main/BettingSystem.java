@@ -16,7 +16,7 @@ public class BettingSystem {
     private int currentBet, tempBalance;
     private User user;
 
-    public BettingSystem(User user) {g
+    public BettingSystem(User user) {
         this.user = user;
         tempBalance = user.getBalance();
         currentBet = 0;
