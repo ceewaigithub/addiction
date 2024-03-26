@@ -148,7 +148,6 @@ public class BlackJackGUI extends JPanel {
             }
         });
         buttonPanel.add(exitButton);
-        exitButton.setVisible(false);
 
         // Set up betting panel
         bettingPanel = bettingSystem.getBettingPanel();
@@ -175,7 +174,8 @@ public class BlackJackGUI extends JPanel {
     public void startGame() {
         bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
-        buttonPanel.setVisible(false);
+        stayButton.setVisible(false);
+        hitButton.setVisible(false);
         setMessage("Place bet to start game");
     }
 
@@ -187,7 +187,8 @@ public class BlackJackGUI extends JPanel {
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
             bettingPanel.setVisible(false);
-            buttonPanel.setVisible(true);
+            stayButton.setVisible(true);
+            hitButton.setVisible(true);
             setMessage("");
             // After betting, start game
             blackjack.startGame();
@@ -198,7 +199,6 @@ public class BlackJackGUI extends JPanel {
         // Clear previous string
         setMessage("");
         // Set original buttons visible
-        exitButton.setVisible(false);
         nextGameButton.setVisible(false);
         hitButton.setVisible(true);
         stayButton.setVisible(true);
