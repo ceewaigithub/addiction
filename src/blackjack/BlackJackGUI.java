@@ -191,8 +191,9 @@ public class BlackJackGUI extends JPanel {
             hitButton.setVisible(true);
             setMessage("");
             // After betting, start game
-            blackjack.startGame();
             bettingSystem.confirmBet();
+            blackjack.startGame();
+
         }
     }
 

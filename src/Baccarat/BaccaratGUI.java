@@ -220,8 +220,8 @@ public class BaccaratGUI {
 
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
-            startRound();
             bettingSystem.confirmBet();
+            startRound();
         }else{
             setMessage("Place bet to start game");
         }
