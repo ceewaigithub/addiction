@@ -112,7 +112,6 @@ public class GamePanel extends JPanel implements Runnable {
      * If the player has no money, the game state is set to gameOverState.
      */
     public void startGame() {
-
         if (sm.isSoundPurchased()) {
             setBackgroundMusic();
         }
