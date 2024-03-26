@@ -207,8 +207,9 @@ public class BaccaratGUI {
     }
 
     public void checkWinner(boolean natural){
-        if(!BaccaratGame.compareScore(natural).isEmpty()){
-            announceWinner(BaccaratGame.compareScore(natural));
+        String result = BaccaratGame.compareScore(natural);
+        if(!result.isEmpty()){
+            announceWinner(result);
             disableButtons();
         }
     }
@@ -219,6 +220,7 @@ public class BaccaratGUI {
 
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
+            bettingSystem.confirmBet();
             startRound();
         }else{
             setMessage("Place bet to start game");

@@ -272,6 +272,7 @@ public class HighLowGUI {
 
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
+            bettingSystem.confirmBet();
             startRound();
         }else{
             setMessage("Place bet to start game");

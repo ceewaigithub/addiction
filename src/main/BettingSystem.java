@@ -32,9 +32,8 @@ public class BettingSystem {
             allInBet();
         });
         placeBetButton = new JButton("Place bet");//button to confirm bet
-        placeBetButton.setPreferredSize(new Dimension(120, 20));
-        placeBetButton.addActionListener(e->{
-            user.setBalance(tempBalance);
+        placeBetButton.setPreferredSize(new Dimension(120, 20));placeBetButton.addActionListener(e->{
+
         });
         bettingPanel = new JPanel(); //panel for chips
         bettingPanel.setBackground(new Color(0, 116, 3));
@@ -103,8 +102,8 @@ public class BettingSystem {
     public void winBet(int multiplier) {
         user.addMoney(currentBet * (1 + multiplier));
         tempBalance = user.getBalance();
-        updateBettingPanel();
         currentBet = 0;
+        updateBettingPanel();
     }
     public void loseBet() {
         tempBalance = user.getBalance();
@@ -142,6 +141,9 @@ public class BettingSystem {
     public void updateBettingPanel(){
         betLabel.setText("Bet: " + currentBet);
         balanceLabel.setText("Balance: " + tempBalance);
+    }
+    public void confirmBet() {
+        user.setBalance(tempBalance);
     }
     public JButton getPlaceBetButton(){ return placeBetButton;}
 }
