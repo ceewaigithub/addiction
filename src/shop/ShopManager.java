@@ -79,7 +79,7 @@ public class ShopManager {
                 item.setPurchased(true);
                 applyItemEffect(item);
                 if (item.getName().equals("Sound")) {
-                    gp.setBackgroundMusic();
+                    gp.musicManager.setBackgroundMusic();
                 }
                 return true;
             }

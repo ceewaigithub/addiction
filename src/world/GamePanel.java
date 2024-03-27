@@ -27,22 +27,22 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable {
 
-    public ScreenSettings screenSettings = new ScreenSettings();
+    public ScreenSettings screenSettings = new ScreenSettings();;
     public GameLogic gameLogic = new GameLogic(this);
+    public MusicManager musicManager = new MusicManager(this);
 
     public JFrame frame;
 
     // Game Settings
     int fps = 60;
 
-    public TileManager tm = new TileManager(this);
-    public ShopManager sm;
     KeyHandler keyH = new KeyHandler(this);
+    public User user = new User(this, keyH);
+    public Config config = new Config(this);
+    public TileManager tileManager = new TileManager(this);
+    public ShopManager shopManager = new ShopManager(this);
 
     public boolean musicEnabled = false;
-
-    public Sound music = new Sound();
-    Sound se = new Sound();
 
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
@@ -50,10 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
 
 
-    public User user = new User(this, keyH);
+
     public SuperObject obj[] = new SuperObject[10];
 
-    public Config config = new Config(this);
 
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenSettings.screenWidth, screenSettings.screenHeight));
@@ -62,52 +61,21 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.frame = frame;
-        sm = new ShopManager(this);
+        
     
         aSetter.setObject();
         try {
             config.loadGameConfig();
-            sm.loadShopItems();
+            shopManager.loadShopItems();
             System.out.println("Game loaded from save file successfully");
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
     
-        if (sm.isSoundPurchased()) {
+        if (shopManager.isSoundPurchased()) {
             musicEnabled = true;
         }
         openAllOpenedDoors();
-    }
-    /**
-     * Starts the game by setting the game state to titleState or gameOverState.
-     * If the player has no money, the game state is set to gameOverState.
-     */
-    public void startGame() {
-        if (sm.isSoundPurchased()) {
-            setBackgroundMusic();
-        }
-        
-        gameLogic.setGameState(gameLogic.titleState);
-        if (user.getBalance() <= 0) {
-            gameLogic.setGameState(gameLogic.gameOverState);
-        }
-
-    }
-
-    /**
-     * Restarts the game by resetting the game configuration, user values, and game state.
-     * Sets the background music if sound is purchased, otherwise stops the music.
-     */
-    public void restartGame() {
-        config.restartGame();
-        user.setDefaultValues();
-        user.getPlayerImage();
-        gameLogic.setGameState(gameLogic.titleState);
-        if (sm.isSoundPurchased()) {
-            setBackgroundMusic();
-        } else {
-            stopMusic();
-        }
     }
 
     /**
@@ -164,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         if (gameLogic.getGameState() != gameLogic.titleState || gameLogic.getGameState() != gameLogic.gameOverState) {
-            tm.draw(g2);
+            tileManager.draw(g2);
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) {
                     obj[i].draw(g2, this);
@@ -195,49 +163,6 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public void setCurrentSprite(String sprite) {
         user.sprite = sprite;
-    }
-
-    /**
-     * Plays the specified music file if sound is purchased.
-     * @param i The index of the music file to play.
-     */
-    public void playMusic(int i) {
-        if (sm.isSoundPurchased()) {
-            music.setFile(i);
-            music.play();
-            music.loop();
-        }
-    }
-
-    /**
-     * Sets the background music if sound is purchased.
-     */
-    public void setBackgroundMusic() {
-        if (sm.isSoundPurchased()) {
-            music.setFile(0);
-            music.play();
-            music.loop();
-            music.setVolume(0.25f);
-        }
-    }
-
-    /**
-     * Stops the currently playing music.
-     */
-    public void stopMusic() {
-        music.stop();
-    }
-
-    /**
-     * Plays the specified sound effect if sound is purchased.
-     * @param i The index of the sound effect to play.
-     */
-    public void playSE(int i) {
-        if (sm.isSoundPurchased()) {
-            se.setFile(i);
-            se.setVolume(1.5f);
-            se.play();
-        }
     }
 
     public int getGameState() {

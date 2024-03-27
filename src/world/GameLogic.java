@@ -51,4 +51,36 @@ public class GameLogic {
     public void setGameState(int gameState) {
         this.gameState = gameState;
     }
+    
+    /**
+     * Starts the game by setting the game state to titleState or gameOverState.
+     * If the player has no money, the game state is set to gameOverState.
+     */
+    public void startGame() {
+        if (gp.shopManager.isSoundPurchased()) {
+            gp.musicManager.setBackgroundMusic();
+        }
+        
+        gp.gameLogic.setGameState(gp.gameLogic.titleState);
+        if (gp.user.getBalance() <= 0) {
+            gp.gameLogic.setGameState(gp.gameLogic.gameOverState);
+        }
+
+    }
+
+    /**
+     * Restarts the game by resetting the game configuration, user values, and game state.
+     * Sets the background music if sound is purchased, otherwise stops the music.
+     */
+    public void restartGame() {
+        gp.config.restartGame();
+        gp.user.setDefaultValues();
+        gp.user.getPlayerImage();
+        gp.gameLogic.setGameState(gp.gameLogic.titleState);
+        if (gp.shopManager.isSoundPurchased()) {
+            gp.musicManager.setBackgroundMusic();
+        } else {
+            gp.musicManager.stopMusic();
+        }
+    }
 }

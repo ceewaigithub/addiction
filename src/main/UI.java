@@ -306,8 +306,8 @@ public class UI {
         int itemY = titleY + 100; // Adjust the Y position for shop items
         g2.setColor(Color.WHITE); // Set the color to white
 
-        for (int i = 0; i < gp.sm.getShopItems().size(); i++) {
-            ShopItem item = gp.sm.getShopItems().get(i);
+        for (int i = 0; i < gp.shopManager.getShopItems().size(); i++) {
+            ShopItem item = gp.shopManager.getShopItems().get(i);
             String itemText = item.getName();
             if (!item.isPurchased()) {
                 itemText += " - Price: " + item.getPrice();
@@ -336,7 +336,7 @@ public class UI {
         // Draw "Back" option
         String backText = "Back";
         g2.setColor(Color.WHITE); // Set the color to white for the "Back" option
-        drawMenuItem(g2, itemY, backText, gp.sm.getShopItems().size());
+        drawMenuItem(g2, itemY, backText, gp.shopManager.getShopItems().size());
     }
 
     /**

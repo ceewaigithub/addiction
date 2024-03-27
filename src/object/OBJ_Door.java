@@ -70,7 +70,7 @@ public class OBJ_Door extends SuperObject {
         if (isLocked()) {
             if (user.getBalance() >= costToOpen) {
                 user.subtractMoney(costToOpen);
-                gp.playSE(5);
+                gp.musicManager.playSE(5);
                 gp.ui.showMessage("Money - " + costToOpen);
                 setOpen(true);
                 System.out.println("You unlocked the door");

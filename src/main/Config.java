@@ -66,7 +66,7 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        gp.sm.saveShopItems();
+        gp.shopManager.saveShopItems();
     }
 
     /**
@@ -94,8 +94,8 @@ public class Config {
             }
             br.close();
 
-            gp.sm.loadShopItems();
-            List<ShopItem> shopItems = gp.sm.getShopItems();
+            gp.shopManager.loadShopItems();
+            List<ShopItem> shopItems = gp.shopManager.getShopItems();
             for (ShopItem item : shopItems) {
                 if (item.getName().equals("Sound")) {
                     gp.musicEnabled = true;
@@ -190,8 +190,8 @@ public class Config {
         if (shopItemsFile.exists()) {
             shopItemsFile.delete();
         }
-        gp.sm.resetShopItems();
-        gp.sm.loadShopItems();
+        gp.shopManager.resetShopItems();
+        gp.shopManager.loadShopItems();
         gp.user.setDefaultValues();
         gp.aSetter.setObject();
     }

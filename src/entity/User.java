@@ -166,7 +166,7 @@ public class User extends Entity {
                 case "BlackJack":
                     gp.ui.showMessage("BlackJack");
                     if (keyH.spacePressed) {
-                        gp.playSE(1);
+                        gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
                         BlackJackApp bj = new BlackJackApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
@@ -186,7 +186,7 @@ public class User extends Entity {
                 case "Baccarat":
                     gp.ui.showMessage("Baccarat");
                     if (keyH.spacePressed) {
-                        gp.playSE(1);
+                        gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
                         BaccaratApp b = new BaccaratApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
@@ -195,7 +195,7 @@ public class User extends Entity {
                 case "HighLow":
                     gp.ui.showMessage("HighLow");
                     if (keyH.spacePressed) {
-                        gp.playSE(1);
+                        gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
                         HighLowApp hl = new HighLowApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing

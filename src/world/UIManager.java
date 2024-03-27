@@ -21,5 +21,4 @@ public class UIManager {
         return ui;
     }
 
-    // Other UI-related methods...
 }

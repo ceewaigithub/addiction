@@ -51,7 +51,7 @@ public class KeyHandler implements KeyListener {
         if (gp.gameLogic.getGameState() == gp.gameLogic.titleState) {
             if (gp.ui.titleScreenState == 0) {
                 if (code == KeyEvent.VK_W) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     gp.ui.commandNumber--;
                     if (gp.ui.commandNumber < 0) {
                         gp.ui.commandNumber = 3;
@@ -59,7 +59,7 @@ public class KeyHandler implements KeyListener {
                 }
     
                 if (code == KeyEvent.VK_S) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     gp.ui.commandNumber++;
                     if (gp.ui.commandNumber > 3) {
                         gp.ui.commandNumber = 0;
@@ -67,7 +67,7 @@ public class KeyHandler implements KeyListener {
                 }
     
                 if (code == KeyEvent.VK_SPACE) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     if (gp.ui.commandNumber == 0) {
                         gp.gameLogic.setGameState(gp.gameLogic.playState);
                     }
@@ -84,47 +84,47 @@ public class KeyHandler implements KeyListener {
                 }
             } else if (gp.ui.titleScreenState == 1) {
                 if (code == KeyEvent.VK_W) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     gp.ui.commandNumber--;
                     if (gp.ui.commandNumber < 0) {
-                        gp.ui.commandNumber = gp.sm.getShopItems().size();
+                        gp.ui.commandNumber = gp.shopManager.getShopItems().size();
                     }
                 }
     
                 if (code == KeyEvent.VK_S) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     gp.ui.commandNumber++;
-                    if (gp.ui.commandNumber > gp.sm.getShopItems().size()) {
+                    if (gp.ui.commandNumber > gp.shopManager.getShopItems().size()) {
                         gp.ui.commandNumber = 0;
                     }
                 }
     
                if (code == KeyEvent.VK_SPACE) {
-                    if (gp.ui.commandNumber == gp.sm.getShopItems().size()) {
+                    if (gp.ui.commandNumber == gp.shopManager.getShopItems().size()) {
                         gp.ui.titleScreenState = 0;
                         gp.ui.commandNumber = 0;
                     } else {
-                        ShopItem selectedItem = gp.sm.getShopItems().get(gp.ui.commandNumber);
+                        ShopItem selectedItem = gp.shopManager.getShopItems().get(gp.ui.commandNumber);
                         if (selectedItem instanceof SpriteItem) {
                             SpriteItem selectedSpriteItem = (SpriteItem) selectedItem;
                             if (selectedSpriteItem.isPurchased()) {
                                 gp.user.sprite = selectedSpriteItem.getSprite();
                                 gp.user.getPlayerImage();
-                                gp.playSE(1);
+                                gp.musicManager.playSE(1);
                             } else {
-                                boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
+                                boolean bought = gp.shopManager.buyItem(gp.ui.commandNumber);
                                 if (bought) {
-                                    gp.playSE(1);
+                                    gp.musicManager.playSE(1);
                                 } else {
-                                    gp.playSE(3);
+                                    gp.musicManager.playSE(3);
                                 }
                             }
                         } else {
-                            boolean bought = gp.sm.buyItem(gp.ui.commandNumber);
+                            boolean bought = gp.shopManager.buyItem(gp.ui.commandNumber);
                             if (bought) {
-                                gp.playSE(1);
+                                gp.musicManager.playSE(1);
                             } else {
-                                gp.playSE(3);
+                                gp.musicManager.playSE(3);
                             }
                         }
                     }
@@ -133,7 +133,7 @@ public class KeyHandler implements KeyListener {
         } else if (gp.gameLogic.getGameState() == gp.gameLogic.gameOverState) {
 
             if (code == KeyEvent.VK_W) {
-                gp.playSE(1);
+                gp.musicManager.playSE(1);
                 gp.ui.commandNumber--;
                 if (gp.ui.commandNumber < 0) {
                     gp.ui.commandNumber = 1;
@@ -141,7 +141,7 @@ public class KeyHandler implements KeyListener {
             }
 
             if (code == KeyEvent.VK_S) {
-                gp.playSE(1);
+                gp.musicManager.playSE(1);
                 gp.ui.commandNumber++;
                 if (gp.ui.commandNumber > 1) {
                     gp.ui.commandNumber = 0;
@@ -150,11 +150,11 @@ public class KeyHandler implements KeyListener {
 
             if (code == KeyEvent.VK_SPACE) {
                 if (gp.ui.commandNumber == 0) {
-                    gp.playSE(1);
-                    gp.restartGame();
+                    gp.musicManager.playSE(1);
+                    gp.gameLogic.restartGame();
                     gp.gameLogic.setGameState(gp.gameLogic.playState);
                 } else if (gp.ui.commandNumber == 1) {
-                    gp.playSE(1);
+                    gp.musicManager.playSE(1);
                     System.exit(0);
                 }
             }
@@ -177,10 +177,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ESCAPE) {
             if (gp.getGameState() == gp.gameLogic.playState) {
-                gp.playSE(6);
+                gp.musicManager.playSE(6);
                 gp.setGameState(gp.gameLogic.titleState);
             } else if (gp.getGameState() == gp.gameLogic.titleState) {
-                gp.playSE(7);
+                gp.musicManager.playSE(7);
                 gp.setGameState(gp.gameLogic.playState);
             }
         }
