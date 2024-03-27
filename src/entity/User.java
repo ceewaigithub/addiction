@@ -175,7 +175,8 @@ public class User extends Entity {
                 case "Door":
                     OBJ_Door door = (OBJ_Door) gp.obj[idx];
                     if (door.isLocked()) {
-                        gp.ui.showMessage("$50 to unlock.");
+                        int cost = door.getCostToOpen();
+                        gp.ui.showMessage("$" + cost + " to unlock.");
                         if (keyH.spacePressed) {
                             door.interact(this, gp);
                         }

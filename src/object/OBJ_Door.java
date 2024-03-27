@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 
 public class OBJ_Door extends SuperObject {
     boolean isOpen;
+    int costToOpen;
 
     /**
      * Constructor for the OBJ_Door class.
@@ -29,6 +30,21 @@ public class OBJ_Door extends SuperObject {
         name = "Door";
         collision = true;
         isOpen = false;
+        costToOpen = 50;
+        String currentDirectory = new File("").getAbsolutePath();
+        try {
+            image = ImageIO.read(new File(currentDirectory + "/res/objects/door.png"));
+        } catch (Exception e) {
+            System.out.println("Directory" + currentDirectory + "/res/objects/door.png");
+            e.printStackTrace();
+        }
+    }
+
+    public OBJ_Door(int costToOpen) {
+        name = "Door";
+        collision = true;
+        isOpen = false;
+        this.costToOpen = costToOpen;
         String currentDirectory = new File("").getAbsolutePath();
         try {
             image = ImageIO.read(new File(currentDirectory + "/res/objects/door.png"));
@@ -52,10 +68,10 @@ public class OBJ_Door extends SuperObject {
     @Override
     public void interact(User user, GamePanel gp) {
         if (isLocked()) {
-            if (user.getBalance() >= 50) {
-                user.subtractMoney(50);
+            if (user.getBalance() >= costToOpen) {
+                user.subtractMoney(costToOpen);
                 gp.playSE(5);
-                gp.ui.showMessage("Money - 50");
+                gp.ui.showMessage("Money - " + costToOpen);
                 setOpen(true);
                 System.out.println("You unlocked the door");
             } else {
@@ -86,6 +102,10 @@ public class OBJ_Door extends SuperObject {
                 e.printStackTrace();
             }
         }
+    }
+
+    public int getCostToOpen() {
+        return costToOpen;
     }
 
     /**
