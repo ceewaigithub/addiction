@@ -58,7 +58,7 @@ public class BaccaratGUI {
                         player.getHand().get(i).printCard(g, xPos, startY);
 
                         if (player.isDealer() && i == 0 && BaccaratGame.getPlayerTurn() == 0) {
-                            // Print hidden card when it is the player's turn
+                            // Hide dealer's first card
                             hiddenCard.printCard(g, xPos, startY);
                         }
                     }
@@ -113,13 +113,13 @@ public class BaccaratGUI {
         buttonPanel.add(nextGameButton);
         buttonPanel.add(exitButton);
 
-        // Add buttonPanel to the frame's SOUTH position
+        // Add bettingPanel and buttonPanel to controlPanel
         controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel,BoxLayout.Y_AXIS));
         controlPanel.add(bettingPanel);
         controlPanel.add(buttonPanel);
 
-
+        // Add controlPanel to the frame
         frame.add(controlPanel, BorderLayout.SOUTH);
 
         // Add gamePanel to the frame
@@ -210,7 +210,7 @@ public class BaccaratGUI {
     }
 
     public void checkWinner(boolean natural){
-        String result = BaccaratGame.compareScore(natural);
+        String result = BaccaratGame.checkWinner(natural);
         if(!result.isEmpty()){
             announceWinner(result);
             disableButtons();

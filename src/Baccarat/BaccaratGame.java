@@ -7,32 +7,27 @@ import main.Deck;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BaccaratGame {
     private Deck deck;
     private List<Player> players;
-
     private BettingSystem bettingSystem;
-
-    private boolean activeRound = false;
     private int playerTurn;
     public BaccaratGame(BettingSystem bettingSystem) {
         this.bettingSystem = bettingSystem;
         players = new ArrayList<>();
         playerTurn = 0;
     }
-
     public void addPlayer(Player player) {
         players.add(player);
     }
-
+    public List<Player> getPlayers(){
+        return players;
+    }
     public void startGame() {
-        // Make new deck every game
+        // Make new deck per round
         deck = new Deck();
 
-        // Start the game
-        activeRound = true;
-
+        // Start the game - issue 2 cards per player
         for (Player player : players) {
             for(int i = 0; i < 2; i++){
                 Card newcard = deck.dealCard();
@@ -40,34 +35,35 @@ public class BaccaratGame {
                 System.out.println(newcard);
             }
         }
-        deck.printDeck();
 
     }
 
-    public String compareScore(boolean natural){
-        System.out.println("comparing score");
+    public String checkWinner(boolean checkNatural){
+
         Player player = players.getFirst();
         Player dealer = players.getLast();
         int playerScore = player.getHandValue()%10;
         int dealerScore = dealer.getHandValue()%10;
-        if(natural){
-            if(playerScore >= 8 || dealerScore >= 8){
+
+        if(checkNatural){
+            // Check if player or dealer has naturals
+            if(playerScore >= 8 || dealerScore >= 8) {
                 playerTurn = -1;
-                if(playerScore > dealerScore){
-                    bettingSystem.winBet(1);
-                    return "Player";
-                }else if (playerScore < dealerScore){
-                    bettingSystem.loseBet();
-                    return "Dealer";
-                }else{
-                    bettingSystem.pushBet();
-                    return "Push";
-                }
+                return compareScore(playerScore, dealerScore);
+            } else {
+                return "";
             }
-            return "";
+
         } else {
+            return compareScore(playerScore, dealerScore);
+        }
+
+    }
+
+    public String compareScore(int playerScore, int dealerScore) {
+
             if(playerScore > dealerScore){
-                bettingSystem.winBet(1 );
+                bettingSystem.winBet(1);
                 return "Player";
             }else if (playerScore < dealerScore){
                 bettingSystem.loseBet();
@@ -76,14 +72,12 @@ public class BaccaratGame {
                 bettingSystem.pushBet();
                 return "Push";
             }
-        }
+
     }
 
-    public int getPlayerTurn(){
-        return playerTurn;
-    }
 
     public void hit(){
+        // Player draws a card
         players.getFirst().addCard(deck.dealCard());
         nextPlayerTurn();
     }
@@ -91,26 +85,23 @@ public class BaccaratGame {
         nextPlayerTurn();
     }
 
+    public int getPlayerTurn(){
+        return playerTurn;
+    }
+
     public void nextPlayerTurn(){
         playerTurn++;
     }
 
     public void dealerTurn(){
-        if(players.getLast().getHandValue() % 10 < 4){
+        // Make dealer draw a card when score less than 5
+        if(players.getLast().getHandValue() % 10 < 5){
             players.getLast().addCard(deck.dealCard());
         }
     }
 
-    public boolean isActiveRound(){
-        return activeRound;
-    }
-
-    public List<Player> getPlayers(){
-        return players;
-    }
-
     public void endRound(){
-        activeRound = false;
+        // clear player hand when round ends
         for (Player player : players) {
             player.discardHand();
         }
