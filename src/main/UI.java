@@ -66,7 +66,7 @@ public class UI {
         g2.setFont(aerial_10);
         g2.setColor(Color.white);
         g2.drawImage(coinImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, null);
-        g2.drawString("x " + gp.user.money, 55, 45);
+        g2.drawString("x " + gp.user.getBalance(), 55, 45);
         drawControls(g2, gp.tileSize, gp.getHeight() - gp.screenHeight - gp.tileSize, gp.screenWidth, gp.screenHeight);
 
 

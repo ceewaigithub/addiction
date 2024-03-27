@@ -30,7 +30,7 @@ public class User extends Entity {
 
     public final int screenX;
     public final int screenY;
-    public int money = 0;
+    int money = 0;
     public String sprite;
     private final Object moneyLock = new Object();
 

@@ -117,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         gameState = titleState;
-        if (user.money <= 0) {
+        if (user.getBalance() <= 0) {
             gameState = gameOverState;
         }
 
@@ -208,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == gameOverState) {
             // Do nothing
         }
-        if (user.money < 0) {
+        if (user.getBalance() < 0) {
             gameState = gameOverState;
         }
     }

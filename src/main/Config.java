@@ -41,7 +41,7 @@ public class Config {
         }
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter("config.txt"));
-            bw.write("money=" + gp.user.money);
+            bw.write("money=" + gp.user.getBalance());
             bw.newLine();
             bw.write("sprite=" + gp.user.sprite);
             bw.newLine();
@@ -102,7 +102,7 @@ public class Config {
                 }
             }
             try {
-                gp.user.money = Integer.parseInt(data[0].substring(6));
+                gp.user.setBalance(Integer.parseInt(data[0].substring(6)));
                 gp.user.sprite = data[1].substring(7);
                 gp.user.worldX = Integer.parseInt(data[2].substring(7));
                 gp.user.worldY = Integer.parseInt(data[3].substring(7));
