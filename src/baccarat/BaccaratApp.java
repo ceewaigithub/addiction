@@ -1,4 +1,4 @@
-package Baccarat;
+package baccarat;
 
 import javax.swing.JFrame;
 

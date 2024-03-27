@@ -1,4 +1,4 @@
-package Baccarat;
+package baccarat;
 
 import main.BettingSystem;
 import main.Player;

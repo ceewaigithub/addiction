@@ -1,19 +1,16 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
 import blackjack.BlackJackApp;
 import highlow.*;
-import object.Interactable;
 import object.OBJ_Door;
-import Baccarat.*;
+import baccarat.*;
 import world.GamePanel;
 import world.KeyHandler;
 
