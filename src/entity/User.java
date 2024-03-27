@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import blackjack.BlackJackApp;
 import highlow.*;
+import object.Interactable;
 import object.OBJ_Door;
 import Baccarat.*;
 import world.GamePanel;
@@ -105,18 +106,18 @@ public class User extends Entity {
             if (keyH.rightPressed) {
                 direction = "right";
             }
-    
+
             // Check for tile collision
             collisionOn = false;
             gp.cc.checkTile(this);
-    
+
             // Check for object collision
             int objIndex = gp.cc.checkObject(this, true);
             interactWithObject(objIndex);
             if (objIndex != 999) {
                 collisionOn = true;
             }
-    
+
             // If collision is false, player can move
             if (collisionOn == false) {
                 switch (direction) {
@@ -134,7 +135,7 @@ public class User extends Entity {
                         break;
                 }
             }
-    
+
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
@@ -145,7 +146,7 @@ public class User extends Entity {
                 spriteCounter = 0;
             }
         }
-    
+
         // Check for object interaction
         int objectFacingIndex = gp.cc.isFacing(this);
         if (objectFacingIndex != 999 && keyH.spacePressed) {
@@ -172,20 +173,14 @@ public class User extends Entity {
                     }
                     break;
                 case "Door":
-                    if (((OBJ_Door) gp.obj[idx]).isLocked()) {
-                        gp.ui.showMessage("Pay 50 to unlock");
+                    OBJ_Door door = (OBJ_Door) gp.obj[idx];
+                    if (door.isLocked()) {
+                        gp.ui.showMessage("$50 to unlock.");
                         if (keyH.spacePressed) {
-                            if (money > 50) {
-                                money -= 50;
-                                gp.playSE(5);
-                                gp.ui.showMessage("Money - 50");
-                                ((OBJ_Door) gp.obj[idx]).setOpen(true);
-                                clearKeyPresses();
-                            } else {
-                                gp.ui.showMessage("You don't have enough money");
-                            }
+                            door.interact(this, gp);
                         }
                     }
+
                     break;
                 case "Baccarat":
                     gp.ui.showMessage("Baccarat");

@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import entity.User;
 import world.GamePanel;
 
 import java.awt.Graphics2D;
@@ -14,7 +15,7 @@ import java.awt.image.BufferedImage;
  * The SuperObject class represents a generic object in a game.
  * It contains properties and methods that are common to all game objects.
  */
-public class SuperObject {
+public class SuperObject implements Interactable {
     /**
      * The image associated with the object.
      */
@@ -71,6 +72,12 @@ public class SuperObject {
                 && y < gp.user.worldY - gp.user.screenY + gp.screenHeight) {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+    }
+
+    @Override
+    public void interact(User user, GamePanel gp) {
+        // Default implementation
+        System.out.println("Interacting with " + name);
     }
 
     /**

@@ -104,7 +104,6 @@ public class Config {
             try {
                 gp.user.money = Integer.parseInt(data[0].substring(6));
                 gp.user.sprite = data[1].substring(7);
-                System.out.println("SPRITE IS " + data[1].substring(7));
                 gp.user.worldX = Integer.parseInt(data[2].substring(7));
                 gp.user.worldY = Integer.parseInt(data[3].substring(7));
                 gp.user.speed = Integer.parseInt(data[4].substring(6));
