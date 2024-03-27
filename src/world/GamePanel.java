@@ -27,21 +27,8 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable {
 
-    // Screen Settings
-    public final int originalTileSize = 16; // 16x16 tile size
-    final int scale = 3;
-
-    public final int tileSize = originalTileSize * scale; // 48x48 tile size
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; // 768
-    public final int screenHeight = tileSize * maxScreenRow; // 576
-
-    // World Settings
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    public ScreenSettings screenSettings = new ScreenSettings();
+    public GameLogic gameLogic = new GameLogic(this);
 
     public JFrame frame;
 
@@ -62,51 +49,35 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
 
-    public int gameState;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int dialogueState = 3;
-    public final int titleState = 4;
-    public final int gameOverState = 5;
 
     public User user = new User(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
     public Config config = new Config(this);
-    
-    /**
-     * Constructs a GamePanel object with the specified JFrame.
-     * Initializes the panel's dimensions, background color, key listener, and focus.
-     * Loads game configuration and shop items.
-     * Sets the background music if sound is purchased.
-     * Opens all unlocked doors.
-     * @param frame The JFrame object to associate with the GamePanel.
-     */
+
     public GamePanel(JFrame frame) {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setPreferredSize(new Dimension(screenSettings.screenWidth, screenSettings.screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.frame = frame;
         sm = new ShopManager(this);
-
+    
         aSetter.setObject();
         try {
             config.loadGameConfig();
-            sm.loadShopItems(); // Load shop items after loading the game configuration
+            sm.loadShopItems();
             System.out.println("Game loaded from save file successfully");
-
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
-        
+    
         if (sm.isSoundPurchased()) {
             musicEnabled = true;
         }
         openAllOpenedDoors();
     }
-
     /**
      * Starts the game by setting the game state to titleState or gameOverState.
      * If the player has no money, the game state is set to gameOverState.
@@ -116,9 +87,9 @@ public class GamePanel extends JPanel implements Runnable {
             setBackgroundMusic();
         }
         
-        gameState = titleState;
+        gameLogic.setGameState(gameLogic.titleState);
         if (user.getBalance() <= 0) {
-            gameState = gameOverState;
+            gameLogic.setGameState(gameLogic.gameOverState);
         }
 
     }
@@ -131,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         config.restartGame();
         user.setDefaultValues();
         user.getPlayerImage();
-        gameState = titleState;
+        gameLogic.setGameState(gameLogic.titleState);
         if (sm.isSoundPurchased()) {
             setBackgroundMusic();
         } else {
@@ -183,41 +154,16 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    /**
-     * Updates the game state based on the current game state.
-     * If the game state is playState, updates the user.
-     * If the game state is pauseState, does nothing.
-     * If the game state is dialogueState, does nothing.
-     * If the game state is titleState, does nothing.
-     * If the game state is gameOverState, does nothing.
-     * If the user's money is less than 0, sets the game state to gameOverState.
-     */
+
     public void update() {
-        if (gameState == playState) {
-            user.update();
-        }
-        if (gameState == pauseState) {
-            // Do nothing
-        }
-        if (gameState == dialogueState) {
-            // Do nothing
-        }
-        if (gameState == titleState) {
-            // Do nothing
-        }
-        if (gameState == gameOverState) {
-            // Do nothing
-        }
-        if (user.getBalance() < 0) {
-            gameState = gameOverState;
-        }
+        gameLogic.update();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        if (gameState != titleState || gameState != gameOverState) {
+        if (gameLogic.getGameState() != gameLogic.titleState || gameLogic.getGameState() != gameLogic.gameOverState) {
             tm.draw(g2);
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) {
@@ -227,7 +173,6 @@ public class GamePanel extends JPanel implements Runnable {
             user.draw(g2);
         }
         ui.draw(g2);
-
         g2.dispose();
     }
 
@@ -293,6 +238,14 @@ public class GamePanel extends JPanel implements Runnable {
             se.setVolume(1.5f);
             se.play();
         }
+    }
+
+    public int getGameState() {
+        return gameLogic.getGameState();
+    }
+    
+    public void setGameState(int gameState) {
+        gameLogic.setGameState(gameState);
     }
 
 }

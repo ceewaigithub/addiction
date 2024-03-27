@@ -65,12 +65,12 @@ public class SuperObject implements Interactable {
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = x - gp.user.worldX + gp.user.screenX;
         int screenY = y - gp.user.worldY + gp.user.screenY;
-
-        if (x + gp.tileSize > gp.user.worldX - gp.user.screenX
-                && x < gp.user.worldX - gp.user.screenX + gp.screenWidth
-                && y + gp.tileSize > gp.user.worldY - gp.user.screenY
-                && y < gp.user.worldY - gp.user.screenY + gp.screenHeight) {
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+    
+        if (x + gp.screenSettings.tileSize > gp.user.worldX - gp.user.screenX
+                && x < gp.user.worldX - gp.user.screenX + gp.screenSettings.screenWidth
+                && y + gp.screenSettings.tileSize > gp.user.worldY - gp.user.screenY
+                && y < gp.user.worldY - gp.user.screenY + gp.screenSettings.screenHeight) {
+            g2.drawImage(image, screenX, screenY, gp.screenSettings.tileSize, gp.screenSettings.tileSize, null);
         }
     }
 

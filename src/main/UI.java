@@ -10,7 +10,9 @@ import java.text.DecimalFormat;
 import object.OBJ_Coin;
 import shop.ShopItem;
 import shop.SpriteItem;
+import world.GameLogic;
 import world.GamePanel;
+import world.ScreenSettings;
 
 /**
  * The UI class represents the user interface of the game. It handles drawing various screens and elements on the screen.
@@ -26,7 +28,6 @@ public class UI {
     int messageCounter = 0;
     public int commandNumber = 0;
 
-    // title screen state: 0 : main, 1: shop
     public int titleScreenState = 0;
 
     /**
@@ -59,21 +60,20 @@ public class UI {
      */
     public void draw(Graphics2D g2) {
 
-        if (gp.gameState == gp.titleState) {
+        if (gp.gameLogic.getGameState() == gp.gameLogic.titleState) {
             drawTitleScreen(g2);
         }
 
         g2.setFont(aerial_10);
         g2.setColor(Color.white);
-        g2.drawImage(coinImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, gp.tileSize/2, null);
+        g2.drawImage(coinImage, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, null);
         g2.drawString("x " + gp.user.getBalance(), 55, 45);
-        drawControls(g2, gp.tileSize, gp.getHeight() - gp.screenHeight - gp.tileSize, gp.screenWidth, gp.screenHeight);
-
+        drawControls(g2, gp.screenSettings.tileSize, gp.getHeight() - gp.screenSettings.screenHeight - gp.screenSettings.tileSize, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
 
         if (messageOn) {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
             int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth(message)) / 2;
-            int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+            int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
 
             g2.drawString(message, messageX, messageY);
             messageCounter++;
@@ -83,15 +83,15 @@ public class UI {
             }
         }
 
-        if (gp.gameState == gp.playState) {
+        if (gp.gameLogic.getGameState() == gp.gameLogic.playState) {
 
         }
 
-        if (gp.gameState == gp.pauseState) {
+        if (gp.gameLogic.getGameState() == gp.gameLogic.pauseState) {
             drawPauseScreen(g2);
         }
 
-        if (gp.gameState == gp.gameOverState) {
+        if (gp.gameLogic.getGameState() == gp.gameLogic.gameOverState) {
             drawGameOverScreen(g2);
         }
 
@@ -107,13 +107,13 @@ public class UI {
         // window 
         int x = gp.getWidth() * 2;
         int y = gp.getHeight() * 2;
-        int width = gp.screenWidth - gp.tileSize * 4;
-        int height = gp.tileSize *5;
+        int width = gp.screenSettings.screenWidth - gp.screenSettings.tileSize * 4;
+        int height = gp.screenSettings.tileSize *5;
 
         g2.setColor(Color.BLACK);
-        g2.fillRect(gp.tileSize, gp.tileSize, width, height);
+        g2.fillRect(gp.screenSettings.tileSize, gp.screenSettings.tileSize, width, height);
         g2.setColor(Color.WHITE);
-        g2.drawRect(gp.tileSize, gp.tileSize, width, height);
+        g2.drawRect(gp.screenSettings.tileSize, gp.screenSettings.tileSize, width, height);
 
     }
 
@@ -237,7 +237,7 @@ public class UI {
      */
     public void drawTitleScreenMain(Graphics2D g2) {
         g2.setColor(new Color(40, 40, 43));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
 
         // Set the font to a game font
         Font gameFont = new Font("GameFont", Font.BOLD, 50);
@@ -247,7 +247,7 @@ public class UI {
         String title = "addiction.";
         FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
         int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
-        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        int titleY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
         
         // Draw shadow
         g2.setColor(Color.darkGray);
@@ -280,7 +280,7 @@ public class UI {
      */
     public void drawTitleScreenShop(Graphics2D g2) {
         g2.setColor(new Color(40, 40, 43));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
 
         // Set the font to a game font
         Font gameFont = new Font("GameFont", Font.BOLD, 50);
@@ -290,7 +290,7 @@ public class UI {
         String title = "Shop";
         FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
         int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
-        int titleY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        int titleY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
 
         // Draw shadow
         g2.setColor(Color.darkGray);
@@ -347,7 +347,7 @@ public class UI {
     public void drawPauseScreen(Graphics2D g2) {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("PAUSED")) / 2;
-        int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
         g2.drawString("PAUSED", messageX, messageY);
     }
 
@@ -360,7 +360,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         g2.setColor(Color.WHITE);
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("GAME OVER")) / 2;
-        int messageY = (int)(gp.getHeight() / 2 - gp.tileSize * 1.5);
+        int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
         g2.drawString("GAME OVER", messageX, messageY);
 
         // Draw subheader

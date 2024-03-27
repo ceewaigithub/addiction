@@ -43,8 +43,8 @@ public class User extends Entity {
     public User(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
-        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
-        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
+        screenX = gp.screenSettings.screenWidth / 2 - gp.screenSettings.tileSize / 2;
+        screenY = gp.screenSettings.screenHeight / 2 - gp.screenSettings.tileSize / 2;
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
@@ -56,8 +56,8 @@ public class User extends Entity {
      * Sets the default values for the User.
      */
     public void setDefaultValues() {
-        worldX = gp.worldWidth / 2 - gp.tileSize / 2;
-        worldY = gp.worldHeight / 2 - gp.tileSize / 4;
+        worldX = gp.screenSettings.worldWidth / 2 - gp.screenSettings.tileSize / 2;
+        worldY = gp.screenSettings.worldHeight / 2 - gp.screenSettings.tileSize / 4;
         speed = 4;
         direction = "down";
         sprite = "default";
@@ -270,7 +270,7 @@ public class User extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.screenSettings.tileSize, gp.screenSettings.tileSize, null);
     }
 
     /**

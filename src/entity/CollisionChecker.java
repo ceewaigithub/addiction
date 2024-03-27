@@ -32,17 +32,17 @@ public class CollisionChecker {
 
         // Calculate the column and row indices of the entity's solid area in the tile
         // map
-        int entityLeftCol = entityLeftWorldX / gp.tileSize;
-        int entityRightCol = entityRightWorldX / gp.tileSize;
-        int entityTopRow = entityTopWorldY / gp.tileSize;
-        int entityBottomRow = entityBottomWorldY / gp.tileSize;
+        int entityLeftCol = entityLeftWorldX / gp.screenSettings.tileSize;
+        int entityRightCol = entityRightWorldX / gp.screenSettings.tileSize;
+        int entityTopRow = entityTopWorldY / gp.screenSettings.tileSize;
+        int entityBottomRow = entityBottomWorldY / gp.screenSettings.tileSize;
 
         int tileNum1, tileNum2;
 
         switch (entity.direction) {
             case "up":
                 // Adjust the top row index based on the entity's speed
-                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+                entityTopRow = (entityTopWorldY - entity.speed) / gp.screenSettings.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityTopRow][entityRightCol];
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
@@ -51,7 +51,7 @@ public class CollisionChecker {
                 break;
             case "down":
                 // Adjust the bottom row index based on the entity's speed
-                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.screenSettings.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityBottomRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityRightCol];
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
@@ -60,7 +60,7 @@ public class CollisionChecker {
                 break;
             case "left":
                 // Adjust the left column index based on the entity's speed
-                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.screenSettings.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityLeftCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityLeftCol];
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
@@ -69,7 +69,7 @@ public class CollisionChecker {
                 break;
             case "right":
                 // Adjust the right column index based on the entity's speed
-                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+                entityRightCol = (entityRightWorldX + entity.speed) / gp.screenSettings.tileSize;
                 tileNum1 = gp.tm.mapTileNum[entityTopRow][entityRightCol];
                 tileNum2 = gp.tm.mapTileNum[entityBottomRow][entityRightCol];
                 if (gp.tm.tile[tileNum1].collision || gp.tm.tile[tileNum2].collision) {
@@ -160,7 +160,7 @@ public class CollisionChecker {
                 int distanceY = Math.abs(entity.worldY - gp.obj[i].y);
 
                 // Check if the entity is facing the object and within the interaction range
-                int interactionRange = gp.tileSize;
+                int interactionRange = gp.screenSettings.tileSize;
                 switch (entity.direction) {
                     case "up":
                         if (distanceX < interactionRange && distanceY < interactionRange
