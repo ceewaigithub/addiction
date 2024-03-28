@@ -20,6 +20,23 @@ If your balance drops below -100, you will lose the game. So, be mindful of your
 - Shop system to purchase items and upgrades using in-game currency
 - Save and load functionality to continue your progress across multiple sessions
 
+## :black_joker: Gamerules
+1. Blackjack
+   -
+   -
+   
+2. Baccarat
+   - Hands are valued modulo 10, i.e., a hand consisting of 6 and 7 is worth 3.
+   - Attempt to beat the dealer by getting a higher score.
+   - An ace is worth 1, face cards are 0 and any other card is its pip value.
+   - Naturals: If you are dealt a hand score of 8 or 9 from the start, you immediately win the game unless the dealer has the same score(tie) or higher score(you lose).
+   - To 'Hit' is to ask for another card. To 'Stand' is to hold your score and end your turn.
+   - A player is only allowed to hit once throughout the game.
+   - Dealer stands on score 5-7 and hits otherwise.
+
+4. High-Low
+   -
+   -
 ## :computer: Installation
 
 To run the game, follow these steps:
