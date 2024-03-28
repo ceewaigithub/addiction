@@ -27,8 +27,8 @@ To run the game, follow these steps:
 1. Clone the repository: `git clone https://github.com/ceewaigithub/addiction.git`
 2. Navigate to the project directory: `cd addiction`
 3. Compile the Java files using the provided script:
-    - For Unix/Linux: `bash compile_and_run.sh`
-    - For Windows: `compile_and_run.bat`
+    - For Unix/Linux: `bash compile_and_run.sh` OR `bash compile.sh` & `bash run.sh`
+    - For Windows: `compile_and_run.bat` OR `compile.bat` & `run.bat`
 4. The game will automatically start after the compilation process.
 
 ## :joystick: Controls
