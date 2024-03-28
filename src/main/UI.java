@@ -5,14 +5,11 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.text.DecimalFormat;
 
 import object.OBJ_Coin;
 import shop.ShopItem;
 import shop.SpriteItem;
-import world.GameLogic;
 import world.GamePanel;
-import world.ScreenSettings;
 
 /**
  * The UI class represents the user interface of the game. It handles drawing various screens and elements on the screen.
@@ -105,8 +102,6 @@ public class UI {
     public void drawDialogueState(Graphics2D g2) {
         
         // window 
-        int x = gp.getWidth() * 2;
-        int y = gp.getHeight() * 2;
         int width = gp.screenSettings.screenWidth - gp.screenSettings.tileSize * 4;
         int height = gp.screenSettings.tileSize *5;
 
@@ -114,7 +109,6 @@ public class UI {
         g2.fillRect(gp.screenSettings.tileSize, gp.screenSettings.tileSize, width, height);
         g2.setColor(Color.WHITE);
         g2.drawRect(gp.screenSettings.tileSize, gp.screenSettings.tileSize, width, height);
-
     }
 
     /**

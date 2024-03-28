@@ -165,7 +165,7 @@ public class User extends Entity {
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
-                        BlackJackApp bj = new BlackJackApp(this, gp.frame);
+                        new BlackJackApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
@@ -185,7 +185,7 @@ public class User extends Entity {
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
-                        BaccaratApp b = new BaccaratApp(this, gp.frame);
+                        new BaccaratApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;
@@ -194,7 +194,7 @@ public class User extends Entity {
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
-                        HighLowApp hl = new HighLowApp(this, gp.frame);
+                        new HighLowApp(this, gp.frame);
                         clearKeyPresses(); // clear key presses so that the player doesn't move while playing
                     }
                     break;

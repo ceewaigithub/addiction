@@ -8,7 +8,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
 
 /**
  * The Sound class represents a sound player that can play, loop, stop, and adjust the volume of audio clips.
