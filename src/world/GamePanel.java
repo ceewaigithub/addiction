@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
 import entity.CollisionChecker;
 import entity.User;
 import main.AssetSetter;
 import main.Config;
 import main.NewGameException;
-import main.Sound;
 import main.UI;
 import object.OBJ_Door;
 import object.SuperObject;
@@ -27,7 +25,7 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel implements Runnable {
 
-    public ScreenSettings screenSettings = new ScreenSettings();;
+    public ScreenSettings screenSettings = new ScreenSettings();
     public GameLogic gameLogic = new GameLogic(this);
     public MusicManager musicManager = new MusicManager(this);
 
@@ -49,11 +47,13 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
 
-
-
     public SuperObject obj[] = new SuperObject[10];
 
-
+    /**
+     * Constructs a GamePanel object.
+     * 
+     * @param frame the JFrame object associated with the GamePanel
+     */
     public GamePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(screenSettings.screenWidth, screenSettings.screenHeight));
         this.setBackground(Color.black);
@@ -61,8 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.frame = frame;
-        
-    
+
         aSetter.setObject();
         try {
             config.loadGameConfig();
@@ -71,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
         } catch (NewGameException e) {
             System.out.println(e.getMessage());
         }
-    
+
         if (shopManager.isSoundPurchased()) {
             musicEnabled = true;
         }
@@ -88,7 +87,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-
         double drawInterval = 1000000000 / fps;
         double delta = 0;
         long lastTime = System.nanoTime();
@@ -122,7 +120,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
+    /**
+     * Updates the game state.
+     */
     public void update() {
         gameLogic.update();
     }
@@ -158,17 +158,19 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Sets the current sprite for the user.
-     * @param sprite The sprite to set for the user.
+     * Gets the current game state.
+     * 
+     * @return the current game state
      */
-    public void setCurrentSprite(String sprite) {
-        user.sprite = sprite;
-    }
-
     public int getGameState() {
         return gameLogic.getGameState();
     }
-    
+
+    /**
+     * Sets the game state.
+     * 
+     * @param gameState the new game state to set
+     */
     public void setGameState(int gameState) {
         gameLogic.setGameState(gameState);
     }

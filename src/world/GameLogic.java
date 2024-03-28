@@ -65,7 +65,6 @@ public class GameLogic {
         if (gp.user.getBalance() <= 0) {
             gp.gameLogic.setGameState(gp.gameLogic.gameOverState);
         }
-
     }
 
     /**
@@ -83,4 +82,6 @@ public class GameLogic {
             gp.musicManager.stopMusic();
         }
     }
+
+    
 }
