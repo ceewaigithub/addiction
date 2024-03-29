@@ -7,10 +7,6 @@ import java.awt.image.BufferedImage;
 import entity.User;
 import world.GamePanel;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-
 /**
  * The SuperObject class represents a generic object in a game.
  * It contains properties and methods that are common to all game objects.

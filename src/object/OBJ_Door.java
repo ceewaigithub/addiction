@@ -14,8 +14,6 @@ import world.GamePanel;
  * When the door is opened, the collision is disabled and the image is updated to the open state.
  * When the door is closed, the collision is enabled and the image is updated to the closed state.
  */
-import java.io.File;
-import javax.imageio.ImageIO;
 
 public class OBJ_Door extends SuperObject {
     boolean isOpen;
