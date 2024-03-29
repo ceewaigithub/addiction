@@ -20,5 +20,4 @@ public class UIManager {
     public UI getUI() {
         return ui;
     }
-
 }
