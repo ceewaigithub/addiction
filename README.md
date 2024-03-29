@@ -35,8 +35,20 @@ If your balance drops below -100, you will lose the game. So, be mindful of your
    - Dealer stands on score 5-7 and hits otherwise.
 
 4. High-Low
-   -
-   -
+   - Game Goal:
+   Guess if the next card is higher or lower than the current one. Try to get as many right in a row as possible!
+
+   - Card Order:
+   Cards go from lowest to highest: Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King. Suits don’t matter.
+
+   - Rules:
+   Get 1 point for each correct guess.
+   If the next card is the same as the current, you lose.
+
+   - Betting:
+   You need at least 3 points to start winning money.
+   Winnings = your bet * (your score + 1).
+   
 ## :computer: Installation
 
 To run the game, follow these steps:
