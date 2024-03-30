@@ -17,7 +17,7 @@ public class GameLogic {
      * Updates the game state based on the current game state.
      * If the game state is playState, updates the user.
      * If the game state is pauseState, does nothing.
-     * If the game state is dialogueState, does nothing.
+     * If the game state is dialogueState, does nothing. WIP
      * If the game state is titleState, does nothing.
      * If the game state is gameOverState, does nothing.
      * If the user's money is less than 0, sets the game state to gameOverState.
