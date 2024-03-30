@@ -74,6 +74,30 @@ To run the game, follow these steps:
 
 - Java Development Kit (JDK) 8 or above
 
+## :camera: Gameplay Images
+
+Here are some screenshots of the gameplay:
+
+![Gameplay Image 1](res/images/titleScreen.png)
+*Title Screen - Start your addictive casino adventure!*
+
+![Gameplay Image 2](res/images/shopScreen.png)
+*Shop Screen - Purchase items and upgrades to enhance your gameplay!*
+
+![Gameplay Image 3](res/images/map.png)
+*Map - Explore different areas of the virtual casino!*
+
+![Gameplay Image 4](res/images/blackjack.png)
+*Blackjack - Test your luck and skills in this classic card game!*
+
+![Gameplay Image 5](res/images/bacarrat.png)
+*Baccarat - Try to beat the dealer and win big!*
+
+![Gameplay Image 6](res/images/highlow.png)
+*High-Low - Guess if the next card is higher or lower and earn points!*
+
+Enjoy exploring the virtual casino and experiencing the addictive gameplay!
+
 ## :clap: Credits
 
 - Game developed by G3-T2

@@ -17,7 +17,8 @@ import world.GamePanel;
 import java.awt.BasicStroke; // Import the BasicStroke class from the java.awt package
 
 /**
- * The UI class represents the user interface of the game. It handles drawing various screens and elements on the screen.
+ * The UI class represents the user interface of the game. It handles drawing
+ * various screens and elements on the screen.
  */
 public class UI {
 
@@ -68,14 +69,17 @@ public class UI {
 
         g2.setFont(aerial_10);
         g2.setColor(Color.white);
-        g2.drawImage(coinImage, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, gp.screenSettings.tileSize/2, null);
+        g2.drawImage(coinImage, gp.screenSettings.tileSize / 2, gp.screenSettings.tileSize / 2,
+                gp.screenSettings.tileSize / 2, gp.screenSettings.tileSize / 2, null);
         g2.drawString("x " + gp.user.getBalance(), 55, 45);
-        drawControls(g2, gp.screenSettings.tileSize, gp.getHeight() - gp.screenSettings.screenHeight - gp.screenSettings.tileSize, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
+        drawControls(g2, gp.screenSettings.tileSize,
+                gp.getHeight() - gp.screenSettings.screenHeight - gp.screenSettings.tileSize,
+                gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
 
         if (messageOn) {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 25));
             int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth(message)) / 2;
-            int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
+            int messageY = (int) (gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
 
             g2.drawString(message, messageX, messageY);
             messageCounter++;
@@ -105,10 +109,10 @@ public class UI {
      * @param g2 The Graphics2D object used for drawing.
      */
     public void drawDialogueState(Graphics2D g2) {
-        
-        // window 
+
+        // window
         int width = gp.screenSettings.screenWidth - gp.screenSettings.tileSize * 4;
-        int height = gp.screenSettings.tileSize *5;
+        int height = gp.screenSettings.tileSize * 5;
 
         g2.setColor(Color.BLACK);
         g2.fillRect(gp.screenSettings.tileSize, gp.screenSettings.tileSize, width, height);
@@ -177,7 +181,7 @@ public class UI {
 
         // Calculate the position to align the text with padding
         int textX = x + padding;
-        int textY = y + lineHeight + padding/2;
+        int textY = y + lineHeight + padding / 2;
 
         // Draw grey transparent box with borders
         g2.setColor(new Color(128, 128, 128, 128));
@@ -221,7 +225,7 @@ public class UI {
         FontMetrics fontMetrics = g2.getFontMetrics();
         int menuItemWidth = fontMetrics.stringWidth(menuItemText);
         int menuItemX = (gp.getWidth() - menuItemWidth) / 2;
-    
+
         if (commandNumber == menuItemNumber) {
             g2.drawString("> " + menuItemText, menuItemX, menuItemY);
         } else {
@@ -264,7 +268,7 @@ public class UI {
         g2.setFont(gameFont);
 
         // Draw a border with transparent background
-        int borderWidth = gp.getWidth() - 250;
+        int borderWidth = gp.getWidth() - 300;
         int borderHeight = gp.getHeight() - 200;
         // Calculate the position and size of the border
         int borderX = (gp.getWidth() - borderWidth) / 2;
@@ -279,7 +283,7 @@ public class UI {
         String title = "addiction.";
         FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
         int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
-        int titleY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
+        int titleY = (int) (gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
 
         // Draw shadow
         g2.setColor(Color.darkGray);
@@ -315,7 +319,6 @@ public class UI {
         try {
             // Load the background image
             BufferedImage backgroundImage = ImageIO.read(new File("res/ui/shopScreenBackground.png"));
-
             // Draw the background image
             g2.drawImage(backgroundImage, 0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight, null);
         } catch (IOException e) {
@@ -327,7 +330,7 @@ public class UI {
         g2.setFont(gameFont);
 
         // Draw a border with transparent background
-        int borderWidth = gp.getWidth() - 250;
+        int borderWidth = gp.getWidth() - 300;
         int borderHeight = gp.getHeight() - 200;
         // Calculate the position and size of the border
         int borderX = (gp.getWidth() - borderWidth) / 2;
@@ -343,7 +346,7 @@ public class UI {
         String title = "Shop";
         FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
         int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
-        int titleY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
+        int titleY = (int) (gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
 
         // Draw shadow
         g2.setColor(Color.darkGray);
@@ -400,7 +403,7 @@ public class UI {
     public void drawPauseScreen(Graphics2D g2) {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("PAUSED")) / 2;
-        int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
+        int messageY = (int) (gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
         g2.drawString("PAUSED", messageX, messageY);
     }
 
@@ -413,7 +416,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50));
         g2.setColor(Color.WHITE);
         int messageX = (gp.getWidth() - g2.getFontMetrics().stringWidth("GAME OVER")) / 2;
-        int messageY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
+        int messageY = (int) (gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
         g2.drawString("GAME OVER", messageX, messageY);
 
         // Draw subheader
