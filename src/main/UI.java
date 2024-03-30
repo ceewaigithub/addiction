@@ -4,12 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import object.OBJ_Coin;
 import shop.ShopItem;
 import shop.SpriteItem;
 import world.GamePanel;
+import java.awt.BasicStroke; // Import the BasicStroke class from the java.awt package
 
 /**
  * The UI class represents the user interface of the game. It handles drawing various screens and elements on the screen.
@@ -230,23 +236,56 @@ public class UI {
      * @param g2 The Graphics2D object used for drawing.
      */
     public void drawTitleScreenMain(Graphics2D g2) {
-        g2.setColor(new Color(40, 40, 43));
-        g2.fillRect(0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
+        // Load the background image
+        BufferedImage backgroundImage = null;
+        try {
+            backgroundImage = ImageIO.read(new File("res/ui/titleScreenBackground.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Draw the background image
+        if (backgroundImage != null) {
+            // Calculate the position and size of the background image
+            int bgX = (gp.getWidth() - backgroundImage.getWidth()) / 2;
+            int bgY = (gp.getHeight() - backgroundImage.getHeight()) / 2;
+            int bgWidth = backgroundImage.getWidth();
+            int bgHeight = backgroundImage.getHeight();
+
+            // Draw the greyed-out background
+            g2.setColor(new Color(0, 0, 0, 128)); // Set the color to semi-transparent black
+            g2.fillRect(0, 0, gp.getWidth(), gp.getHeight());
+
+            // Draw the background image centered
+            g2.drawImage(backgroundImage, bgX, bgY, bgWidth, bgHeight, null);
+        }
 
         // Set the font to a game font
         Font gameFont = new Font("GameFont", Font.BOLD, 50);
         g2.setFont(gameFont);
+
+        // Draw a border with transparent background
+        int borderWidth = gp.getWidth() - 250;
+        int borderHeight = gp.getHeight() - 200;
+        // Calculate the position and size of the border
+        int borderX = (gp.getWidth() - borderWidth) / 2;
+        int borderY = (gp.getHeight() - borderHeight) / 2 + 25;
+        g2.setColor(new Color(128, 128, 128, 200)); // Set the border color to transparent grey
+        g2.fillRect(borderX, borderY, borderWidth, borderHeight); // Draw the transparent background
+        g2.setColor(Color.WHITE); // Set the border color to white
+        g2.setStroke(new BasicStroke(5)); // Set the border thickness
+        g2.drawRect(borderX, borderY, borderWidth, borderHeight); // Draw the border
 
         // Draw title with shadow
         String title = "addiction.";
         FontMetrics fontMetrics = g2.getFontMetrics(gameFont);
         int titleX = (gp.getWidth() - fontMetrics.stringWidth(title)) / 2;
         int titleY = (int)(gp.getHeight() / 2 - gp.screenSettings.tileSize * 1.5);
-        
+
         // Draw shadow
         g2.setColor(Color.darkGray);
         g2.drawString(title, titleX + 2, titleY + 2);
-        
+
         // Draw title
         g2.setColor(Color.decode("#ff6600")); // Set the color to #ff6600 (orange)
         g2.drawString(title, titleX, titleY);
@@ -273,12 +312,33 @@ public class UI {
      * @param g2 The Graphics2D object used for drawing.
      */
     public void drawTitleScreenShop(Graphics2D g2) {
-        g2.setColor(new Color(40, 40, 43));
-        g2.fillRect(0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight);
+
+        try {
+            // Load the background image
+            BufferedImage backgroundImage = ImageIO.read(new File("res/ui/shopScreenBackground.png"));
+
+            // Draw the background image
+            g2.drawImage(backgroundImage, 0, 0, gp.screenSettings.screenWidth, gp.screenSettings.screenHeight, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Set the font to a game font
         Font gameFont = new Font("GameFont", Font.BOLD, 50);
         g2.setFont(gameFont);
+
+        // Draw a border with transparent background
+        int borderWidth = gp.getWidth() - 250;
+        int borderHeight = gp.getHeight() - 200;
+        // Calculate the position and size of the border
+        int borderX = (gp.getWidth() - borderWidth) / 2;
+        int borderY = (gp.getHeight() - borderHeight) / 2 + 50;
+        g2.setColor(new Color(64, 64, 64, 250));
+
+        g2.fillRect(borderX, borderY, borderWidth, borderHeight); // Draw the transparent background
+        g2.setColor(Color.WHITE); // Set the border color to white
+        g2.setStroke(new BasicStroke(5)); // Set the border thickness
+        g2.drawRect(borderX, borderY, borderWidth, borderHeight); // Draw the border
 
         // Draw title with shadow
         String title = "Shop";

@@ -14,7 +14,7 @@ public class Main {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        
+
         GamePanel gamePanel = new GamePanel(window);
         mainPanel.add(gamePanel);
 
