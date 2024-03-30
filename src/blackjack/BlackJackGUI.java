@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import main.BettingSystem;
 
-public class BlackJackGUI extends JPanel {
+public class BlackJackGUI {
 
     // Variables
     private BlackJackGame blackjack;
@@ -15,8 +15,6 @@ public class BlackJackGUI extends JPanel {
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; 
     private JLabel messageLabel, topLabel, bottomLabel;
     private JButton hitButton, stayButton, exitButton, nextGameButton;
-    private int boardWidth = 800;
-    private int boardHeight = 600;
     private BlackJackAssetSetter bJackAssetSetter;
     private BettingSystem bettingSystem;
 
@@ -31,6 +29,10 @@ public class BlackJackGUI extends JPanel {
 
         // Pass in previous frame
         this.mapFrame = mapFrame;
+
+        // New frame dimensions
+        int boardWidth = 800;
+        int boardHeight = 600;
 
         // Set up frame
         frame = new JFrame("Blackjack");
@@ -54,7 +56,6 @@ public class BlackJackGUI extends JPanel {
                 // Paint hands
                 bJackAssetSetter.drawHands(g);
                 // If game ends, endGame paints the results
-                // ???
                 if (!blackjack.getGameStatus()) {
                     endGame(blackjack.determineWinners());
                 }
