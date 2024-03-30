@@ -22,8 +22,12 @@ If your balance drops below -100, you will lose the game. So, be mindful of your
 
 ## :black_joker: Gamerules
 1. Blackjack
-   -
-   -
+   - The player and dealer receives two cards.
+   - All one needs to do to win is have a higher hand value than the other, without going over 21. 
+   - Player's turn starts first and are they dealt two cards. They can then choose to “hit” (receive additional cards) or “stay” (keep their current hand). 
+   - Once the player stays or exceeds 21, the dealer's turn begins.
+   - If a hand exceeds 21, the player/dealer “busts” and loses the game. If neither the player nor the dealer busts, the one with the highest hand value wins. Additionally, if the winner has a hand value of exactly 21, the player wins with blackjack. If both player and dealer's hands have the same value withour busting, they have a tie. 
+   - Ties results in a push bet (player's bet is returned), winners will win the amount they had betted (on top of their bet being returned) and losers will lose the amount they had betted. Winners with blackjack will win twice the amount they had betted (on top of their bet being returned).
    
 2. Baccarat
    - Hands are valued modulo 10, i.e., a hand consisting of 6 and 7 is worth 3.
