@@ -1,4 +1,4 @@
-package main;
+package card;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;

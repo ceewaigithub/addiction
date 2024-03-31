@@ -3,11 +3,11 @@ package blackjack;
 import java.util.ArrayList;
 import java.util.List;
 
+import card.BettingSystem;
 import card.Card;
 import card.CardGame;
 import card.Deck;
 import card.Player;
-import main.BettingSystem;
 
 public class BlackJackGame extends CardGame {
 

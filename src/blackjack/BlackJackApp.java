@@ -2,9 +2,9 @@ package blackjack;
 
 import javax.swing.*;
 
+import card.BettingSystem;
 import card.Player;
 import entity.User;
-import main.BettingSystem;
 
 public class BlackJackApp {
 
