@@ -8,7 +8,7 @@ As you explore the casino, you'll encounter different gambling games such as Bla
 
 Throughout your journey, you'll also encounter locked doors that require a fee to unlock. These doors lead to new areas of the casino, offering more gambling opportunities and challenges. Be cautious, as the temptation to spend money on unlocking doors can quickly drain your funds.
 
-If your balance drops below -100, you will lose the game. So, be mindful of your spending and make wise choices to avoid bankruptcy.
+If your balance goes to 0, you will lose the game. So, be mindful of your spending and make wise choices to avoid bankruptcy.
 
 ## :sparkles: Features
 
