@@ -1,8 +1,9 @@
 package blackjack;
 
 import java.awt.*;
-import main.Card;
-import main.Player;
+
+import card.Card;
+import card.Player;
 
 public class BlackJackAssetSetter {
     

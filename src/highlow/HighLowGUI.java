@@ -3,11 +3,12 @@ package highlow;
 import java.awt.*;
 import javax.swing.*;
 
-import main.BettingSystem;
-import main.Card;
+import card.Card;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.User;
+import main.BettingSystem;
 
 public class HighLowGUI {
     private JFrame frame;

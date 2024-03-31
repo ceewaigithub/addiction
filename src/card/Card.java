@@ -1,4 +1,4 @@
-package main;
+package card;
 
 import javax.swing.*;
 import java.awt.*;

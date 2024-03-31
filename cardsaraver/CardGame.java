@@ -3,9 +3,9 @@ package cardsaraver;
 import java.util.ArrayList;
 import java.util.List;
 
+import card.Deck;
+import card.Player;
 import main.BettingSystem;
-import main.Deck;
-import main.Player;
 
 public abstract class CardGame {
     

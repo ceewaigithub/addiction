@@ -1,10 +1,9 @@
 package highlow;
 
+import card.Card;
 import card.CardGame;
+import card.Deck;
 import main.BettingSystem;
-
-import main.Card;
-import main.Deck;
 
 class HighLowGame extends CardGame{
 

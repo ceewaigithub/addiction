@@ -1,9 +1,11 @@
 package baccarat;
 
-import main.BettingSystem;
-import main.Player;
-import main.Card;
 import javax.swing.*;
+
+import card.Card;
+import card.Player;
+import main.BettingSystem;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

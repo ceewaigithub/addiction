@@ -1,11 +1,10 @@
 package baccarat;
 
-import main.BettingSystem;
-import main.Player;
-import main.Card;
-import main.Deck;
-
+import card.Card;
 import card.CardGame;
+import card.Deck;
+import card.Player;
+import main.BettingSystem;
 
 public class BaccaratGame extends CardGame{
     private int playerTurn;

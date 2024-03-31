@@ -3,13 +3,13 @@ package blackjack;
 import java.util.ArrayList;
 import java.util.List;
 
+import card.Card;
 import card.CardGame;
-import main.Deck;
-import main.Player;
+import card.Deck;
+import card.Player;
 import main.BettingSystem;
-import main.Card;
 
-public class BlackJackGame extends CardGame{
+public class BlackJackGame extends CardGame {
 
     // Variables
     private boolean gameStatus = true;

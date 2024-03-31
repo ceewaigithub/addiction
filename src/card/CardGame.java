@@ -1,9 +1,8 @@
 package card;
 
-import main.BettingSystem;
-import main.Deck;
-import main.Player;
 import java.util.*;
+
+import main.BettingSystem;
 
 public abstract class CardGame implements ICardGame {
     protected List<Player> players = new ArrayList<>();

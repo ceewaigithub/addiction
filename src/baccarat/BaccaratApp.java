@@ -2,9 +2,9 @@ package baccarat;
 
 import javax.swing.JFrame;
 
+import card.Player;
 import entity.User;
 import main.BettingSystem;
-import main.Player;
 public class BaccaratApp {
 
     // Variable
