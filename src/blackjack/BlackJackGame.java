@@ -14,26 +14,56 @@ public class BlackJackGame extends CardGame {
     // Variables
     private boolean gameStatus = true;
 
+    /**
+     * Constructor for BlackJackGame class.
+     * 
+     * @param bettingSystem The betting system used in the game.
+     */
     public BlackJackGame(BettingSystem bettingSystem) {
         super(bettingSystem);
     }
 
+    /**
+     * Get the dealer player.
+     * 
+     * @return The dealer player.
+     */
     public Player getDealer() {
         return players.getFirst();
     }
 
+    /**
+     * Get the player.
+     * 
+     * @return The player.
+     */
     public Player getPlayer() {
         return players.getLast();
     }
 
+    /**
+     * Get the game status.
+     * 
+     * @return The game status.
+     */
     public boolean getGameStatus() {
         return gameStatus;
     }
 
+    /**
+     * Set the game status.
+     * 
+     * @param gameStatus The game status to be set.
+     */
     public void setGameStatus(boolean gameStatus) {
         this.gameStatus = gameStatus;
     }
 
+    /**
+     * Get the betting system used in the game.
+     * 
+     * @return The betting system.
+     */
     public BettingSystem getBettingSystem() {
         return bettingSystem;
     }
@@ -52,7 +82,12 @@ public class BlackJackGame extends CardGame {
         // Now, user will either hit or stay
     }
 
-    // User hits
+    /**
+     * Player hits.
+     * 
+     * Deal a card to the player and check if the player has busted or reached 21.
+     * If so, it's the dealer's turn.
+     */
     public void hit() {
         // Deal card
         Card drawn_card = deck.dealCard();
@@ -64,10 +99,21 @@ public class BlackJackGame extends CardGame {
         }
     }
 
+    /**
+     * Player stays.
+     * 
+     * It's the dealer's turn.
+     */
     public void stay() {
         dealerTurn();
     }
 
+    /**
+     * Reduce the player's hand value by 10 if the player has an Ace and the hand value is greater than 21.
+     * 
+     * @param player The player whose hand value needs to be reduced.
+     * @return The reduced hand value.
+     */
     public int reducePlayerHand(Player player) {
         int currentHand = player.getHandValue();
         for (Card card : player.getHand()) {
@@ -78,7 +124,12 @@ public class BlackJackGame extends CardGame {
         return currentHand;
     }
 
-    
+    /**
+     * Dealer's turn.
+     * 
+     * The dealer hits until their hand value is at least 17.
+     * Then, determine the winners of the game.
+     */
     public void dealerTurn() {
         while (reducePlayerHand(getDealer()) < 17) {
             // Dealer hits
@@ -89,6 +140,11 @@ public class BlackJackGame extends CardGame {
         determineWinners();
     }
 
+    /**
+     * Determine the winners of the game.
+     * 
+     * @return The message indicating the winners and the betting system updates.
+     */
     public String determineWinners() {
 
         gameStatus = false;

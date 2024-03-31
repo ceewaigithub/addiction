@@ -7,19 +7,28 @@ import javax.swing.*;
 
 import card.BettingSystem;
 
+/**
+ * The BlackJackGUI class represents the graphical user interface for the Blackjack game.
+ */
 public class BlackJackGUI {
 
     // Variables
-    private BlackJackGame blackjack;
-    private JFrame frame;
-    private JFrame mapFrame;
-    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; 
-    private JLabel messageLabel, topLabel, bottomLabel;
-    private JButton hitButton, stayButton, exitButton, nextGameButton;
-    private BlackJackAssetSetter bJackAssetSetter;
-    private BettingSystem bettingSystem;
+    private BlackJackGame blackjack; // The Blackjack game instance
+    private JFrame frame; // The main frame of the GUI
+    private JFrame mapFrame; // The frame of the map
+    private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel; // Panels for different sections of the GUI
+    private JLabel messageLabel, topLabel, bottomLabel; // Labels for displaying messages and titles
+    private JButton hitButton, stayButton, exitButton, nextGameButton; // Buttons for game actions
+    private BlackJackAssetSetter bJackAssetSetter; // Asset setter for drawing game assets
+    private BettingSystem bettingSystem; // The betting system for the game
 
-    // Constructor
+    /**
+     * Constructs a BlackJackGUI object.
+     * 
+     * @param blackjack The Blackjack game instance
+     * @param mapFrame The frame of the map
+     * @param bettingSystem The betting system for the game
+     */
     public BlackJackGUI(BlackJackGame blackjack, JFrame mapFrame, BettingSystem bettingSystem) {
         
         // Pass in blackjack game
@@ -177,6 +186,9 @@ public class BlackJackGUI {
         startGame();
     }
 
+    /**
+     * Starts the game by updating the betting panel and displaying the "Place bet to start game" message.
+     */
     public void startGame() {
         bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
@@ -185,11 +197,19 @@ public class BlackJackGUI {
         setMessage("Place bet to start game");
     }
 
+    /**
+     * Sets the message label with the specified message.
+     * 
+     * @param message The message to be displayed
+     */
     public void setMessage(String message) {
         messageLabel.setText(message);
     }
 
-    // Remove bettingPanel when player places bet
+    /**
+     * Removes the betting panel when the player places a bet.
+     * If the player's bet is greater than 0, the stay and hit buttons are made visible and the game is started.
+     */
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
             bettingPanel.setVisible(false);
@@ -202,6 +222,10 @@ public class BlackJackGUI {
         }
     }
 
+    /**
+     * Restarts the game by clearing the previous message, making the original buttons visible,
+     * clearing all cards and resetting the game status, and starting the game.
+     */
     public void restartGame(){
         // Clear previous string
         setMessage("");
@@ -217,6 +241,12 @@ public class BlackJackGUI {
         startGame();
     }
 
+    /**
+     * Ends the game by repainting the panel, displaying the results message,
+     * and making the exit button and next game button visible if applicable.
+     * 
+     * @param message The message to be displayed as the game result
+     */
     public void endGame(String message) {
 
         // Repaint panel

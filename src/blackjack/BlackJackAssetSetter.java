@@ -8,14 +8,21 @@ import card.Player;
 public class BlackJackAssetSetter {
     
     // Variables
-    private BlackJackGame blackjack;
-    private int boardWidth;
-    private int boardHeight;
-    private int cardWidth = 73;
-    private int cardHeight = 97;
-    private int spacing = 10;
+    private BlackJackGame blackjack; // Reference to the BlackJackGame instance
+    private int boardWidth; // Width of the game board
+    private int boardHeight; // Height of the game board
+    private int cardWidth = 73; // Width of a card image
+    private int cardHeight = 97; // Height of a card image
+    private int spacing = 10; // Spacing between cards
 
     // Constructor
+    /**
+     * Constructs a BlackJackAssetSetter object.
+     * 
+     * @param blackjack   The BlackJackGame instance.
+     * @param boardWidth  The width of the game board.
+     * @param boardHeight The height of the game board.
+     */
     public BlackJackAssetSetter(BlackJackGame blackjack, int boardWidth, int boardHeight) {
         // Pass in blackjack
         this.blackjack = blackjack;
@@ -25,6 +32,11 @@ public class BlackJackAssetSetter {
         this.boardHeight= boardHeight;
     }
 
+    /**
+     * Draws the hands of the dealer and player.
+     * 
+     * @param g The Graphics object used for drawing.
+     */
     public void drawHands(Graphics g) {
         try {
             // Get dealer and player
@@ -50,6 +62,15 @@ public class BlackJackAssetSetter {
     }
 
     // Draw individual cards
+    /**
+     * Draws an individual card image.
+     * 
+     * @param g      The Graphics object used for drawing.
+     * @param player The player whose card is being drawn.
+     * @param x      The x-coordinate of the card's top-left corner.
+     * @param y      The y-coordinate of the card's top-left corner.
+     * @param back   Whether to draw the back of the card (true) or the front (false).
+     */
     public void drawCardImage(Graphics g, Player player, int x, int y, boolean back) {
 
         for (int i = 0; i < player.getHand().size(); i++) {
