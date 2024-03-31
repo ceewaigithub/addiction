@@ -66,7 +66,7 @@ public class OBJ_Door extends SuperObject {
     @Override
     public void interact(User user, GamePanel gp) {
         if (isLocked()) {
-            if (user.getBalance() >= costToOpen) {
+            if (user.getBalance() > costToOpen) {
                 user.subtractMoney(costToOpen);
                 gp.musicManager.playSE(5);
                 gp.uiManager.getUI().showMessage("Money - " + costToOpen);
