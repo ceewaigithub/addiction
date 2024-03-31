@@ -7,23 +7,21 @@ import main.Deck;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaccaratGame {
+import card.CardGame;
+
+public class BaccaratGame extends CardGame{
     private Deck deck;
-    private List<Player> players = new ArrayList<>();
     private BettingSystem bettingSystem;
     private int playerTurn;
+
     public BaccaratGame(BettingSystem bettingSystem) {
 
         this.bettingSystem = bettingSystem;
+        // Create player list
+        players = new ArrayList<>();
     }
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-    public List<Player> getPlayers(){
-        return players;
-    }
-    public void startGame() {
 
+    public void startGame() {
         // Make new deck per round
         deck = new Deck();
         // Set player turn
@@ -74,7 +72,6 @@ public class BaccaratGame {
 
     }
 
-
     public void hit(){
         // Player draws a card
         players.getFirst().addCard(deck.dealCard());
@@ -96,13 +93,6 @@ public class BaccaratGame {
         // Make dealer draw a card when score less than 5
         if(players.getLast().getHandValue() % 10 < 5){
             players.getLast().addCard(deck.dealCard());
-        }
-    }
-
-    public void endRound(){
-        // clear player hand when round ends
-        for (Player player : players) {
-            player.discardHand();
         }
     }
 

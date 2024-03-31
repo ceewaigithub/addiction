@@ -2,16 +2,17 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import card.CardGame;
 import main.Deck;
 import main.Player;
 import main.BettingSystem;
 import main.Card;
 
-public class BlackJackGame {
+public class BlackJackGame extends CardGame{
 
     // Variables
     private Deck deck;
-    private List<Player> players;
     private boolean gameStatus = true;
     private BettingSystem bettingSystem;
 
@@ -23,16 +24,6 @@ public class BlackJackGame {
 
         // Create player list
         players = new ArrayList<>();
-    }
-
-    // Add players
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-
-    // Basic getters
-    public Deck getDeck() {
-        return deck;
     }
 
     public Player getDealer() {
@@ -96,11 +87,11 @@ public class BlackJackGame {
         return currentHand;
     }
 
+    
     public void dealerTurn() {
-
         while (reducePlayerHand(getDealer()) < 17) {
             // Dealer hits
-            Card drawn_card = getDeck().dealCard();
+            Card drawn_card = deck.dealCard();
             getDealer().addCard(drawn_card);
         }
 
@@ -168,12 +159,6 @@ public class BlackJackGame {
         }
 
         return message;
-    }
-
-    public void endRound(){
-        for (Player player : players) {
-            player.discardHand();
-        }
     }
     
 }

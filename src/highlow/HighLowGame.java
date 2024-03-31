@@ -1,28 +1,22 @@
 package highlow;
 
-import java.util.ArrayList;
-import java.util.List;
+import card.CardGame;
 import main.BettingSystem;
-import main.Player;
+
 import main.Card;
 import main.Deck;
 
-class HighLowGame {
+class HighLowGame extends CardGame{
 
     private Deck deck;
     private Card currCard;
     private Card nextCard;
     private int score;
-    private List<Player> players;
     private BettingSystem bettingSystem;
 
     public HighLowGame(BettingSystem bettingSystem) {
         this.bettingSystem = bettingSystem;
-        players = new ArrayList<>();
-    }
 
-    public void addPlayer(Player player) {
-        players.add(player);
     }
 
     public void startGame(){
@@ -67,10 +61,6 @@ class HighLowGame {
 
     }
 
-    public List<Player> getPlayers(){
-        return players;
-    }
-
     public Card getCurrCard(){
         return currCard;
     }
@@ -83,9 +73,4 @@ class HighLowGame {
         return score;
     }
 
-    public void endRound(){
-        for (Player player : players) {
-            player.discardHand();
-        }
-    }
 }
