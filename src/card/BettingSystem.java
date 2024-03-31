@@ -32,7 +32,7 @@ public class BettingSystem {
         placeBetButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 
         bettingPanel = new JPanel();
-        bettingPanel.setBackground(new Color(0, 116, 3));
+        bettingPanel.setBackground(new Color(55, 106, 67, 255));
         bettingPanel.setLayout(new GridLayout(0, 5));
 
         chipButtons = new JButton[chipPaths.length];
