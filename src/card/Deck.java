@@ -9,35 +9,41 @@ public class Deck {
     
     public Deck() {
         cards = new ArrayList<>();
-
-        initialiseDeck();
+        initializeDeck();
     }
 
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
-    public void initialiseDeck() {
+    public void initializeDeck() {
+        // Initialize the deck with all the cards 
+        // Do not modify this code, most of the logic uses these specific strings
         String[] suits = {"c", "d", "h", "s"};
         String[] ranks = {"a", "2", "3", "4", "5", "6", "7", "8", "9",
                           "t", "j", "q", "k"};
+        
+        // Initialize the deck with all the cards
         for (String suit : suits) {
             for (String rank : ranks) {
-                cards.add(new Card(rank, suit));
+                cards.add(new Card(suit, rank));
             }
         }
+
         shuffle();
     }
 
     public Card dealCard() throws DeckEmptyException {
         try {
             if (cards.isEmpty()) {
-                throw new DeckEmptyException("Deck is empty. Reshuffling the deck.");
+                throw new DeckEmptyException("Deck is empty");
+            } else {
+                return cards.remove(0);
             }
-            return cards.remove(0);
         } catch (DeckEmptyException e) {
-            // Reinitialize the deck with a new set of cards
-            initialiseDeck();
+            System.out.println(e.getMessage());
+            // Reinitialize the deck
+            initializeDeck();
             return cards.remove(0);
         }
     }
