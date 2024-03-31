@@ -161,7 +161,7 @@ public class User extends Entity {
             String objectName = gp.obj[idx].name;
             switch (objectName) {
                 case "BlackJack":
-                    gp.ui.showMessage("BlackJack");
+                    gp.uiManager.getUI().showMessage("BlackJack");
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
@@ -173,7 +173,7 @@ public class User extends Entity {
                     OBJ_Door door = (OBJ_Door) gp.obj[idx];
                     if (door.isLocked()) {
                         int cost = door.getCostToOpen();
-                        gp.ui.showMessage("$" + cost + " to unlock.");
+                        gp.uiManager.getUI().showMessage("$" + cost + " to unlock.");
                         if (keyH.spacePressed) {
                             door.interact(this, gp);
                         }
@@ -181,7 +181,7 @@ public class User extends Entity {
 
                     break;
                 case "Baccarat":
-                    gp.ui.showMessage("Baccarat");
+                    gp.uiManager.getUI().showMessage("Baccarat");
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);
@@ -190,7 +190,7 @@ public class User extends Entity {
                     }
                     break;
                 case "HighLow":
-                    gp.ui.showMessage("HighLow");
+                    gp.uiManager.getUI().showMessage("HighLow");
                     if (keyH.spacePressed) {
                         gp.musicManager.playSE(1);
                         gp.frame.setVisible(false);

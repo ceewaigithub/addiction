@@ -69,14 +69,14 @@ public class OBJ_Door extends SuperObject {
             if (user.getBalance() >= costToOpen) {
                 user.subtractMoney(costToOpen);
                 gp.musicManager.playSE(5);
-                gp.ui.showMessage("Money - " + costToOpen);
+                gp.uiManager.getUI().showMessage("Money - " + costToOpen);
                 setOpen(true);
                 System.out.println("You unlocked the door");
             } else {
-                gp.ui.showMessage("Not enough money.");
+                gp.uiManager.getUI().showMessage("Not enough money.");
             }
         } else {
-            gp.ui.showMessage("The door is already unlocked.");
+            gp.uiManager.getUI().showMessage("The door is already unlocked.");
         }
     }
 

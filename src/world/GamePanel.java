@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ShopManager shopManager = new ShopManager(this);
 
     public boolean musicEnabled = false;
-    public UI ui = new UI(this);
+    public UIManager uiManager = new UIManager(this);
     public CollisionChecker cc = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
@@ -140,7 +140,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             user.draw(g2);
         }
-        ui.draw(g2);
+        uiManager.draw(g2);
         g2.dispose();
     }
 
