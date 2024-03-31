@@ -90,7 +90,7 @@ Here are some screenshots of the gameplay:
 ![Gameplay Image 4](res/images/blackjack.png)
 *Blackjack - Test your luck and skills in this classic card game!*
 
-![Gameplay Image 5](res/images/bacarrat.png)
+![Gameplay Image 5](res/images/baccarat.png)
 *Baccarat - Try to beat the dealer and win big!*
 
 ![Gameplay Image 6](res/images/highlow.png)
