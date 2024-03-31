@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 
 import main.UI;
 
-
 /**
  * The UIManager class manages the user interface for the game.
  * It handles drawing the UI components on the screen.
