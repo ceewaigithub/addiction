@@ -1,4 +1,4 @@
-package main;
+package exception;
 
 /**
  * This exception is used to indicate an error when starting a new game.

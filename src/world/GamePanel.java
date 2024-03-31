@@ -7,9 +7,9 @@ import java.awt.Graphics2D;
 
 import entity.CollisionChecker;
 import entity.User;
+import exception.NewGameException;
 import main.AssetSetter;
 import main.Config;
-import main.NewGameException;
 import main.UI;
 import object.OBJ_Door;
 import object.SuperObject;

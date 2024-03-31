@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import exception.NewGameException;
 import object.OBJ_Door;
 import object.SuperObject;
 import shop.ShopItem;
