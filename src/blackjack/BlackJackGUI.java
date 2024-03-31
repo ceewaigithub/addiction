@@ -61,7 +61,7 @@ public class BlackJackGUI {
                 // Paint standard features
                 super.paintComponent(g);
 
-                Image backgroundImage = new ImageIcon("res/cards/blackjack.png").getImage();
+                Image backgroundImage = new ImageIcon("res/cards/table.png").getImage();
                 g.drawImage(backgroundImage, 0, -80, boardWidth, boardHeight, this);
                 // Paint hands
                 bJackAssetSetter.drawHands(g);
