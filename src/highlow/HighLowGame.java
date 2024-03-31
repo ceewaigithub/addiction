@@ -38,21 +38,13 @@ class HighLowGame extends CardGame{
      */
     public boolean isCorrect(String guess) {
         nextCard = deck.dealCard();
-        System.out.println("Current card: " + currCard + ", Next card is: " + nextCard);
-        System.out.println("Guess: " + guess);
         
         // Determine if the guess is correct based on the comparison of current and next card values.
         if ((nextCard.compareTo(currCard) > 0 && guess.equals("H")) || (nextCard.compareTo(currCard) < 0 && guess.equals("L"))) {
-            System.out.println("Correct guess");
             score++;
             currCard = nextCard;
             return true;
         } else {
-            if (nextCard.compareTo(currCard) == 0) {
-                System.out.println("You lose on ties");
-            } else {
-                System.out.println("Incorrect guess");
-            }
             return false;
         }
     }
@@ -70,7 +62,6 @@ class HighLowGame extends CardGame{
         } else {
             int multiplier = score;
             winnings = bettingSystem.getPlayerBet() * (multiplier + 1);
-            System.out.println(multiplier);
             bettingSystem.winBet(multiplier);
         }
         return winnings;
