@@ -1,10 +1,18 @@
 package card;
 
+import main.BettingSystem;
+import main.Deck;
 import main.Player;
 import java.util.*;
 
 public abstract class CardGame implements ICardGame {
     protected List<Player> players = new ArrayList<>();
+    protected Deck deck;
+    protected BettingSystem bettingSystem;
+
+    public CardGame(BettingSystem bettingSystem) {
+        this.bettingSystem = bettingSystem;
+    }
 
     @Override
     public void endRound() {
@@ -17,7 +25,7 @@ public abstract class CardGame implements ICardGame {
         players.add(player);
     }
 
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return players;
     }
 }

@@ -12,18 +12,10 @@ import main.Card;
 public class BlackJackGame extends CardGame{
 
     // Variables
-    private Deck deck;
     private boolean gameStatus = true;
-    private BettingSystem bettingSystem;
 
-    // Constructor
     public BlackJackGame(BettingSystem bettingSystem) {
-
-        // Pass in betting system
-        this.bettingSystem = bettingSystem;
-
-        // Create player list
-        players = new ArrayList<>();
+        super(bettingSystem);
     }
 
     public Player getDealer() {
@@ -50,8 +42,6 @@ public class BlackJackGame extends CardGame{
     public void startGame() {
         // Shuffle the deck
         deck = new Deck();
-        deck.shuffle();
-
         // Deal initial cards to players
         for (Player player : players) {
             player.addCard(deck.dealCard());

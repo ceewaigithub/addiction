@@ -4,21 +4,14 @@ import main.BettingSystem;
 import main.Player;
 import main.Card;
 import main.Deck;
-import java.util.ArrayList;
-import java.util.List;
 
 import card.CardGame;
 
 public class BaccaratGame extends CardGame{
-    private Deck deck;
-    private BettingSystem bettingSystem;
     private int playerTurn;
 
     public BaccaratGame(BettingSystem bettingSystem) {
-
-        this.bettingSystem = bettingSystem;
-        // Create player list
-        players = new ArrayList<>();
+        super(bettingSystem);
     }
 
     public void startGame() {

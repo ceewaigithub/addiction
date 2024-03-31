@@ -8,15 +8,12 @@ import main.Deck;
 
 class HighLowGame extends CardGame{
 
-    private Deck deck;
     private Card currCard;
     private Card nextCard;
     private int score;
-    private BettingSystem bettingSystem;
 
     public HighLowGame(BettingSystem bettingSystem) {
-        this.bettingSystem = bettingSystem;
-
+        super(bettingSystem);
     }
 
     public void startGame(){
