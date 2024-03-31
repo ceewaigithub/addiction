@@ -32,7 +32,6 @@ public class HighLowGUI {
         frame = new JFrame("High Low");
         int boardWidth = 800;
         int boardHeight = 540;
-
         
         // Set up frame
         frame.setSize(boardWidth, boardHeight);

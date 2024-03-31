@@ -47,6 +47,10 @@ public class BaccaratGUI {
                 int centerDealerX = (getWidth() - (players.getLast().getHand().size() * Card.getCardWidth())) / 2;
                 int spacing = 10;
 
+                Image backgroundImage = new ImageIcon("res/cards/table.png").getImage();
+                g.drawImage(backgroundImage, 0, -80, boardWidth, boardHeight, this);
+    
+
                 Card hiddenCard = new Card("b");
 
                 //Loop through players
