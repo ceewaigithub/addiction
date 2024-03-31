@@ -72,7 +72,7 @@ public class BaccaratGUI {
             }
         };
         gamePanel.setLayout(new BorderLayout());
-        gamePanel.setBackground(new Color(0, 116, 3));
+        gamePanel.setBackground(new Color(55, 106, 67, 255));
 
         // Top Panel
         topPanel = new JPanel();
