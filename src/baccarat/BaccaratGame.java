@@ -9,13 +9,12 @@ import java.util.List;
 
 public class BaccaratGame {
     private Deck deck;
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
     private BettingSystem bettingSystem;
     private int playerTurn;
     public BaccaratGame(BettingSystem bettingSystem) {
+
         this.bettingSystem = bettingSystem;
-        players = new ArrayList<>();
-        playerTurn = 0;
     }
     public void addPlayer(Player player) {
         players.add(player);
@@ -24,18 +23,18 @@ public class BaccaratGame {
         return players;
     }
     public void startGame() {
+
         // Make new deck per round
         deck = new Deck();
-
+        // Set player turn
+        playerTurn = 0;
         // Start the game - issue 2 cards per player
         for (Player player : players) {
             for(int i = 0; i < 2; i++){
                 Card newcard = deck.dealCard();
                 player.addCard(newcard);
-                System.out.println(newcard);
             }
         }
-
     }
 
     public String checkWinner(boolean checkNatural){
@@ -48,7 +47,7 @@ public class BaccaratGame {
         if(checkNatural){
             // Check if player or dealer has naturals
             if(playerScore >= 8 || dealerScore >= 8) {
-                playerTurn = -1;
+                nextPlayerTurn();
                 return compareScore(playerScore, dealerScore);
             } else {
                 return "";
@@ -85,8 +84,8 @@ public class BaccaratGame {
         nextPlayerTurn();
     }
 
-    public int getPlayerTurn(){
-        return playerTurn;
+    public boolean isDealerTurn(){
+        return playerTurn == 1;
     }
 
     public void nextPlayerTurn(){
@@ -105,7 +104,6 @@ public class BaccaratGame {
         for (Player player : players) {
             player.discardHand();
         }
-        playerTurn = 0;
     }
 
 }

@@ -57,8 +57,8 @@ public class BaccaratGUI {
                         int xPos = centerX + (i * (Card.getCardWidth() + spacing));
                         player.getHand().get(i).printCard(g, xPos, startY);
 
-                        if (player.isDealer() && i == 0 && BaccaratGame.getPlayerTurn() == 0) {
-                            // Hide dealer's first card
+                        if (player.isDealer() && i == 0 && !BaccaratGame.isDealerTurn()) {
+                            // Hide dealer's first card during player's turn
                             hiddenCard.printCard(g, xPos, startY);
                         }
                     }
