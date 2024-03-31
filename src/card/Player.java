@@ -9,7 +9,6 @@ import java.util.List;
 public class Player {
     private String name;
     private List<Card> hand;
-    private int money = 1000;
 
     /**
      * Constructs a Player object with the specified name.
@@ -75,24 +74,6 @@ public class Player {
      */
     public boolean isDealer() {
         return name.equals("Dealer");
-    }
-
-    /**
-     * Returns the balance (money) of the player.
-     *
-     * @return the balance of the player
-     */
-    public int getBalance() {
-        return money;
-    }
-
-    /**
-     * Sets the balance (money) of the player.
-     *
-     * @param toSet the balance to be set
-     */
-    public void setBalance(int toSet) {
-        money = toSet;
     }
 
     /**
