@@ -2,13 +2,18 @@ package highlow;
 
 import java.awt.*;
 import javax.swing.*;
-
 import main.BettingSystem;
 import main.Card;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import entity.User;
 
+
+/**
+ * The HighLowGUI class manages the graphical user interface for the High-Low card game.
+ * It handles the game's layout, user interactions, and displays game information such as
+ * the current card, player's score, and betting options.
+ */
 public class HighLowGUI {
     private JFrame frame;
     private HighLowGame highLowGame;
@@ -16,12 +21,15 @@ public class HighLowGUI {
     private User user;
     private JFrame mapFrame;
 
-    private BettingSystem bettingSystem;
+    private BettingSystem bettingSystem; // The betting system for handling bets.
+    // Definition of all JPanel components used in the layout.
     private JPanel gamePanel, buttonPanel, controlPanel, topPanel, bottomPanel, bettingPanel, centerPanel, centerPanelRow1, centerPanelRow2, centerPanelRow3;
+    // Definition of all JLabel components for displaying text information.
     private JLabel topLabel, bottomLabel, centerLabel, messageLabel;
+    // Definition of JButton components for user interaction.
     private JButton higherButton, lowerButton, exitButton, nextGameButton;
-    // private List<Player> players;
 
+    // Constructor for HighLowGUI. Initializes the GUI components and sets up the game environment.
     public HighLowGUI(HighLowGame highLowGame, BettingSystem bettingSystem, JFrame mapFrame, User user) {
         this.mapFrame = mapFrame;
         this.user = user;
@@ -32,8 +40,7 @@ public class HighLowGUI {
         int boardWidth = 800;
         int boardHeight = 540;
 
-        
-        // Set up frame
+        // Set up frame properties
         frame.setSize(boardWidth, boardHeight);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
@@ -91,7 +98,7 @@ public class HighLowGUI {
         messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         centerPanelRow3.add(messageLabel);
         
-        // Set up buttons and add to the buttonPanel
+        // Set up buttons
         higherButton = new JButton("Higher");
         higherButton.setFocusable(false);
         lowerButton = new JButton("Lower");
@@ -109,6 +116,7 @@ public class HighLowGUI {
         buttonPanel.add(nextGameButton);
         buttonPanel.add(exitButton);
 
+        // Set up controlPanel
         controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         controlPanel.add(bettingPanel);
@@ -166,6 +174,7 @@ public class HighLowGUI {
         frame.setVisible(true);
     }
 
+    // Initial method calls to set up the game environment.
     public void start() {
         showBettingControl();
         setMessage("Place your bet");
@@ -175,20 +184,23 @@ public class HighLowGUI {
         addHiddenCard();
     }
 
+    // Updates the message label with the given text.
     public void setMessage(String message) {
         messageLabel.setText(message);
     }
 
+    // Prepares the GUI for a new round of the game.
     public void startRound(){
         hideBettingControl();
         getScore();
     }
 
+    // Updates the display with the current score.
     public void getScore(){
         messageLabel.setText("Score: " + highLowGame.getScore());
     }
 
-    // To display card in GUI
+    // Displays a card on the given panel.
     public void displayCard(Card card, JPanel panel) {
         Image image = card.getImage();
         JLabel label = new JLabel(new ImageIcon(image));
@@ -198,10 +210,10 @@ public class HighLowGUI {
         panel.repaint();
     }
 
+    // Handles end-of-game logic, updating the GUI accordingly.
     public void endGame(){
         higherButton.setVisible(false);
         lowerButton.setVisible(false);
-        // nextGameButton.setVisible(true);
         int winnings = highLowGame.checkScore();
         messageLabel.setText("Game Over! Score: " + highLowGame.getScore() + " Winnings: " + winnings);
         if (bettingSystem.getPlayerBalance() > 0) {
@@ -209,11 +221,12 @@ public class HighLowGUI {
         }
     }
 
+    // Adds the next card to the display.
     public void addNextCard() {
         displayCard(highLowGame.getNextCard(), centerPanelRow2);
     }
 
-    // Removes first element only when number of cards in panel > 5
+    // Removes first element in GUI only when number of cards in panel > 5
     public void checkSize(){
         Component[] components = centerPanelRow2.getComponents();
         if (components.length > 5) {
@@ -223,6 +236,7 @@ public class HighLowGUI {
         }
     }
 
+    // Removes the last element (card) from the display panel.
     public void removeLastElement(){
         Component[] components = centerPanelRow2.getComponents();
         int lastIndex = components.length - 1;
@@ -233,11 +247,13 @@ public class HighLowGUI {
         }
     }
 
+    // Adds a hidden card to the display to indicate the next card.
     public void addHiddenCard(){
         Card hiddenCard = new Card("b");
         displayCard(hiddenCard, centerPanelRow2);
     }
 
+    // Updates the card display panel based on whether the guess was correct.
     public void updateCardPanel(boolean correctGuess){
         removeLastElement();
         addNextCard();
@@ -247,6 +263,7 @@ public class HighLowGUI {
         checkSize();
     }
 
+    // Resets the game environment and GUI for a new game.
     public void restartGame(){
         higherButton.setVisible(true);
         lowerButton.setVisible(true);
@@ -258,12 +275,14 @@ public class HighLowGUI {
         start();
     }
 
+    // Hides betting controls when the game starts.
     public void hideBettingControl(){
         bettingPanel.setVisible(false);
         higherButton.setVisible(true);
         lowerButton.setVisible(true);
     }
 
+    // Shows betting controls before the game starts.
     public void showBettingControl(){
         bettingSystem.updateBettingPanel();
         bettingPanel.setVisible(true);
@@ -271,6 +290,7 @@ public class HighLowGUI {
         lowerButton.setVisible(false);
     }
 
+    // Handles the logic for placing a bet before the game starts.
     public void placeBet(){
         if(bettingSystem.getPlayerBet() > 0) {
             bettingSystem.confirmBet();
