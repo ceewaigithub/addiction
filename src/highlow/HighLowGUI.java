@@ -47,7 +47,7 @@ public class HighLowGUI {
         topPanel = new JPanel();
         topPanel.setOpaque(false); // Make the panel transparent
         topPanel.setBackground(gamePanel.getBackground());
-        topLabel = new JLabel("*Payout: (Bet * (Score + 1)) | (Score > 2) else 0");
+        topLabel = new JLabel("Dealer");
         topLabel.setForeground(Color.WHITE);
         topLabel.setFont(new Font("Arial", Font.BOLD, 15));
         topLabel.setHorizontalAlignment(JLabel.CENTER);
