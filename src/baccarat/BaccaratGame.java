@@ -14,6 +14,7 @@ public class BaccaratGame extends CardGame{
         super(bettingSystem);
     }
 
+    @Override
     public void startGame() {
         // Make new deck per round
         deck = new Deck();

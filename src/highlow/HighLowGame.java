@@ -16,6 +16,7 @@ class HighLowGame extends CardGame{
         super(bettingSystem);
     }
 
+    @Override
     public void startGame(){
         // Make new deck every game
         deck = new Deck();
@@ -41,10 +42,10 @@ class HighLowGame extends CardGame{
                 System.out.println("Incorrect guess");
             }
             return false;
-        }        
+        }
     }
 
-    public int checkScore(){
+    public int checkScore() {
         int winnings = 0;
         if (score <= 2) {
             bettingSystem.loseBet();
@@ -55,7 +56,6 @@ class HighLowGame extends CardGame{
             bettingSystem.winBet(multiplier);
         }
         return winnings;
-
     }
 
     public Card getCurrCard(){
